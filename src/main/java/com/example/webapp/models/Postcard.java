@@ -10,20 +10,13 @@ import javax.persistence.Id;
 public class Postcard {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
+
     private String postNumber;
     private String country;
 
-    public void setPostNumber(String postNumber) {
-        this.postNumber = postNumber;
-    }
-
-    public String getPostNumber() {
-        return postNumber;
-    }
-
-    public Postcard(String postNumber) {
-        this.postNumber = postNumber;
+    public Postcard(){
+    /*it's very important to create that constructor!*/
     }
 
     public Postcard(String postNumber, String country) {
@@ -31,33 +24,28 @@ public class Postcard {
         this.country = country;
     }
 
-    public Postcard(int id, String postNumber, String country) {
-        this.id = id;
-        this.postNumber = postNumber;
-        this.country = country;
-    }
-
-    /*
-        / Constructor
-        */
-    public Postcard() {
-
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getPostNumber() {
+        return postNumber;
+    }
+
+    public void setPostNumber(String postNumber) {
+        this.postNumber = postNumber;
     }
 
     public String getCountry() {
         return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     @Override
