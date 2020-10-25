@@ -5,8 +5,9 @@
     <title>Main Page</title>
 </head>
 <body>
-<form th:method="post" th:action="@{/}" th:object="${postcards}">
+<form th:method="POST" th:action="@{/}" th:object="${postcards}">
     <input type="text" th:field="*{postNumber}" id="postNumber"/>
+    <input type="text" th:field="*{country}" id="country"/>
     <br/>
     <input type="submit" value="add"/>
 </form>
