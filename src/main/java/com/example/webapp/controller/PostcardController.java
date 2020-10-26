@@ -1,12 +1,10 @@
-package com.example.webapp.controllers;
+package com.example.webapp.controller;
 
-import com.example.webapp.models.Postcard;
+import com.example.webapp.model.Postcard;
 import com.example.webapp.repository.PostcardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -15,8 +13,8 @@ import java.util.Map;
 @Controller
 public class PostcardController {
 
-    @Autowired
-    private PostcardRepository postcardRepository;
+    @Autowired //(serv)
+    private PostcardRepository postcardRepository;//так нельзя делат-> в сервис
 
     @GetMapping("/greeting")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name,

@@ -1,6 +1,5 @@
-package com.example.webapp.models;
+package com.example.webapp.model;
 
-import org.springframework.context.annotation.EnableMBeanExport;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +12,9 @@ public class Postcard {
     private Integer id;
 
     private String postNumber;
+    //отправитель/получатель
+    //@NotNull
+    //@NotBlank
     private String country;
 
     public Postcard(){
