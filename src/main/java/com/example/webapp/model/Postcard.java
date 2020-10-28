@@ -1,22 +1,30 @@
 package com.example.webapp.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
 
 @Entity
 public class Postcard {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+    private long id;
+    @NotBlank(message = "post code")
     private String postNumber;
-    //отправитель/получатель
-    //@NotNull
-//    @NotBlank
+    @NotBlank(message = "country")
     private String country;
+    private String description;
+    private long distance;
+   // private enum conditionValue {bad, good, exellent};
+    @DateTimeFormat
+    private Date dateOfSent;
+    @DateTimeFormat
+    private Date dateOfRecieve;
 
     public Postcard(){
     /*it's very important to create that constructor!*/
@@ -31,9 +39,6 @@ public class Postcard {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getPostNumber() {
         return postNumber;
