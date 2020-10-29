@@ -1,10 +1,10 @@
 package com.example.webapp.service;
 
+import com.example.webapp.dto.PostcardDto;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.repository.PostcardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 @Service
@@ -21,6 +21,7 @@ public class PostcardService {
     }
 
     public Optional<Postcard> findById(Long id){
+
         return postcardRepository.findById(id);
     }
 

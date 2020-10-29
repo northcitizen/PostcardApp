@@ -1,5 +1,6 @@
 package com.example.webapp.repository;
 
+import com.example.webapp.dto.PostcardDto;
 import com.example.webapp.model.Postcard;
 import org.springframework.data.repository.CrudRepository;
 
