@@ -22,11 +22,18 @@
             <b>{{country}}</b>
             <b>{{name}}</b>
             <i>{{description}}</i>
-            <span>{{distance}}</span>
-            <b>{{conditionValue}}</b>
+            <b>{{distance}}</b>
+            <span>{{conditionValue}}</span>
             <i>{{dateOfSend}}</i>
             <i>{{dateOfReceive}}</i>
         </div>
     {{/postcards}}
+
+    {{#distances}}
+        <div>
+            <span>{{distances}}</span>
+        </div>
+    {{/distances}}
+
 </body>
 </html>
