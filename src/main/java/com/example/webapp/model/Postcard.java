@@ -1,20 +1,54 @@
 package com.example.webapp.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.UUID;
 
 @Entity
-@Table()
+@Table
 public class Postcard {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long   id;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(columnDefinition = "VARCHAR(255)")
+    private UUID id;
+
+    @Column
+    @NotBlank
     private String postNumber;
+
+    @Column
+    @NotBlank
+    @Size(min = 2, max = 100)
     private String country;
+
+    @Column
+    @NotNull
+    private String name;
+
+    @Column
+    @NotNull
+    @Size
     private String description;
-    private Long   distance;
+
+    @Column
+    @NotNull
+    private Long distance;
+
+    @Column
+    @NotNull
     private String conditionValue;
+
+    @Column
+    @NotNull
     private String dateOfSend;
+
+    @Column
+    @NotNull
     private String dateOfReceive;
 
 
@@ -22,21 +56,32 @@ public class Postcard {
     /*it's very important to create that constructor!*/
     }
 
-    public Postcard(@NotNull String postNumber, @NotNull String country, @NotNull String description,
-                    @NotNull long distance, @NotNull String dateOfSent, @NotNull String dateOfRecieve) {
+    public Postcard(@NotNull String postNumber, @NotNull String country, @NotNull String name,
+                    @NotNull String description, @NotNull Long distance, @NotNull String conditionValue,
+                    @NotNull String dateOfSend, @NotNull String dateOfReceive) {
         this.postNumber = postNumber;
         this.country = country;
+        this.name = name;
         this.description = description;
         this.distance = distance;
-        this.dateOfSend = dateOfSent;
-        this.dateOfReceive = dateOfRecieve;
+        this.conditionValue = conditionValue;
+        this.dateOfSend = dateOfSend;
+        this.dateOfReceive = dateOfReceive;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setId(UUID id) {
         this.id = id;
     }
 

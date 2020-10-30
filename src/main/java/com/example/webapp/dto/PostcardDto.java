@@ -1,29 +1,22 @@
 package com.example.webapp.dto;
 
- public class PostcardDto {
-        private Long id;
+import java.util.UUID;
+
+public class PostcardDto {
+        private UUID id;
         private String postNumber;
         private String country;
-        private String description;
-        private Long distance;
-        private String conditionValue;
-        private String dateOfSend;
-        private String dateOfReceive;
+        private String name;
 
-        public PostcardDto(Long id, String postNumber, String country,
-                           String description, Long distance, String conditionValue,
-                           String dateOfSend, String dateOfReceive) {
+
+    public PostcardDto(UUID id, String postNumber, String country, String name) {
             this.id = id;
             this.postNumber = postNumber;
             this.country = country;
-            this.description = description;
-            this.distance = distance;
-            this.conditionValue = conditionValue;
-            this.dateOfSend = dateOfSend;
-            this.dateOfReceive = dateOfReceive;
+            this.name = name;
         }
 
-     public void setId(Long id) {
+     public void setId(UUID id) {
             this.id = id;
         }
 
@@ -35,23 +28,7 @@ package com.example.webapp.dto;
             this.country = country;
         }
 
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
-        public void setDistance(Long distance) {
-            this.distance = distance;
-        }
-
-        public void setConditionValue(String conditionValue){
-            this.conditionValue = conditionValue;
-        }
-
-        public void setDateOfSend(String dateOfSend) {
-            this.dateOfSend = dateOfSend;
-        }
-
-        public void setDateOfReceive(String dateOfReceive) {
-            this.dateOfReceive = dateOfReceive;
+        public void setName(String name) {
+            this.name = name;
         }
  }

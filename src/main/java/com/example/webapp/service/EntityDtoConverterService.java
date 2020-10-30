@@ -4,15 +4,7 @@ import com.example.webapp.dto.PostcardDto;
 
 public class EntityDtoConverterService {
     public PostcardDto postcardToDto (Postcard postcard){
-        return new PostcardDto(
-                postcard.getId(),
-                postcard.getPostNumber(),
-                postcard.getCountry(),
-                postcard.getDescription(),
-                postcard.getDistance(),
-                postcard.getConditionValue(),
-                postcard.getDateOfSend(),
-                postcard.getDateOfReceive()
-        );
+        return new PostcardDto(postcard.getId(), postcard.getPostNumber(),
+                postcard.getCountry(), postcard.getName());
     }
 }

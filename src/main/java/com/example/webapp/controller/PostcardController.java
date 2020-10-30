@@ -37,13 +37,19 @@ public class PostcardController {
 
     @PostMapping
     public String add(@RequestParam String postNumber, @RequestParam String country,
+                      @RequestParam String name, @RequestParam String description,
+                      @RequestParam Long distance, @RequestParam String conditionValue,
+                      @RequestParam String dateOfSend, @RequestParam String dateOfReceive,
                       Map<String, Object> model){
 
-        Postcard postcard = new Postcard(postNumber, country, "", 0, "", "");
+        Postcard postcard = new Postcard(postNumber, country, name,
+                                         description, distance, conditionValue,
+                                         dateOfSend, dateOfReceive);
         postcardService.save(postcard);//save to repo
 
         Iterable<Postcard> postcards = postcardService.findAll(); //took from repo
         model.put("postcards", postcards);//put for view
+
         return "main";
     }
 
