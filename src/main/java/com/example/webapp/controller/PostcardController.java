@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
-import java.util.Optional;
 
 @Controller
 public class PostcardController {
@@ -29,8 +28,8 @@ public class PostcardController {
         return "greeting";
     }
 
-    @GetMapping
-    public String show(Map<String, Object> model){
+    @GetMapping()
+    public String main(Map<String, Object> model){
         Iterable<Postcard> postcards = postcardService.findAll();
         model.put("postcards", postcards);
         return "main";
@@ -46,12 +45,13 @@ public class PostcardController {
         Postcard postcard = new Postcard(postNumber, country, name,
                                          description, distance, conditionValue,
                                          dateOfSend, dateOfReceive);
-        postcardService.save(postcard);
-        show(model);
+        postcardService.save(postcard);//save to repo
 
-        Optional<Postcard> distances = postcardService.findByDistance(postcard.getDistance());
-        model.put("distances", distances);
+        Iterable<Postcard> postcards = postcardService.findAll(); //took from repo
+        model.put("postcards", postcards);//put for view
+
         return "main";
     }
+
 
 }
