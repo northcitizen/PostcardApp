@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -22,12 +23,12 @@ public class PostcardController {
         this.postcardService = postcardService;
     }
 
-    @GetMapping("/greeting")
-    public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name,
-                           Map<String, Object> model) {
-        model.put("name", name);
-        return "greeting";
-    }
+//    @GetMapping("/greeting")
+//    public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name,
+//                           Map<String, Object> model) {
+//        model.put("name", name);
+//        return "greeting";
+//    }
 
     @GetMapping
     public String show(Map<String, Object> model){
@@ -46,11 +47,24 @@ public class PostcardController {
         Postcard postcard = new Postcard(postNumber, country, name,
                                          description, distance, conditionValue,
                                          dateOfSend, dateOfReceive);
+
         postcardService.save(postcard);
         show(model);
+        return "main";
+    }
 
-        Optional<Postcard> distances = postcardService.findByDistance(postcard.getDistance());
-        model.put("distances", distances);
+    @PostMapping("distanceYear")
+    public String distanceYear(@RequestParam String year, Map<String, Object> model){
+        Long temp = 0L;
+        Long distance = 0L;
+        List<Postcard> postcards = postcardService.findByYear(year);
+        if (!postcards.isEmpty()){// rewrite it for lambda
+            for (Postcard card: postcards) {
+                temp = card.getDistance();
+                distance = temp + distance;
+            }
+            model.put("distance", distance);
+        } //else throw exception here
         return "main";
     }
 

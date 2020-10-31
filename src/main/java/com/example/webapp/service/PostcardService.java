@@ -34,4 +34,19 @@ public class PostcardService {
         return postcardRepository.findByDistance(distance);
     }
 
+    public Optional<Postcard> findByDateOfReceive(String dateOfReceive){
+        return postcardRepository.findByDateOfReceive(dateOfReceive);
+    }
+
+    public Optional<Postcard> findByCountry(String country){
+        return postcardRepository.findByCountry(country);
+    }
+
+    public Optional<Postcard> findByPostNumber(String postNumber){
+        return postcardRepository.findByPostNumber(postNumber);
+    }
+
+    public List<Postcard> findByYear(String year){
+        return postcardRepository.findByYear(year);
+    }
 }

@@ -14,7 +14,13 @@
             <input type="text" name="dateOfReceive" placeholder="Date of receiving"/>
             <button type="submit" > add postcard</button>
         </form>
-    </div>
+
+        <div>
+            <form method="post" action="distanceYear">
+                <input type="text" name="year" placeholder="year"/>
+                <button type="submit" > distance</button>
+            </form>
+        </div>
     <div>Postcard's list</div>
     {{#postcards}}
         <div>
@@ -29,11 +35,11 @@
         </div>
     {{/postcards}}
 
-    {{#distances}}
-        <div>
-            <span>{{distances}}</span>
-        </div>
-    {{/distances}}
+        <div>Distance</div>
+        {{#distance}}
+            {{.}}
+        {{/distance}}
+
 
 </body>
 </html>

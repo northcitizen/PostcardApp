@@ -51,6 +51,16 @@ public class Postcard {
     @NotNull
     private String dateOfReceive;
 
+    private String year;
+
+    public String getYear() {
+        int start = 6;
+        int end = 10;
+        char[] dst=new char[end - start];
+        dateOfReceive.getChars(start, end, dst, 0);
+        return this.year =  String.valueOf(dst);
+    }
+
 
     public Postcard(){
     /*it's very important to create that constructor!*/
@@ -67,6 +77,7 @@ public class Postcard {
         this.conditionValue = conditionValue;
         this.dateOfSend = dateOfSend;
         this.dateOfReceive = dateOfReceive;
+        this.year = getYear();
     }
 
     public UUID getId() {
@@ -143,9 +154,6 @@ public class Postcard {
 
     @Override
     public String toString() {
-        return "Postcard{" +
-                "id=" + id +
-                ", country='" + country + '\'' +
-                '}';
+        return year;
     }
 }
