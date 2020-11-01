@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Controller
 public class PostcardController {
@@ -68,4 +69,29 @@ public class PostcardController {
         return "main";
     }
 
+    @PostMapping("filterByDate")
+    public String filter(@RequestParam String dateFrom, @RequestParam String dateTo, Map<String, Object> model) throws ParseException {
+        String temp;
+        String startDate = dateFrom;
+        String endDate = dateTo;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        List<Postcard> cards = new ArrayList<>();
+
+        Date sDate = sdf.parse(startDate);
+        Date eDate = sdf.parse(dateTo);
+        Date date;
+
+        Iterable<Postcard> postcards = postcardService.findAll();
+        postcards.forEach(cards::add);
+        if (!cards.isEmpty()){
+            for (Postcard card: cards) {
+                temp = card.getDateOfReceive();
+                date = sdf.parse(temp);
+                if (date.compareTo(sDate) >= 0 && date.compareTo(eDate) <= 0){
+                    model.put("cards", card);
+                }
+            }
+        }
+        return "main";
+    }
 }

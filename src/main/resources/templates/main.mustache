@@ -21,6 +21,15 @@
                 <button type="submit" > distance</button>
             </form>
         </div>
+
+        <div>
+            <form method="post" action="filterByDate">
+                <input type="text" name="dateFrom" placeholder="from date"/>
+                <input type="text" name="dateTo" placeholder="to date"/>
+                <button type="submit" > find </button>
+            </form>
+        </div>
+
     <div>Postcard's list</div>
     {{#postcards}}
         <div>
@@ -40,6 +49,18 @@
             {{.}}
         {{/distance}}
 
+        {{#cards}}
+            <div>
+                <span>{{postNumber}}</span>
+                <b>{{country}}</b>
+                <b>{{name}}</b>
+                <i>{{description}}</i>
+                <b>{{distance}}</b>
+                <span>{{conditionValue}}</span>
+                <i>{{dateOfSend}}</i>
+                <i>{{dateOfReceive}}</i>
+            </div>
+        {{/cards}}
 
 </body>
 </html>
