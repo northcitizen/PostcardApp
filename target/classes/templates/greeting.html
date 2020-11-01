@@ -5,6 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<p th:text="'Hello, ' + ${name} + '!'" />
+<form th:method="get" th:action="@{/greeting}" th:object="${cards}">
+    <input type="text" th:field="*{postNumber}"/>
+    <input type="text" th:field="*{country}"/>
+    <br/>
+    <input type="submit" value="add"/>
+</form>
 </body>
 </html>

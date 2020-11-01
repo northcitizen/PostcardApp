@@ -10,37 +10,48 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.jws.WebParam;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Controller
 public class PostcardController {
 
+    private final PostcardRepository postcardRepository;
     @Autowired
-    private PostcardRepository postcardRepository;
-
-    @GetMapping("/greeting")
-    public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name,
-                           Map<String, Object> model) {
-        model.put("name", name);
-        return "greeting";
+    public PostcardController(PostcardRepository postcardRepository) {
+        this.postcardRepository = postcardRepository;
     }
 
-    @GetMapping()
+
+    @GetMapping
     public String main(Map<String, Object> model){
+        List<Postcard> cards = new ArrayList<>();
         Iterable<Postcard> postcards = postcardRepository.findAll();
-        model.put("postcards", postcards);
+        postcards.forEach(cards::add);
+        model.put("cards", cards);
         return "main";
     }
 
-    @PostMapping
-    public String add(@RequestParam String postNumber, @RequestParam String country,
-                      Map<String, Object> model){
+    @GetMapping("/greeting")
+    public String add(Model model){
 
-        Postcard postcard = new Postcard(postNumber, country);
-        postcardRepository.save(postcard);//save to repo
+        Postcard postcard = new Postcard("7777", "russia");
+        //postcardRepository.save(postcard);//save to repo
 
-        Iterable<Postcard> postcards = postcardRepository.findAll(); //took from repo
-        model.put("postcards", postcards);//put for view
+       // Iterable<Postcard> postcards = postcardRepository.findAll(); //took from repo
+
+        //postcards.forEach(cards::add);
+
+        model.addAttribute("cards", postcard);//put for view
+        return "greeting";
+    }
+
+    @PostMapping("/greeting")
+    public String addButton(@ModelAttribute("postcard") Postcard postcard){
+
+        System.out.println(postcard);
         return "main";
     }
 }
