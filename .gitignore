@@ -13,3 +13,4 @@ target/
 # Ignore iml files
 postapp
 *.iml.idea
+target/
