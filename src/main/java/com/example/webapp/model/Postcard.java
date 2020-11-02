@@ -46,10 +46,10 @@ public class Postcard {
     private String conditionValue;
 
     @Column
-    private @NotNull LocalDate dateOfSend;
+    private @NotNull LocalDateTime dateOfSend;
 
     @Column
-    private @NotNull LocalDate dateOfReceive;
+    private @NotNull LocalDateTime dateOfReceive;
 
     private int year;
 
@@ -64,7 +64,7 @@ public class Postcard {
 
     public Postcard(@NotNull String postNumber, @NotNull String country, @NotNull String name,
                     @NotNull String description, @NotNull Long distance, @NotNull String conditionValue,
-                    @NotNull LocalDate dateOfSend, @NotNull LocalDate dateOfReceive) {
+                    @NotNull LocalDateTime dateOfSend, @NotNull LocalDateTime dateOfReceive) {
         this.postNumber = postNumber;
         this.country = country;
         this.name = name;
@@ -132,19 +132,19 @@ public class Postcard {
         this.conditionValue = conditionValue;
     }
 
-    public LocalDate getDateOfSend() {
+    public LocalDateTime getDateOfSend() {
         return dateOfSend;
     }
 
-    public void setDateOfSend(LocalDate dateOfSend) {
+    public void setDateOfSend(LocalDateTime dateOfSend) {
         this.dateOfSend = dateOfSend;
     }
 
-    public LocalDate getDateOfReceive() {
+    public LocalDateTime getDateOfReceive() {
         return dateOfReceive;
     }
 
-    public void setDateOfReceive(LocalDate dateOfReceive) {
+    public void setDateOfReceive(LocalDateTime dateOfReceive) {
         this.dateOfReceive = dateOfReceive;
     }
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
@@ -53,8 +54,8 @@ public class PostcardController {
                       @RequestParam String dateOfReceive,
                       Map<String, Object> model) {
 
-        LocalDate receiveDate = dtf.parse(dateOfReceive, LocalDate::from);
-        LocalDate sendDate = dtf.parse(dateOfSend, LocalDate::from);
+        LocalDateTime receiveDate = LocalDate.parse(dateOfReceive, dtf).atStartOfDay();
+        LocalDateTime sendDate = LocalDate.parse(dateOfSend, dtf).atStartOfDay();
         Postcard postcard = new Postcard(postNumber, country, name,
                 description, distance, conditionValue,
                 sendDate, receiveDate);
@@ -83,14 +84,14 @@ public class PostcardController {
     public String filter(@RequestParam String dateFrom, @RequestParam String dateTo, Map<String, Object> model) throws ParseException {
 
         //todo  DateTimeFormat
-        LocalDate sDate = LocalDate.parse(dateFrom);
-        LocalDate eDate = LocalDate.parse(dateTo);
+        LocalDateTime sDate = LocalDate.parse(dateFrom, dtf).atStartOfDay();
+        LocalDateTime eDate = LocalDate.parse(dateTo, dtf).atStartOfDay();
 
         //todo
         List<Postcard> postcards = postcardService.findAll();
         if (!CollectionUtils.isEmpty(postcards)) {
             for (Postcard card : postcards) {
-                LocalDate date = card.getDateOfReceive();
+                LocalDateTime date = card.getDateOfReceive();
                 if (date.isAfter(sDate) && date.isBefore(eDate)) {
                     model.put("cards", card);
                 }
