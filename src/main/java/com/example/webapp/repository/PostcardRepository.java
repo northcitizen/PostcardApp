@@ -14,6 +14,6 @@ public interface PostcardRepository extends CrudRepository<Postcard, Long> {
     Optional<Postcard> findByDateOfReceive(String dateOfReceive);
     Optional<Postcard> findByCountry(String country);
     Optional<Postcard> findByPostNumber(String postNumber);
-    List<Postcard> findByYear(String year);
+    List<Postcard> findByYear(int year);
 
 }

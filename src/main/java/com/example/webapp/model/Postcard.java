@@ -6,6 +6,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -44,21 +46,15 @@ public class Postcard {
     private String conditionValue;
 
     @Column
-    @NotNull
-    private String dateOfSend;
+    private @NotNull LocalDate dateOfSend;
 
     @Column
-    @NotNull
-    private String dateOfReceive;
+    private @NotNull LocalDate dateOfReceive;
 
-    private String year;
+    private int year;
 
-    public String getYear() {
-        int start = 6;
-        int end = 10;
-        char[] dst=new char[end - start];
-        dateOfReceive.getChars(start, end, dst, 0);
-        return this.year =  String.valueOf(dst);
+    public int getYear() {
+        return this.year = dateOfReceive.getYear();
     }
 
 
@@ -68,7 +64,7 @@ public class Postcard {
 
     public Postcard(@NotNull String postNumber, @NotNull String country, @NotNull String name,
                     @NotNull String description, @NotNull Long distance, @NotNull String conditionValue,
-                    @NotNull String dateOfSend, @NotNull String dateOfReceive) {
+                    @NotNull LocalDate dateOfSend, @NotNull LocalDate dateOfReceive) {
         this.postNumber = postNumber;
         this.country = country;
         this.name = name;
@@ -136,24 +132,26 @@ public class Postcard {
         this.conditionValue = conditionValue;
     }
 
-    public String getDateOfSend() {
+    public LocalDate getDateOfSend() {
         return dateOfSend;
     }
 
-    public void setDateOfSend(String dateOfSend) {
+    public void setDateOfSend(LocalDate dateOfSend) {
         this.dateOfSend = dateOfSend;
     }
 
-    public String getDateOfReceive() {
+    public LocalDate getDateOfReceive() {
         return dateOfReceive;
     }
 
-    public void setDateOfReceive(String dateOfReceive) {
+    public void setDateOfReceive(LocalDate dateOfReceive) {
         this.dateOfReceive = dateOfReceive;
     }
 
     @Override
     public String toString() {
-        return year;
+        return "Postcard{" +
+                "year=" + year +
+                '}';
     }
 }

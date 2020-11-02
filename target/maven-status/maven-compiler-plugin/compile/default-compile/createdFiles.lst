@@ -1,0 +1,7 @@
+com\example\webapp\service\EntityDtoConverterService.class
+com\example\webapp\dto\PostcardDto.class
+com\example\webapp\model\Postcard.class
+com\example\webapp\controller\PostcardController.class
+com\example\webapp\service\PostcardService.class
+com\example\webapp\Application.class
+com\example\webapp\repository\PostcardRepository.class

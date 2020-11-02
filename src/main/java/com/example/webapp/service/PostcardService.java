@@ -26,8 +26,8 @@ public class PostcardService {
         return postcardRepository.findById(id);
     }
 
-    public Iterable<Postcard> findAll(){
-        return postcardRepository.findAll();
+    public List<Postcard> findAll(){
+        return (List<Postcard>) postcardRepository.findAll();
     }
 
     public Optional<Postcard> findByDistance(Long distance){
@@ -46,7 +46,7 @@ public class PostcardService {
         return postcardRepository.findByPostNumber(postNumber);
     }
 
-    public List<Postcard> findByYear(String year){
+    public List<Postcard> findByYear(int year){
         return postcardRepository.findByYear(year);
     }
 }
