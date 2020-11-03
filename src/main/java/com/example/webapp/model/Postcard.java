@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
-
+//todo hibernate validation
 @Entity
 @Table
 public class Postcard {

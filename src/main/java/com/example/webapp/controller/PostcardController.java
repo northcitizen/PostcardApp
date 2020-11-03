@@ -27,8 +27,6 @@ public class PostcardController {
         this.postcardService = postcardService;
     }
 
-    static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
     // todo interesting code part
 //    @GetMapping("/greeting")
 //    public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name,
@@ -37,66 +35,42 @@ public class PostcardController {
 //        return "greeting";
 //    }
 
-    //todo name of methods
-
     @GetMapping
-    public String show(Map<String, Object> model) {
+    public String showPostcardList(Map<String, Object> model) {
         List<Postcard> postcards = postcardService.findAll();
         model.put("postcards", postcards);
         return "main";
     }
 
     @PostMapping
-    public String add(@RequestParam String postNumber, @RequestParam String country,
-                      @RequestParam String name, @RequestParam String description,
-                      @RequestParam Long distance, @RequestParam String conditionValue,
-                      @RequestParam String dateOfSend,
-                      @RequestParam String dateOfReceive,
-                      Map<String, Object> model) {
+    public String addPostcard(@RequestParam String postNumber, @RequestParam String country,
+                              @RequestParam String name, @RequestParam String description,
+                              @RequestParam Long distance, @RequestParam String conditionValue,
+                              @RequestParam String dateOfSend,
+                              @RequestParam String dateOfReceive,
+                              Map<String, Object> model) {
 
-        LocalDateTime receiveDate = LocalDate.parse(dateOfReceive, dtf).atStartOfDay();
-        LocalDateTime sendDate = LocalDate.parse(dateOfSend, dtf).atStartOfDay();
-        Postcard postcard = new Postcard(postNumber, country, name,
-                description, distance, conditionValue,
-                sendDate, receiveDate);
-
+        Postcard postcard = postcardService.add(postNumber, country, name, description,
+                distance, conditionValue, dateOfSend, dateOfReceive);
         postcardService.save(postcard);
-        show(model);
+        showPostcardList(model);
         return "main";
     }
 
     @PostMapping("getDistanceYear")
     public String getDistanceYear(@RequestParam String year, Map<String, Object> model) {
-        Long distance = 0L;
-        List<Postcard> postcards = postcardService.findByYear(Integer.parseInt(year));
 
-        if (!CollectionUtils.isEmpty(postcards)) {// rewrite it for lambda
-            for (Postcard card : postcards) {
-                distance += card.getDistance();
-            }
-            model.put("distance", distance);
-        } //else throw exception here
+        List<Postcard> postcards = postcardService.findByYear(Integer.parseInt(year));
+        postcardService.getDistance(postcards, model);
         return "main";
     }
 
 
     @PostMapping("filterByDate")
-    public String filter(@RequestParam String dateFrom, @RequestParam String dateTo, Map<String, Object> model) throws ParseException {
+    public String filterByDate(@RequestParam String dateFrom, @RequestParam String dateTo, Map<String, Object> model) throws ParseException {
 
-        //todo  DateTimeFormat
-        LocalDateTime sDate = LocalDate.parse(dateFrom, dtf).atStartOfDay();
-        LocalDateTime eDate = LocalDate.parse(dateTo, dtf).atStartOfDay();
-
-        //todo
         List<Postcard> postcards = postcardService.findAll();
-        if (!CollectionUtils.isEmpty(postcards)) {
-            for (Postcard card : postcards) {
-                LocalDateTime date = card.getDateOfReceive();
-                if (date.isAfter(sDate) && date.isBefore(eDate)) {
-                    model.put("cards", card);
-                }
-            }
-        }
+        postcardService.filter(dateFrom, dateTo, postcards, model);
         return "main";
     }
 }
