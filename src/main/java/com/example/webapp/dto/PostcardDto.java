@@ -3,24 +3,21 @@ package com.example.webapp.dto;
 import java.util.UUID;
 
 public class PostcardDto {
-    private UUID id;
+
     private String postNumber;
     private String country;
     private String name;
+    private String receiveDate;
+    private String sendDate;
+    private String distance;
 
-
-    public PostcardDto(UUID id, String postNumber, String country, String name) {
-        //this.id = id;
+    public PostcardDto(String postNumber, String country, String name, String receiveDate, String sendDate, String distance) {
         this.postNumber = postNumber;
         this.country = country;
         this.name = name;
-        //todo
-        // String receiveDate
-        //   distance
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
+        this.receiveDate = receiveDate;
+        this.sendDate = sendDate;
+        this.distance = distance;
     }
 
     public void setPostNumber(String postNumber) {
@@ -33,5 +30,17 @@ public class PostcardDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setReceiveDate(String receiveDate) {
+        this.receiveDate = receiveDate;
+    }
+
+    public void setSendDate(String sendDate) {
+        this.sendDate = sendDate;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
     }
 }

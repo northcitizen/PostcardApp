@@ -83,12 +83,12 @@ public class PostcardService {
 
     public Long getDistance(List<Postcard> postcards, Map<String, Object> model) {
         Long distance = 0L;
-        if (!CollectionUtils.isEmpty(postcards)) {// rewrite it for lambda
+        if (!CollectionUtils.isEmpty(postcards)) {
             for (Postcard card : postcards) {
                 distance += card.getDistance();
             }
             model.put("distance", distance);
-        } //else throw exception here
+        }
         return distance;
     }
 }
