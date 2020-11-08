@@ -1,6 +1,7 @@
 package com.example.webapp.service;
 
 import com.example.webapp.model.Postcard;
+import com.example.webapp.model.PostcardBuilder;
 import com.example.webapp.repository.PostcardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,9 +10,10 @@ import org.springframework.util.CollectionUtils;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PostcardService {
@@ -25,13 +27,17 @@ public class PostcardService {
         this.postcardRepository = postcardRepository;
     }
 
-    public Postcard save(Postcard postcard) {
-        return postcardRepository.save(postcard);
+    public List<Postcard> findAllById(Long id) {
+        return postcardRepository.findAllById(id);
     }
 
-    public Optional<Postcard> findById(Long id) {
+    public void save(Postcard postcard) {
+        postcardRepository.save(postcard);
+    }
 
-        return postcardRepository.findById(id);
+    public List<Postcard> findById(UUID id) {
+
+        return (List<Postcard>) postcardRepository.findById(id);
     }
 
     public List<Postcard> findAll() {
@@ -46,11 +52,11 @@ public class PostcardService {
         return postcardRepository.findByDateOfReceive(dateOfReceive);
     }
 
-    public Optional<Postcard> findByCountry(String country) {
+    public List<Postcard> findByCountry(String country) {
         return postcardRepository.findByCountry(country);
     }
 
-    public Optional<Postcard> findByPostNumber(String postNumber) {
+    public List<Postcard> findByPostNumber(String postNumber) {
         return postcardRepository.findByPostNumber(postNumber);
     }
 
@@ -58,17 +64,21 @@ public class PostcardService {
         return postcardRepository.findByYear(year);
     }
 
-    public void filter(String startDate, String endDate, List<Postcard> postcards, Map<String, Object> model) {
-        LocalDateTime sDate = LocalDate.parse(startDate, dtf).atStartOfDay();
-        LocalDateTime eDate = LocalDate.parse(endDate, dtf).atStartOfDay();
+    public List<Postcard> filter(String startDate, String endDate) {
+        LocalDateTime firstDate = LocalDate.parse(startDate, dtf).atStartOfDay();
+        LocalDateTime secondDate = LocalDate.parse(endDate, dtf).atStartOfDay();
+
+        List<Postcard> postcards = findAll();
+        List<Postcard> newCards = new ArrayList<>();
         if (!CollectionUtils.isEmpty(postcards)) {
             for (Postcard card : postcards) {
                 LocalDateTime date = card.getDateOfReceive();
-                if (date.isAfter(sDate) && date.isBefore(eDate)) {
-                    model.put("cards", card);
+                if (date.isAfter(firstDate) && date.isBefore(secondDate)) {
+                    newCards.add(card);
                 }
             }
         }
+        return newCards;
     }
 
     public Postcard add(String postNumber, String country, String name, String description,
@@ -76,19 +86,37 @@ public class PostcardService {
                         String dateOfReceive) {
         LocalDateTime receiveDate = LocalDate.parse(dateOfReceive, dtf).atStartOfDay();
         LocalDateTime sendDate = LocalDate.parse(dateOfSend, dtf).atStartOfDay();
-        Postcard postcard = new Postcard(postNumber, country, name, description,
-                distance, conditionValue, sendDate, receiveDate);
-        return postcard;
+        return new PostcardBuilder()
+                .setPostNumber(postNumber)
+                .setCountry(country)
+                .setName(name)
+                .setDescription(description)
+                .setDistance(distance)
+                .setConditionValue(conditionValue)
+                .setDateOfSend(sendDate)
+                .setDateOfReceive(receiveDate)
+                .getPostcard();
     }
 
-    public Long getDistance(List<Postcard> postcards, Map<String, Object> model) {
+    public Long getDistance(String year) {
         Long distance = 0L;
+
+        List<Postcard> postcards = findByYear(Integer.parseInt(year));
+
         if (!CollectionUtils.isEmpty(postcards)) {
-            for (Postcard card : postcards) {
+            for (Postcard card : postcards)
                 distance += card.getDistance();
-            }
-            model.put("distance", distance);
         }
         return distance;
     }
+
+    public void addPostcard(String postNumber, String country, String name, String description,
+                            Long distance, String conditionValue, String dateOfSend,
+                            String dateOfReceive) {
+        Postcard postcard = add(postNumber, country, name, description,
+                distance, conditionValue, dateOfSend,
+                dateOfReceive);
+        save(postcard);
+    }
+
 }

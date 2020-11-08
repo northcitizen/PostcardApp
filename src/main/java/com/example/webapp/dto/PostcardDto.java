@@ -1,7 +1,5 @@
 package com.example.webapp.dto;
 
-import java.util.UUID;
-
 public class PostcardDto {
 
     private String postNumber;
@@ -9,9 +7,9 @@ public class PostcardDto {
     private String name;
     private String receiveDate;
     private String sendDate;
-    private String distance;
+    private Long distance;
 
-    public PostcardDto(String postNumber, String country, String name, String receiveDate, String sendDate, String distance) {
+    public PostcardDto(String postNumber, String country, String name, String receiveDate, String sendDate, Long distance) {
         this.postNumber = postNumber;
         this.country = country;
         this.name = name;
@@ -40,7 +38,7 @@ public class PostcardDto {
         this.sendDate = sendDate;
     }
 
-    public void setDistance(String distance) {
+    public void setDistance(Long distance) {
         this.distance = distance;
     }
 }

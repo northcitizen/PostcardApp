@@ -1,29 +1,27 @@
 package com.example.webapp.controller;
 
-import com.example.webapp.model.Postcard;
+import com.example.webapp.service.HandMadePostcardService;
 import com.example.webapp.service.PostcardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Map;
 
 @Controller
 public class PostcardController {
 
 
+    private final HandMadePostcardService handMadePostcardService;
     private final PostcardService postcardService;
 
     @Autowired
-    public PostcardController(PostcardService postcardService) {
+    public PostcardController(PostcardService postcardService,
+                              HandMadePostcardService handMadePostcardService) {
+        this.handMadePostcardService = handMadePostcardService;
         this.postcardService = postcardService;
     }
 
@@ -37,40 +35,42 @@ public class PostcardController {
 
     @GetMapping
     public String showPostcardList(Map<String, Object> model) {
-        List<Postcard> postcards = postcardService.findAll();
-        model.put("postcards", postcards);
+        model.put("postcards", postcardService.findAll());
         return "main";
     }
 
     @PostMapping
-    public String addPostcard(@RequestParam String postNumber, @RequestParam String country,
-                              @RequestParam String name, @RequestParam String description,
-                              @RequestParam Long distance, @RequestParam String conditionValue,
+    public String addPostcard(@RequestParam String postNumber,
+                              @RequestParam String country,
+                              @RequestParam String name,
+                              @RequestParam String description,
+                              @RequestParam Long distance,
+                              @RequestParam String conditionValue,
                               @RequestParam String dateOfSend,
                               @RequestParam String dateOfReceive,
                               Map<String, Object> model) {
-
-        Postcard postcard = postcardService.add(postNumber, country, name, description,
-                distance, conditionValue, dateOfSend, dateOfReceive);
-        postcardService.save(postcard);
+        postcardService.addPostcard(postNumber,
+                country,
+                name,
+                description,
+                distance,
+                conditionValue,
+                dateOfSend,
+                dateOfReceive);
         showPostcardList(model);
         return "main";
     }
 
     @PostMapping("getDistanceYear")
     public String getDistanceYear(@RequestParam String year, Map<String, Object> model) {
-
-        List<Postcard> postcards = postcardService.findByYear(Integer.parseInt(year));
-        postcardService.getDistance(postcards, model);
+        model.put("distance", postcardService.getDistance(year));
         return "main";
     }
 
 
     @PostMapping("filterByDate")
     public String filterByDate(@RequestParam String dateFrom, @RequestParam String dateTo, Map<String, Object> model) throws ParseException {
-
-        List<Postcard> postcards = postcardService.findAll();
-        postcardService.filter(dateFrom, dateTo, postcards, model);
+        model.put("cards", postcardService.filter(dateFrom, dateTo));
         return "main";
     }
 }
