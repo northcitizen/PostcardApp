@@ -38,6 +38,4 @@ public class PostcardRestController {
     public Long getPostcardDistance(@PathVariable("year") final String year) {
         return postcardService.getDistance(year);
     }
-
-
 }
