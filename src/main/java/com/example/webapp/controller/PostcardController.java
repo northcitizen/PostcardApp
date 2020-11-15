@@ -2,8 +2,6 @@ package com.example.webapp.controller;
 
 import com.example.webapp.service.HandMadePostcardService;
 import com.example.webapp.service.PostcardService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +13,6 @@ import java.util.Map;
 
 @Controller
 public class PostcardController {
-
-    private static final Logger logger = LoggerFactory.getLogger(PostcardController.class);
 
     private final HandMadePostcardService handMadePostcardService;
     private final PostcardService postcardService;
@@ -45,7 +41,7 @@ public class PostcardController {
 //        list.add(1002);
 //        logger.debug("logger list of arrays{}", list);
 
-        model.put("postcards", postcardService.findAll());
+        //model.put("postcards", postcardService.findAll());
         return "main";
     }
 
