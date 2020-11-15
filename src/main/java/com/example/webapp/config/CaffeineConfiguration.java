@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 @EnableCaching
 @Configuration
-public class CaffieneConfiguration {
+public class CaffeineConfiguration {
     @Bean
     public Caffeine caffeineConfig() {
         return Caffeine.newBuilder()

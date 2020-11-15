@@ -19,7 +19,6 @@ import java.util.UUID;
 public class PostcardService {
 
     static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
     private final PostcardRepository postcardRepository;
 
     @Autowired
@@ -31,13 +30,12 @@ public class PostcardService {
         return postcardRepository.findAllById(id);
     }
 
-    public void save(Postcard postcard) {
-        postcardRepository.save(postcard);
+    public Postcard save(Postcard postcard) {
+        return postcardRepository.save(postcard);
     }
 
-    public List<Postcard> findById(UUID id) {
-
-        return (List<Postcard>) postcardRepository.findById(id);
+    public Optional<Postcard> findById(UUID id) {
+        return postcardRepository.findById(id);
     }
 
     public List<Postcard> findAll() {
@@ -56,7 +54,7 @@ public class PostcardService {
         return postcardRepository.findByCountry(country);
     }
 
-    public List<Postcard> findByPostNumber(String postNumber) {
+    public Postcard findByPostNumber(String postNumber) {
         return postcardRepository.findByPostNumber(postNumber);
     }
 

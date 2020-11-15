@@ -14,7 +14,7 @@ import java.util.UUID;
 
 //todo hibernate validation
 @Entity
-@Table
+@Table(name = "postcard")
 public class Postcard {
 
     static final int MAX_COUNTRY_SIZE = 100;
@@ -22,9 +22,9 @@ public class Postcard {
     static final int POST_NUMBER_SIZE = 9;
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(columnDefinition = "VARCHAR(255)")
+    @GeneratedValue(generator = "UUID", strategy = GenerationType.IDENTITY)
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
     @Column
@@ -38,11 +38,9 @@ public class Postcard {
     private String country;
 
     @Column
-    @NotNull
     private String name;
 
     @Column
-    @NotNull
     private String description;
 
     @Column
@@ -50,7 +48,6 @@ public class Postcard {
     private Long distance;
 
     @Column
-    @NotNull
     private String conditionValue;
 
     @Column
@@ -84,10 +81,10 @@ public class Postcard {
                     @Size(min = POST_NUMBER_SIZE, max = POST_NUMBER_SIZE) String postNumber,
                     @NotBlank(message = "Field country can not be blank")
                     @Size(min = MIN_COUNTRY_SIZE, max = MAX_COUNTRY_SIZE) String country,
-                    @NotNull String name,
-                    @NotNull String description,
+                    String name,
+                    String description,
                     @NotNull(message = "Field distance can not be blank") Long distance,
-                    @NotNull String conditionValue,
+                    String conditionValue,
                     @NotNull LocalDateTime dateOfSend,
                     @NotNull LocalDateTime dateOfReceive) {
         this.postNumber = postNumber;
@@ -101,9 +98,12 @@ public class Postcard {
         this.year = getYear();
     }
 
-
     public UUID getId() {
         return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -112,10 +112,6 @@ public class Postcard {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public String getPostNumber() {

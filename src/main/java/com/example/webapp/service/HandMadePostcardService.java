@@ -11,18 +11,18 @@ import java.util.List;
 @Service
 public class HandMadePostcardService {
 
-    final
-    HandMadePostcardRepository handMadePostcardRepository;
+    final HandMadePostcardRepository handMadePostcardRepository;
+
     @Autowired
     public HandMadePostcardService(HandMadePostcardRepository handMadePostcardRepository) {
         this.handMadePostcardRepository = handMadePostcardRepository;
     }
 
-    public List<Postcard> findAllPostcards(){
+    public List<Postcard> findAllPostcards() {
         return handMadePostcardRepository.findAllPostcards();
     }
 
-    public List<Postcard> getPostcardByYear(int year){
+    public List<Postcard> getPostcardByYear(int year) {
         return handMadePostcardRepository.getPostcardByYear(year);
     }
 
