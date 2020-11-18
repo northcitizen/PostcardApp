@@ -16,3 +16,4 @@ postapp
 *.gz
 *.log
 postapp.iml
+app.log
