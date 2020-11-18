@@ -2,6 +2,7 @@ package com.example.webapp.service.impl;
 
 import com.example.webapp.model.Postcard;
 import com.example.webapp.model.PostcardBuilder;
+import com.example.webapp.model.PostcardStatus;
 import com.example.webapp.repository.PostcardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,7 +70,7 @@ public class PostcardService {
     }
 
     public Postcard add(String postNumber, String country, String name, String description,
-                        Long distance, String conditionValue, String dateOfSend,
+                        Long distance, PostcardStatus status, String dateOfSend,
                         String dateOfReceive) {
         LocalDateTime receiveDate = LocalDate.parse(dateOfReceive, dtf).atStartOfDay();
         LocalDateTime sendDate = LocalDate.parse(dateOfSend, dtf).atStartOfDay();
@@ -79,7 +80,7 @@ public class PostcardService {
                 .setName(name)
                 .setDescription(description)
                 .setDistance(distance)
-                .setConditionValue(conditionValue)
+                .setConditionValue(status)
                 .setDateOfSend(sendDate)
                 .setDateOfReceive(receiveDate)
                 .getPostcard();
@@ -98,10 +99,10 @@ public class PostcardService {
 //    }
 
     public void addPostcard(String postNumber, String country, String name, String description,
-                            Long distance, String conditionValue, String dateOfSend,
+                            Long distance, PostcardStatus status, String dateOfSend,
                             String dateOfReceive) {
         Postcard postcard = add(postNumber, country, name, description,
-                distance, conditionValue, dateOfSend,
+                distance, status, dateOfSend,
                 dateOfReceive);
         save(postcard);
     }

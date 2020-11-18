@@ -1,5 +1,6 @@
 package com.example.webapp.dto;
 
+import com.example.webapp.model.PostcardStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,7 +18,7 @@ public class PostcardDto {
     private String name;
     private String description;
     private Long distance;
-    private String conditionValue;
+    private PostcardStatus status;
     private String dateOfSend;
     private String dateOfReceive;
 
@@ -32,7 +33,7 @@ public class PostcardDto {
         private String name = "name not set";
         private String description = "none";
         private Long distance = 0L;
-        private String conditionValue = "not set";
+        private PostcardStatus status = PostcardStatus.TRAVELLING;
 
         public Builder(UUID id, String setPostNumber, String setCountry,
                        String setSendDate, String setReceiveDate) {
@@ -58,8 +59,8 @@ public class PostcardDto {
             return this;
         }
 
-        public Builder conditionValue(String conditionValue) {
-            this.conditionValue = conditionValue;
+        public Builder conditionValue(PostcardStatus status) {
+            this.status = status;
             return this;
         }
 
@@ -77,6 +78,6 @@ public class PostcardDto {
         name = builder.name;
         description = builder.description;
         distance = builder.distance;
-        conditionValue = builder.conditionValue;
+        status = builder.status;
     }
 }

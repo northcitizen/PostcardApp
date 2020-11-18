@@ -70,7 +70,7 @@ public class PostcardUtil {
                 .setDateOfSend(LocalDate.parse(postcardDto.getDateOfSend()).atStartOfDay())
                 .setDateOfReceive(LocalDate.parse(postcardDto.getDateOfReceive()).atStartOfDay())
                 .setName(postcardDto.getName())
-                .setConditionValue(postcardDto.getConditionValue())
+                .setConditionValue(postcardDto.getStatus())
                 .setDistance(postcardDto.getDistance())
                 .setDescription(postcardDto.getDescription())
                 .getPostcard();

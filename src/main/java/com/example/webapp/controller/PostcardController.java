@@ -54,7 +54,7 @@ public class PostcardController {
         postcard.setName(postcardDetails.getName());
         postcard.setDistance(postcardDetails.getDistance());
         postcard.setDescription(postcardDetails.getDescription());
-        postcard.setConditionValue(postcardDetails.getConditionValue());
+        postcard.setStatus(postcardDetails.getStatus());
         final Postcard postcard2 = PostcardUtil.DtoToPostcard(postcard);
         return postcardService.save(postcard2);
     }
