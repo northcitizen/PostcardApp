@@ -1,9 +1,11 @@
-package com.example.webapp.service;
+package com.example.webapp.service.impl;
 
 import com.example.webapp.model.Postcard;
 import com.example.webapp.repository.PostcardRepository;
+import com.example.webapp.service.PostcardServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +27,7 @@ public class PostcardServiceInterfaceImpl implements PostcardServiceInterface {
     }
 
     @Override
-    @Cacheable(value = "postcardCache", key = "#postNumber", unless = "#result==null")
+    @Cacheable(value = "postcardCache", key = "#id", unless = "#result==null")
     public Postcard findByPostNumber(String postNumber) {
         return postcardRepository.findByPostNumber(postNumber);
     }
@@ -37,7 +39,7 @@ public class PostcardServiceInterfaceImpl implements PostcardServiceInterface {
     }
 
     @Override
-    //@CacheEvict(value = "postcardCache")
+    @CacheEvict(value = "postcardCache", allEntries = true)
     public Postcard save(Postcard postcard) {
         return postcardRepository.save(postcard);
     }
@@ -48,6 +50,7 @@ public class PostcardServiceInterfaceImpl implements PostcardServiceInterface {
     }
 
     @Override
+    @Cacheable(value = "postcardCache")
     public Optional<Postcard> findByPostcardId(UUID id) {
         return postcardRepository.findByPostcardId(id);
     }

@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 
-//todo hibernate validation
 @Entity
 @Table(name = "postcard")
 public class Postcard {
@@ -62,23 +61,11 @@ public class Postcard {
     @JsonFormat(pattern = "yyyy/MM/dd")
     private LocalDateTime dateOfReceive;
 
-    @Column
-    @NotNull(message = "Field year can not be blank")
-    private int year;
-
-
-    public int getYear() {
-        return this.year = dateOfReceive.getYear();
-
-    }
-
-
     public Postcard() {
-        /*it's very important to create that constructor!*/
     }
 
-    public Postcard(@NotBlank(message = "Field postnumber can not be blank")
-                    @Size(min = POST_NUMBER_SIZE, max = POST_NUMBER_SIZE) String postNumber,
+    public Postcard(UUID id, @NotBlank(message = "Field postnumber can not be blank")
+    @Size(min = POST_NUMBER_SIZE, max = POST_NUMBER_SIZE) String postNumber,
                     @NotBlank(message = "Field country can not be blank")
                     @Size(min = MIN_COUNTRY_SIZE, max = MAX_COUNTRY_SIZE) String country,
                     String name,
@@ -87,6 +74,7 @@ public class Postcard {
                     String conditionValue,
                     @NotNull LocalDateTime dateOfSend,
                     @NotNull LocalDateTime dateOfReceive) {
+        this.id = id;
         this.postNumber = postNumber;
         this.country = country;
         this.name = name;
@@ -95,7 +83,6 @@ public class Postcard {
         this.conditionValue = conditionValue;
         this.dateOfSend = dateOfSend;
         this.dateOfReceive = dateOfReceive;
-        this.year = getYear();
     }
 
     public UUID getId() {
@@ -168,12 +155,5 @@ public class Postcard {
 
     public void setDateOfReceive(LocalDateTime dateOfReceive) {
         this.dateOfReceive = dateOfReceive;
-    }
-
-    @Override
-    public String toString() {
-        return "Postcard{" +
-                "year=" + year +
-                '}';
     }
 }

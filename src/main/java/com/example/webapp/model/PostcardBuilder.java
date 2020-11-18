@@ -1,9 +1,11 @@
 package com.example.webapp.model;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class PostcardBuilder {
 
+    private UUID id;
     private String postNumber;
     private String country;
     private String name;
@@ -13,6 +15,11 @@ public class PostcardBuilder {
     private LocalDateTime dateOfSend;
     private LocalDateTime dateOfReceive;
 
+
+    public PostcardBuilder setId(UUID id) {
+        this.id = id;
+        return this;
+    }
 
     public PostcardBuilder setPostNumber(String postNumber) {
         this.postNumber = postNumber;
@@ -55,7 +62,7 @@ public class PostcardBuilder {
     }
 
     public Postcard getPostcard() {
-        return new Postcard(postNumber, country, name,
+        return new Postcard(id, postNumber, country, name,
                 description, distance, conditionValue,
                 dateOfSend, dateOfReceive);
     }

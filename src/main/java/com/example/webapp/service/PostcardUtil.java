@@ -64,6 +64,7 @@ public class PostcardUtil {
 
     public static Postcard DtoToPostcard(PostcardDto postcardDto) {
         return new PostcardBuilder()
+                .setId(postcardDto.getId())
                 .setPostNumber(postcardDto.getPostNumber())
                 .setCountry(postcardDto.getCountry())
                 .setDateOfSend(LocalDate.parse(postcardDto.getDateOfSend()).atStartOfDay())
