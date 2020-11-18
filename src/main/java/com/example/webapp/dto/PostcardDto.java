@@ -1,7 +1,10 @@
 package com.example.webapp.dto;
 
+import java.util.UUID;
+
 public class PostcardDto {
 
+    private UUID id;
     private String postNumber;
     private String country;
     private String name;
@@ -12,6 +15,14 @@ public class PostcardDto {
     private String dateOfReceive;
 
     public PostcardDto() {
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public void setPostNumber(String postNumber) {
@@ -80,6 +91,7 @@ public class PostcardDto {
 
     public static class Builder {
         //required parameters
+        private final UUID id;
         private final String postNumber;
         private final String country;
         private final String dateOfSend;
@@ -90,8 +102,9 @@ public class PostcardDto {
         private Long distance = 0L;
         private String conditionValue = "not set";
 
-        public Builder(String setPostNumber, String setCountry,
+        public Builder(UUID id, String setPostNumber, String setCountry,
                        String setSendDate, String setReceiveDate) {
+            this.id = id;
             this.postNumber = setPostNumber;
             this.country = setCountry;
             this.dateOfSend = setSendDate;
@@ -124,6 +137,7 @@ public class PostcardDto {
     }
 
     private PostcardDto(Builder builder) {
+        id = builder.id;
         postNumber = builder.postNumber;
         country = builder.country;
         dateOfSend = builder.dateOfSend;

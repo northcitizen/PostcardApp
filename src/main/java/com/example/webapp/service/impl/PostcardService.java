@@ -1,4 +1,4 @@
-package com.example.webapp.service;
+package com.example.webapp.service.impl;
 
 import com.example.webapp.model.Postcard;
 import com.example.webapp.model.PostcardBuilder;
@@ -26,10 +26,6 @@ public class PostcardService {
         this.postcardRepository = postcardRepository;
     }
 
-    public List<Postcard> findAllById(Long id) {
-        return postcardRepository.findAllById(id);
-    }
-
     public Postcard save(Postcard postcard) {
         return postcardRepository.save(postcard);
     }
@@ -46,10 +42,6 @@ public class PostcardService {
         return postcardRepository.findByDistance(distance);
     }
 
-    public Optional<Postcard> findByDateOfReceive(String dateOfReceive) {
-        return postcardRepository.findByDateOfReceive(dateOfReceive);
-    }
-
     public List<Postcard> findByCountry(String country) {
         return postcardRepository.findByCountry(country);
     }
@@ -58,9 +50,6 @@ public class PostcardService {
         return postcardRepository.findByPostNumber(postNumber);
     }
 
-    public List<Postcard> findByYear(int year) {
-        return postcardRepository.findByYear(year);
-    }
 
     public List<Postcard> filter(String startDate, String endDate) {
         LocalDateTime firstDate = LocalDate.parse(startDate, dtf).atStartOfDay();
@@ -96,17 +85,17 @@ public class PostcardService {
                 .getPostcard();
     }
 
-    public Long getDistance(String year) {
-        Long distance = 0L;
-
-        List<Postcard> postcards = findByYear(Integer.parseInt(year));
-
-        if (!CollectionUtils.isEmpty(postcards)) {
-            for (Postcard card : postcards)
-                distance += card.getDistance();
-        }
-        return distance;
-    }
+//    public Long getDistance(String year) {
+//        Long distance = 0L;
+//
+//        List<Postcard> postcards = findByYear(Integer.parseInt(year));
+//
+//        if (!CollectionUtils.isEmpty(postcards)) {
+//            for (Postcard card : postcards)
+//                distance += card.getDistance();
+//        }
+//        return distance;
+//    }
 
     public void addPostcard(String postNumber, String country, String name, String description,
                             Long distance, String conditionValue, String dateOfSend,

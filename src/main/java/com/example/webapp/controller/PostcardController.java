@@ -1,82 +1,62 @@
 package com.example.webapp.controller;
 
-import com.example.webapp.service.HandMadePostcardService;
-import com.example.webapp.service.PostcardService;
+import com.example.webapp.dto.PostcardDto;
+import com.example.webapp.model.Postcard;
+import com.example.webapp.service.PostcardServiceInterface;
+import com.example.webapp.service.PostcardUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.*;
 
-import java.text.ParseException;
-import java.util.Map;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
-@Controller
+@RestController
+@RequestMapping(path = "/postcards")
 public class PostcardController {
 
-    private final HandMadePostcardService handMadePostcardService;
-    private final PostcardService postcardService;
+    private static final Logger logger = LoggerFactory.getLogger(PostcardController.class);
+
+    private final PostcardServiceInterface postcardServiceInterface;
 
     @Autowired
-    public PostcardController(PostcardService postcardService,
-                              HandMadePostcardService handMadePostcardService) {
-        this.handMadePostcardService = handMadePostcardService;
-        this.postcardService = postcardService;
+    public PostcardController(@Qualifier("postcardServiceInterfaceImpl") PostcardServiceInterface postcardServiceInterface) {
+        this.postcardServiceInterface = postcardServiceInterface;
     }
 
-    // todo interesting code part
-//    @GetMapping("/greeting")
-//    public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name,
-//                           Map<String, Object> model) {
-//        model.put("name", name);
-//        return "greeting";
-//    }
-
     @GetMapping
-    public String showPostcardList(Map<String, Object> model) {
-//todo: just for log
-//        List list = new ArrayList();
-//        list.add(755);
-//        list.add(855);
-//        list.add(1002);
-//        logger.debug("logger list of arrays{}", list);
-
-        //model.put("postcards", postcardService.findAll());
-        return "main";
+    public List<PostcardDto> postcardList() {
+        return PostcardUtil.mapAll(postcardServiceInterface.findAll(), PostcardDto.class);
     }
 
     @PostMapping
-    public String addPostcard(@RequestParam String postNumber,
-                              @RequestParam String country,
-                              @RequestParam String name,
-                              @RequestParam String description,
-                              @RequestParam Long distance,
-                              @RequestParam String conditionValue,
-                              @RequestParam String dateOfSend,
-                              @RequestParam String dateOfReceive,
-                              Map<String, Object> model) {
-        postcardService.addPostcard(postNumber,
-                country,
-                name,
-                description,
-                distance,
-                conditionValue,
-                dateOfSend,
-                dateOfReceive);
-        showPostcardList(model);
-        return "main";
+    public Postcard createPostcard(@RequestBody PostcardDto postcardDto) {
+        return postcardServiceInterface.save(PostcardUtil.DtoToPostcard(postcardDto));
     }
 
-    @PostMapping("getDistanceYear")
-    public String getDistanceYear(@RequestParam String year, Map<String, Object> model) {
-        model.put("distance", postcardService.getDistance(year));
-        return "main";
+    @GetMapping(path = "/{id}")
+    public Optional<Postcard> getPostcardById(@PathVariable("id") UUID id) {
+        return postcardServiceInterface.findByPostcardId(id);
     }
 
-
-    @PostMapping("filterByDate")
-    public String filterByDate(@RequestParam String dateFrom, @RequestParam String dateTo, Map<String, Object> model) throws ParseException {
-        model.put("cards", postcardService.filter(dateFrom, dateTo));
-        return "main";
+    @PutMapping(path = "/{id}")
+    public Postcard updatePostcard(@PathVariable("id") UUID id,
+                                   @RequestBody PostcardDto postcardDetails) {
+        PostcardDto postcard = PostcardUtil.map(postcardServiceInterface.findByPostcardId(id), PostcardDto.class);
+        postcard.setId(id);
+        postcard.setCountry(postcardDetails.getCountry());
+        postcard.setDateOfSend(postcardDetails.getDateOfSend());
+        postcard.setDateOfReceive(postcardDetails.getDateOfReceive());
+        postcard.setPostNumber(postcardDetails.getPostNumber());
+        postcard.setDistance(postcardDetails.getDistance());
+        postcard.setName(postcardDetails.getName());
+        postcard.setDistance(postcardDetails.getDistance());
+        postcard.setDescription(postcardDetails.getDescription());
+        postcard.setConditionValue(postcardDetails.getConditionValue());
+        final Postcard postcard2 = PostcardUtil.DtoToPostcard(postcard);
+        return postcardServiceInterface.save(postcard2);
     }
 }
