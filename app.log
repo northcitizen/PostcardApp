@@ -6893,3 +6893,959 @@ Caused by: java.sql.SQLFeatureNotSupportedException: Метод org.postgresql.jdbc.P
         postcard0_.post_number as post_num9_0_ 
     from
         postcard postcard0_
+2020-11-18 20:55:54,286 INFO com.example.webapp.Application [restartedMain] Starting Application on DESKTOP-OA58HCE with PID 13276 (C:\Users\Puchok\Desktop\spring-app\postapp\target\classes started by Puchok in C:\Users\Puchok\Desktop\spring-app\postapp)
+2020-11-18 20:55:54,289 DEBUG com.example.webapp.Application [restartedMain] Running with Spring Boot v2.0.0.RELEASE, Spring v5.0.4.RELEASE
+2020-11-18 20:55:54,291 INFO com.example.webapp.Application [restartedMain] No active profile set, falling back to default profiles: default
+2020-11-18 20:55:54,412 INFO org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext [restartedMain] Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@744d0b99: startup date [Wed Nov 18 20:55:54 MSK 2020]; root of context hierarchy
+2020-11-18 20:55:56,974 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$417d9df3] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-11-18 20:55:57,051 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.cache.annotation.ProxyCachingConfiguration' of type [org.springframework.cache.annotation.ProxyCachingConfiguration$$EnhancerBySpringCGLIB$$8a8fd411] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-11-18 20:55:57,631 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2020-11-18 20:55:57,656 INFO org.apache.catalina.core.StandardService [restartedMain] Starting service [Tomcat]
+2020-11-18 20:55:57,657 INFO org.apache.catalina.core.StandardEngine [restartedMain] Starting Servlet Engine: Apache Tomcat/8.5.28
+2020-11-18 20:55:57,663 INFO org.apache.catalina.core.AprLifecycleListener [localhost-startStop-1] The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_261\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Java\jdk-9.0.4\bin;C:\Program Files (x86)\AMD\ATI.ACE\Core-Static;C:\Program Files\Git\cmd;C:\Users\Puchok\AppData\Local\Microsoft\WindowsApps;C:\MinGW\bin;;.]
+2020-11-18 20:55:57,816 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [localhost-startStop-1] Initializing Spring embedded WebApplicationContext
+2020-11-18 20:55:58,130 INFO org.springframework.boot.web.servlet.ServletRegistrationBean [localhost-startStop-1] Servlet dispatcherServlet mapped to [/]
+2020-11-18 20:55:58,136 INFO org.springframework.boot.web.servlet.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-18 20:55:58,137 INFO org.springframework.boot.web.servlet.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2020-11-18 20:55:58,137 INFO org.springframework.boot.web.servlet.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2020-11-18 20:55:58,137 INFO org.springframework.boot.web.servlet.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'requestContextFilter' to: [/*]
+2020-11-18 20:55:58,410 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2020-11-18 20:55:58,548 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2020-11-18 20:55:58,615 INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [restartedMain] Building JPA container EntityManagerFactory for persistence unit 'default'
+2020-11-18 20:55:58,636 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-11-18 20:55:58,924 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.2.14.Final}
+2020-11-18 20:55:58,927 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
+2020-11-18 20:55:59,000 INFO org.hibernate.annotations.common.Version [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2020-11-18 20:55:59,233 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL95Dialect
+2020-11-18 20:55:59,457 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+java.lang.reflect.InvocationTargetException: null
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl.useContextualLobCreation(LobCreatorBuilderImpl.java:113)
+	at org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl.makeLobCreatorBuilder(LobCreatorBuilderImpl.java:54)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentImpl.<init>(JdbcEnvironmentImpl.java:271)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:114)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:88)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:259)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:233)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:210)
+	at org.hibernate.engine.jdbc.internal.JdbcServicesImpl.configure(JdbcServicesImpl.java:51)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.configureService(StandardServiceRegistryImpl.java:94)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:242)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:210)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.handleTypes(MetadataBuildingProcess.java:352)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:111)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:861)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:888)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:57)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:388)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:377)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1769)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1706)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:583)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:502)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:312)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:228)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1085)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:858)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:549)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:388)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1246)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1234)
+	at com.example.webapp.Application.main(Application.java:10)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.sql.SQLFeatureNotSupportedException: Метод org.postgresql.jdbc.PgConnection.createClob() ещё не реализован
+	at org.postgresql.Driver.notImplemented(Driver.java:688)
+	at org.postgresql.jdbc.PgConnection.createClob(PgConnection.java:1269)
+	... 49 common frames omitted
+2020-11-18 20:55:59,460 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@3cfdcefa
+2020-11-18 20:56:00,116 DEBUG org.hibernate.SQL [restartedMain] 
+    
+    drop table if exists postcard cascade
+2020-11-18 20:56:00,133 DEBUG org.hibernate.SQL [restartedMain] 
+    
+    create table postcard (
+       id uuid not null,
+        condition_value varchar(255),
+        country varchar(100),
+        date_of_receive timestamp not null,
+        date_of_send timestamp not null,
+        description varchar(255),
+        distance int8 not null,
+        name varchar(255),
+        post_number varchar(9),
+        primary key (id)
+    )
+2020-11-18 20:56:00,148 INFO org.hibernate.tool.schema.internal.SchemaCreatorImpl [restartedMain] HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@677cf6b2'
+2020-11-18 20:56:00,152 INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-11-18 20:56:00,674 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2020-11-18 20:56:01,851 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-11-18 20:56:02,251 WARN org.springframework.boot.autoconfigure.mustache.MustacheAutoConfiguration [restartedMain] Cannot find template location: classpath:/templates/ (please add some templates, check your Mustache configuration, or set spring.mustache.check-template-location=false)
+2020-11-18 20:56:02,600 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2020-11-18 20:56:02,712 INFO org.springframework.jmx.export.annotation.AnnotationMBeanExporter [restartedMain] Registering beans for JMX exposure on startup
+2020-11-18 20:56:02,714 INFO org.springframework.jmx.export.annotation.AnnotationMBeanExporter [restartedMain] Bean with name 'dataSource' has been autodetected for JMX exposure
+2020-11-18 20:56:02,724 INFO org.springframework.jmx.export.annotation.AnnotationMBeanExporter [restartedMain] Located MBean 'dataSource': registering with JMX server as MBean [com.zaxxer.hikari:name=dataSource,type=HikariDataSource]
+2020-11-18 20:56:02,794 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2020-11-18 20:56:02,798 INFO com.example.webapp.Application [restartedMain] Started Application in 9.205 seconds (JVM running for 11.255)
+2020-11-18 20:56:12,951 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [http-nio-8080-exec-1] Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-18 20:56:13,319 DEBUG org.hibernate.SQL [http-nio-8080-exec-1] 
+    insert 
+    into
+        postcard
+        (condition_value, country, date_of_receive, date_of_send, description, distance, name, post_number, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2020-11-18 20:56:13,326 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-1] binding parameter [1] as [VARCHAR] - [good]
+2020-11-18 20:56:13,327 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-1] binding parameter [2] as [VARCHAR] - [United Kingdom]
+2020-11-18 20:56:13,328 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-1] binding parameter [3] as [TIMESTAMP] - [2020-03-07T00:00]
+2020-11-18 20:56:13,337 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-1] binding parameter [4] as [TIMESTAMP] - [2020-02-19T00:00]
+2020-11-18 20:56:13,337 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-1] binding parameter [5] as [VARCHAR] - [I have bought a new car!]
+2020-11-18 20:56:13,338 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-1] binding parameter [6] as [BIGINT] - [4958]
+2020-11-18 20:56:13,339 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-1] binding parameter [7] as [VARCHAR] - [Tommy]
+2020-11-18 20:56:13,339 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-1] binding parameter [8] as [VARCHAR] - [EN-258741]
+2020-11-18 20:56:13,340 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-1] binding parameter [9] as [OTHER] - [858411d6-230e-4554-90e4-ec9a2c96a976]
+2020-11-18 20:56:30,036 DEBUG org.hibernate.SQL [http-nio-8080-exec-3] 
+    select
+        postcard0_.id as id1_0_,
+        postcard0_.condition_value as conditio2_0_,
+        postcard0_.country as country3_0_,
+        postcard0_.date_of_receive as date_of_4_0_,
+        postcard0_.date_of_send as date_of_5_0_,
+        postcard0_.description as descript6_0_,
+        postcard0_.distance as distance7_0_,
+        postcard0_.name as name8_0_,
+        postcard0_.post_number as post_num9_0_ 
+    from
+        postcard postcard0_ 
+    where
+        postcard0_.id=?
+2020-11-18 20:56:30,038 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [1] as [OTHER] - [858411d6-230e-4554-90e4-ec9a2c96a976]
+2020-11-18 20:56:48,769 DEBUG org.hibernate.SQL [http-nio-8080-exec-5] 
+    select
+        postcard0_.id as id1_0_0_,
+        postcard0_.condition_value as conditio2_0_0_,
+        postcard0_.country as country3_0_0_,
+        postcard0_.date_of_receive as date_of_4_0_0_,
+        postcard0_.date_of_send as date_of_5_0_0_,
+        postcard0_.description as descript6_0_0_,
+        postcard0_.distance as distance7_0_0_,
+        postcard0_.name as name8_0_0_,
+        postcard0_.post_number as post_num9_0_0_ 
+    from
+        postcard postcard0_ 
+    where
+        postcard0_.id=?
+2020-11-18 20:56:48,770 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-5] binding parameter [1] as [OTHER] - [858411d6-230e-4554-90e4-ec9a2c96a976]
+2020-11-18 20:56:48,776 DEBUG org.hibernate.SQL [http-nio-8080-exec-5] 
+    update
+        postcard 
+    set
+        condition_value=?,
+        country=?,
+        date_of_receive=?,
+        date_of_send=?,
+        description=?,
+        distance=?,
+        name=?,
+        post_number=? 
+    where
+        id=?
+2020-11-18 20:56:48,777 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-5] binding parameter [1] as [VARCHAR] - [bad]
+2020-11-18 20:56:48,777 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-5] binding parameter [2] as [VARCHAR] - [United Kingdom]
+2020-11-18 20:56:48,777 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-5] binding parameter [3] as [TIMESTAMP] - [2020-03-07T00:00]
+2020-11-18 20:56:48,778 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-5] binding parameter [4] as [TIMESTAMP] - [2020-02-19T00:00]
+2020-11-18 20:56:48,778 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-5] binding parameter [5] as [VARCHAR] - [What's wrong by that?]
+2020-11-18 20:56:48,779 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-5] binding parameter [6] as [BIGINT] - [4958]
+2020-11-18 20:56:48,780 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-5] binding parameter [7] as [VARCHAR] - [Tommy]
+2020-11-18 20:56:48,780 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-5] binding parameter [8] as [VARCHAR] - [EN-258741]
+2020-11-18 20:56:48,780 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-5] binding parameter [9] as [OTHER] - [858411d6-230e-4554-90e4-ec9a2c96a976]
+2020-11-18 20:57:07,043 DEBUG org.hibernate.SQL [http-nio-8080-exec-6] 
+    select
+        postcard0_.id as id1_0_,
+        postcard0_.condition_value as conditio2_0_,
+        postcard0_.country as country3_0_,
+        postcard0_.date_of_receive as date_of_4_0_,
+        postcard0_.date_of_send as date_of_5_0_,
+        postcard0_.description as descript6_0_,
+        postcard0_.distance as distance7_0_,
+        postcard0_.name as name8_0_,
+        postcard0_.post_number as post_num9_0_ 
+    from
+        postcard postcard0_
+2020-11-18 21:03:54,182 INFO com.example.webapp.Application [restartedMain] Starting Application on DESKTOP-OA58HCE with PID 7240 (C:\Users\Puchok\Desktop\spring-app\postapp\target\classes started by Puchok in C:\Users\Puchok\Desktop\spring-app\postapp)
+2020-11-18 21:03:54,185 DEBUG com.example.webapp.Application [restartedMain] Running with Spring Boot v2.0.0.RELEASE, Spring v5.0.4.RELEASE
+2020-11-18 21:03:54,188 INFO com.example.webapp.Application [restartedMain] No active profile set, falling back to default profiles: default
+2020-11-18 21:03:54,393 INFO org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext [restartedMain] Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1be805b2: startup date [Wed Nov 18 21:03:54 MSK 2020]; root of context hierarchy
+2020-11-18 21:03:56,797 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$824d0e6d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-11-18 21:03:56,845 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.cache.annotation.ProxyCachingConfiguration' of type [org.springframework.cache.annotation.ProxyCachingConfiguration$$EnhancerBySpringCGLIB$$cb5f448b] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-11-18 21:03:57,506 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2020-11-18 21:03:57,535 INFO org.apache.catalina.core.StandardService [restartedMain] Starting service [Tomcat]
+2020-11-18 21:03:57,536 INFO org.apache.catalina.core.StandardEngine [restartedMain] Starting Servlet Engine: Apache Tomcat/8.5.28
+2020-11-18 21:03:57,542 INFO org.apache.catalina.core.AprLifecycleListener [localhost-startStop-1] The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_261\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Java\jdk-9.0.4\bin;C:\Program Files (x86)\AMD\ATI.ACE\Core-Static;C:\Program Files\Git\cmd;C:\Users\Puchok\AppData\Local\Microsoft\WindowsApps;C:\MinGW\bin;;.]
+2020-11-18 21:03:57,682 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [localhost-startStop-1] Initializing Spring embedded WebApplicationContext
+2020-11-18 21:03:57,955 INFO org.springframework.boot.web.servlet.ServletRegistrationBean [localhost-startStop-1] Servlet dispatcherServlet mapped to [/]
+2020-11-18 21:03:57,961 INFO org.springframework.boot.web.servlet.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-18 21:03:57,962 INFO org.springframework.boot.web.servlet.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2020-11-18 21:03:57,963 INFO org.springframework.boot.web.servlet.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2020-11-18 21:03:57,963 INFO org.springframework.boot.web.servlet.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'requestContextFilter' to: [/*]
+2020-11-18 21:03:58,243 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2020-11-18 21:03:58,398 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2020-11-18 21:03:58,480 INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [restartedMain] Building JPA container EntityManagerFactory for persistence unit 'default'
+2020-11-18 21:03:58,497 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-11-18 21:03:58,776 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.2.14.Final}
+2020-11-18 21:03:58,778 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
+2020-11-18 21:03:58,841 INFO org.hibernate.annotations.common.Version [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2020-11-18 21:03:59,084 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL95Dialect
+2020-11-18 21:03:59,296 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+java.lang.reflect.InvocationTargetException: null
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl.useContextualLobCreation(LobCreatorBuilderImpl.java:113)
+	at org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl.makeLobCreatorBuilder(LobCreatorBuilderImpl.java:54)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentImpl.<init>(JdbcEnvironmentImpl.java:271)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:114)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:88)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:259)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:233)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:210)
+	at org.hibernate.engine.jdbc.internal.JdbcServicesImpl.configure(JdbcServicesImpl.java:51)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.configureService(StandardServiceRegistryImpl.java:94)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:242)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:210)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.handleTypes(MetadataBuildingProcess.java:352)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:111)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:861)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:888)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:57)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:388)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:377)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1769)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1706)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:583)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:502)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:312)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:228)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1085)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:858)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:549)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:388)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1246)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1234)
+	at com.example.webapp.Application.main(Application.java:10)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.sql.SQLFeatureNotSupportedException: Метод org.postgresql.jdbc.PgConnection.createClob() ещё не реализован
+	at org.postgresql.Driver.notImplemented(Driver.java:688)
+	at org.postgresql.jdbc.PgConnection.createClob(PgConnection.java:1269)
+	... 49 common frames omitted
+2020-11-18 21:03:59,299 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@b9d58b7
+2020-11-18 21:03:59,935 DEBUG org.hibernate.SQL [restartedMain] 
+    
+    drop table if exists postcard cascade
+2020-11-18 21:03:59,955 DEBUG org.hibernate.SQL [restartedMain] 
+    
+    create table postcard (
+       id uuid not null,
+        condition_value varchar(255),
+        country varchar(100),
+        date_of_receive timestamp not null,
+        date_of_send timestamp not null,
+        description varchar(255),
+        distance int8 not null,
+        name varchar(255),
+        post_number varchar(9),
+        primary key (id)
+    )
+2020-11-18 21:03:59,970 INFO org.hibernate.tool.schema.internal.SchemaCreatorImpl [restartedMain] HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@1cf67e10'
+2020-11-18 21:03:59,973 INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-11-18 21:04:00,595 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2020-11-18 21:04:01,719 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-11-18 21:04:02,051 WARN org.springframework.boot.autoconfigure.mustache.MustacheAutoConfiguration [restartedMain] Cannot find template location: classpath:/templates/ (please add some templates, check your Mustache configuration, or set spring.mustache.check-template-location=false)
+2020-11-18 21:04:02,494 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2020-11-18 21:04:02,592 INFO org.springframework.jmx.export.annotation.AnnotationMBeanExporter [restartedMain] Registering beans for JMX exposure on startup
+2020-11-18 21:04:02,594 INFO org.springframework.jmx.export.annotation.AnnotationMBeanExporter [restartedMain] Bean with name 'dataSource' has been autodetected for JMX exposure
+2020-11-18 21:04:02,604 INFO org.springframework.jmx.export.annotation.AnnotationMBeanExporter [restartedMain] Located MBean 'dataSource': registering with JMX server as MBean [com.zaxxer.hikari:name=dataSource,type=HikariDataSource]
+2020-11-18 21:04:02,652 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2020-11-18 21:04:02,655 INFO com.example.webapp.Application [restartedMain] Started Application in 9.185 seconds (JVM running for 11.114)
+2020-11-18 21:04:14,971 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [http-nio-8080-exec-2] Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-18 21:04:15,379 DEBUG org.hibernate.SQL [http-nio-8080-exec-2] 
+    insert 
+    into
+        postcard
+        (condition_value, country, date_of_receive, date_of_send, description, distance, name, post_number, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2020-11-18 21:04:15,388 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [1] as [VARCHAR] - [good]
+2020-11-18 21:04:15,388 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [2] as [VARCHAR] - [United Kingdom]
+2020-11-18 21:04:15,389 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [3] as [TIMESTAMP] - [2020-03-07T00:00]
+2020-11-18 21:04:15,396 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [4] as [TIMESTAMP] - [2020-02-19T00:00]
+2020-11-18 21:04:15,396 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [5] as [VARCHAR] - [I have bought a new car!]
+2020-11-18 21:04:15,397 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [6] as [BIGINT] - [4958]
+2020-11-18 21:04:15,398 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [7] as [VARCHAR] - [Tommy]
+2020-11-18 21:04:15,399 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [8] as [VARCHAR] - [EN-258741]
+2020-11-18 21:04:15,400 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [9] as [OTHER] - [f9bbc06a-47b5-4c86-868b-0809414a2eec]
+2020-11-18 21:04:28,564 DEBUG org.hibernate.SQL [http-nio-8080-exec-3] 
+    select
+        postcard0_.id as id1_0_,
+        postcard0_.condition_value as conditio2_0_,
+        postcard0_.country as country3_0_,
+        postcard0_.date_of_receive as date_of_4_0_,
+        postcard0_.date_of_send as date_of_5_0_,
+        postcard0_.description as descript6_0_,
+        postcard0_.distance as distance7_0_,
+        postcard0_.name as name8_0_,
+        postcard0_.post_number as post_num9_0_ 
+    from
+        postcard postcard0_
+2020-11-18 21:05:44,685 DEBUG org.hibernate.SQL [http-nio-8080-exec-8] 
+    insert 
+    into
+        postcard
+        (condition_value, country, date_of_receive, date_of_send, description, distance, name, post_number, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2020-11-18 21:05:44,686 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-8] binding parameter [1] as [VARCHAR] - [good]
+2020-11-18 21:05:44,686 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-8] binding parameter [2] as [VARCHAR] - [Germany]
+2020-11-18 21:05:44,697 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-8] binding parameter [3] as [TIMESTAMP] - [2020-03-07T00:00]
+2020-11-18 21:05:44,697 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-8] binding parameter [4] as [TIMESTAMP] - [2020-02-19T00:00]
+2020-11-18 21:05:44,700 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-8] binding parameter [5] as [VARCHAR] - [Hi]
+2020-11-18 21:05:44,701 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-8] binding parameter [6] as [BIGINT] - [2158]
+2020-11-18 21:05:44,701 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-8] binding parameter [7] as [VARCHAR] - [Hans]
+2020-11-18 21:05:44,702 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-8] binding parameter [8] as [VARCHAR] - [GE-258741]
+2020-11-18 21:05:44,702 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-8] binding parameter [9] as [OTHER] - [a4068d8c-37b3-4969-a56f-17006d6f039f]
+2020-11-18 21:05:53,574 DEBUG org.hibernate.SQL [http-nio-8080-exec-10] 
+    select
+        postcard0_.id as id1_0_,
+        postcard0_.condition_value as conditio2_0_,
+        postcard0_.country as country3_0_,
+        postcard0_.date_of_receive as date_of_4_0_,
+        postcard0_.date_of_send as date_of_5_0_,
+        postcard0_.description as descript6_0_,
+        postcard0_.distance as distance7_0_,
+        postcard0_.name as name8_0_,
+        postcard0_.post_number as post_num9_0_ 
+    from
+        postcard postcard0_
+2020-11-18 21:06:15,455 DEBUG org.hibernate.SQL [http-nio-8080-exec-2] 
+    select
+        postcard0_.id as id1_0_,
+        postcard0_.condition_value as conditio2_0_,
+        postcard0_.country as country3_0_,
+        postcard0_.date_of_receive as date_of_4_0_,
+        postcard0_.date_of_send as date_of_5_0_,
+        postcard0_.description as descript6_0_,
+        postcard0_.distance as distance7_0_,
+        postcard0_.name as name8_0_,
+        postcard0_.post_number as post_num9_0_ 
+    from
+        postcard postcard0_ 
+    where
+        postcard0_.id=?
+2020-11-18 21:06:15,456 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [1] as [OTHER] - [f9bbc06a-47b5-4c86-868b-0809414a2eec]
+2020-11-18 21:06:15,478 DEBUG org.hibernate.SQL [http-nio-8080-exec-2] 
+    update
+        postcard 
+    set
+        condition_value=?,
+        country=?,
+        date_of_receive=?,
+        date_of_send=?,
+        description=?,
+        distance=?,
+        name=?,
+        post_number=? 
+    where
+        id=?
+2020-11-18 21:06:15,479 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [1] as [VARCHAR] - [bad]
+2020-11-18 21:06:15,479 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [2] as [VARCHAR] - [United Kingdom]
+2020-11-18 21:06:15,480 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [3] as [TIMESTAMP] - [2020-03-07T00:00]
+2020-11-18 21:06:15,480 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [4] as [TIMESTAMP] - [2020-02-19T00:00]
+2020-11-18 21:06:15,480 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [5] as [VARCHAR] - [What's wrong by that?]
+2020-11-18 21:06:15,481 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [6] as [BIGINT] - [4958]
+2020-11-18 21:06:15,481 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [7] as [VARCHAR] - [Tommy]
+2020-11-18 21:06:15,481 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [8] as [VARCHAR] - [EN-258741]
+2020-11-18 21:06:15,481 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [9] as [OTHER] - [f9bbc06a-47b5-4c86-868b-0809414a2eec]
+2020-11-18 21:06:31,559 DEBUG org.hibernate.SQL [http-nio-8080-exec-3] 
+    select
+        postcard0_.id as id1_0_,
+        postcard0_.condition_value as conditio2_0_,
+        postcard0_.country as country3_0_,
+        postcard0_.date_of_receive as date_of_4_0_,
+        postcard0_.date_of_send as date_of_5_0_,
+        postcard0_.description as descript6_0_,
+        postcard0_.distance as distance7_0_,
+        postcard0_.name as name8_0_,
+        postcard0_.post_number as post_num9_0_ 
+    from
+        postcard postcard0_
+2020-11-18 21:08:38,345 INFO com.example.webapp.Application [restartedMain] Starting Application on DESKTOP-OA58HCE with PID 13708 (C:\Users\Puchok\Desktop\spring-app\postapp\target\classes started by Puchok in C:\Users\Puchok\Desktop\spring-app\postapp)
+2020-11-18 21:08:38,348 DEBUG com.example.webapp.Application [restartedMain] Running with Spring Boot v2.0.0.RELEASE, Spring v5.0.4.RELEASE
+2020-11-18 21:08:38,353 INFO com.example.webapp.Application [restartedMain] No active profile set, falling back to default profiles: default
+2020-11-18 21:08:38,479 INFO org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext [restartedMain] Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@67c7c458: startup date [Wed Nov 18 21:08:38 MSK 2020]; root of context hierarchy
+2020-11-18 21:08:41,022 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$7b0e50d8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-11-18 21:08:41,070 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.cache.annotation.ProxyCachingConfiguration' of type [org.springframework.cache.annotation.ProxyCachingConfiguration$$EnhancerBySpringCGLIB$$c42086f6] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-11-18 21:08:41,626 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2020-11-18 21:08:41,657 INFO org.apache.catalina.core.StandardService [restartedMain] Starting service [Tomcat]
+2020-11-18 21:08:41,658 INFO org.apache.catalina.core.StandardEngine [restartedMain] Starting Servlet Engine: Apache Tomcat/8.5.28
+2020-11-18 21:08:41,665 INFO org.apache.catalina.core.AprLifecycleListener [localhost-startStop-1] The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_261\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Java\jdk-9.0.4\bin;C:\Program Files (x86)\AMD\ATI.ACE\Core-Static;C:\Program Files\Git\cmd;C:\Users\Puchok\AppData\Local\Microsoft\WindowsApps;C:\MinGW\bin;;.]
+2020-11-18 21:08:41,814 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [localhost-startStop-1] Initializing Spring embedded WebApplicationContext
+2020-11-18 21:08:42,072 INFO org.springframework.boot.web.servlet.ServletRegistrationBean [localhost-startStop-1] Servlet dispatcherServlet mapped to [/]
+2020-11-18 21:08:42,077 INFO org.springframework.boot.web.servlet.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-18 21:08:42,078 INFO org.springframework.boot.web.servlet.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2020-11-18 21:08:42,078 INFO org.springframework.boot.web.servlet.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2020-11-18 21:08:42,078 INFO org.springframework.boot.web.servlet.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'requestContextFilter' to: [/*]
+2020-11-18 21:08:42,314 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2020-11-18 21:08:42,442 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2020-11-18 21:08:42,510 INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [restartedMain] Building JPA container EntityManagerFactory for persistence unit 'default'
+2020-11-18 21:08:42,528 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-11-18 21:08:42,775 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.2.14.Final}
+2020-11-18 21:08:42,777 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
+2020-11-18 21:08:42,845 INFO org.hibernate.annotations.common.Version [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2020-11-18 21:08:43,038 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL95Dialect
+2020-11-18 21:08:43,227 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+java.lang.reflect.InvocationTargetException: null
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl.useContextualLobCreation(LobCreatorBuilderImpl.java:113)
+	at org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl.makeLobCreatorBuilder(LobCreatorBuilderImpl.java:54)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentImpl.<init>(JdbcEnvironmentImpl.java:271)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:114)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:88)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:259)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:233)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:210)
+	at org.hibernate.engine.jdbc.internal.JdbcServicesImpl.configure(JdbcServicesImpl.java:51)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.configureService(StandardServiceRegistryImpl.java:94)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:242)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:210)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.handleTypes(MetadataBuildingProcess.java:352)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:111)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:861)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:888)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:57)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:388)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:377)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1769)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1706)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:583)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:502)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:312)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:228)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1085)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:858)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:549)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:388)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1246)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1234)
+	at com.example.webapp.Application.main(Application.java:10)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.sql.SQLFeatureNotSupportedException: Метод org.postgresql.jdbc.PgConnection.createClob() ещё не реализован
+	at org.postgresql.Driver.notImplemented(Driver.java:688)
+	at org.postgresql.jdbc.PgConnection.createClob(PgConnection.java:1269)
+	... 49 common frames omitted
+2020-11-18 21:08:43,230 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@73cd1e36
+2020-11-18 21:08:43,789 DEBUG org.hibernate.SQL [restartedMain] 
+    
+    drop table if exists postcard cascade
+2020-11-18 21:08:43,805 DEBUG org.hibernate.SQL [restartedMain] 
+    
+    create table postcard (
+       id uuid not null,
+        condition_value varchar(255),
+        country varchar(100),
+        date_of_receive timestamp not null,
+        date_of_send timestamp not null,
+        description varchar(255),
+        distance int8 not null,
+        name varchar(255),
+        post_number varchar(9),
+        primary key (id)
+    )
+2020-11-18 21:08:43,818 INFO org.hibernate.tool.schema.internal.SchemaCreatorImpl [restartedMain] HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@3c00c24'
+2020-11-18 21:08:43,821 INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-11-18 21:08:44,305 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2020-11-18 21:08:45,483 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-11-18 21:08:45,831 WARN org.springframework.boot.autoconfigure.mustache.MustacheAutoConfiguration [restartedMain] Cannot find template location: classpath:/templates/ (please add some templates, check your Mustache configuration, or set spring.mustache.check-template-location=false)
+2020-11-18 21:08:46,190 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2020-11-18 21:08:46,300 INFO org.springframework.jmx.export.annotation.AnnotationMBeanExporter [restartedMain] Registering beans for JMX exposure on startup
+2020-11-18 21:08:46,302 INFO org.springframework.jmx.export.annotation.AnnotationMBeanExporter [restartedMain] Bean with name 'dataSource' has been autodetected for JMX exposure
+2020-11-18 21:08:46,312 INFO org.springframework.jmx.export.annotation.AnnotationMBeanExporter [restartedMain] Located MBean 'dataSource': registering with JMX server as MBean [com.zaxxer.hikari:name=dataSource,type=HikariDataSource]
+2020-11-18 21:08:46,370 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2020-11-18 21:08:46,375 INFO com.example.webapp.Application [restartedMain] Started Application in 8.817 seconds (JVM running for 10.85)
+2020-11-18 21:08:56,411 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [http-nio-8080-exec-1] Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-18 21:08:56,784 DEBUG org.hibernate.SQL [http-nio-8080-exec-1] 
+    insert 
+    into
+        postcard
+        (condition_value, country, date_of_receive, date_of_send, description, distance, name, post_number, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2020-11-18 21:08:56,790 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-1] binding parameter [1] as [VARCHAR] - [good]
+2020-11-18 21:08:56,791 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-1] binding parameter [2] as [VARCHAR] - [Germany]
+2020-11-18 21:08:56,792 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-1] binding parameter [3] as [TIMESTAMP] - [2020-03-07T00:00]
+2020-11-18 21:08:56,801 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-1] binding parameter [4] as [TIMESTAMP] - [2020-02-19T00:00]
+2020-11-18 21:08:56,801 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-1] binding parameter [5] as [VARCHAR] - [Hi]
+2020-11-18 21:08:56,802 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-1] binding parameter [6] as [BIGINT] - [2158]
+2020-11-18 21:08:56,803 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-1] binding parameter [7] as [VARCHAR] - [Hans]
+2020-11-18 21:08:56,803 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-1] binding parameter [8] as [VARCHAR] - [GE-258741]
+2020-11-18 21:08:56,804 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-1] binding parameter [9] as [OTHER] - [603bbd6f-3f50-458a-8544-c151ad6ae234]
+2020-11-18 21:09:54,180 DEBUG org.hibernate.SQL [http-nio-8080-exec-3] 
+    select
+        postcard0_.id as id1_0_,
+        postcard0_.condition_value as conditio2_0_,
+        postcard0_.country as country3_0_,
+        postcard0_.date_of_receive as date_of_4_0_,
+        postcard0_.date_of_send as date_of_5_0_,
+        postcard0_.description as descript6_0_,
+        postcard0_.distance as distance7_0_,
+        postcard0_.name as name8_0_,
+        postcard0_.post_number as post_num9_0_ 
+    from
+        postcard postcard0_ 
+    where
+        postcard0_.id=?
+2020-11-18 21:09:54,183 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [1] as [OTHER] - [603bbd6f-3f50-458a-8544-c151ad6ae234]
+2020-11-18 21:09:54,261 DEBUG org.hibernate.SQL [http-nio-8080-exec-3] 
+    update
+        postcard 
+    set
+        condition_value=?,
+        country=?,
+        date_of_receive=?,
+        date_of_send=?,
+        description=?,
+        distance=?,
+        name=?,
+        post_number=? 
+    where
+        id=?
+2020-11-18 21:09:54,261 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [1] as [VARCHAR] - [bad]
+2020-11-18 21:09:54,262 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [2] as [VARCHAR] - [United Kingdom]
+2020-11-18 21:09:54,262 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [3] as [TIMESTAMP] - [2020-03-07T00:00]
+2020-11-18 21:09:54,263 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [4] as [TIMESTAMP] - [2020-02-19T00:00]
+2020-11-18 21:09:54,263 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [5] as [VARCHAR] - [What's wrong by that?]
+2020-11-18 21:09:54,264 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [6] as [BIGINT] - [4958]
+2020-11-18 21:09:54,264 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [7] as [VARCHAR] - [Tommy]
+2020-11-18 21:09:54,264 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [8] as [VARCHAR] - [EN-258741]
+2020-11-18 21:09:54,264 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [9] as [OTHER] - [603bbd6f-3f50-458a-8544-c151ad6ae234]
+2020-11-18 21:10:08,713 DEBUG org.hibernate.SQL [http-nio-8080-exec-4] 
+    select
+        postcard0_.id as id1_0_,
+        postcard0_.condition_value as conditio2_0_,
+        postcard0_.country as country3_0_,
+        postcard0_.date_of_receive as date_of_4_0_,
+        postcard0_.date_of_send as date_of_5_0_,
+        postcard0_.description as descript6_0_,
+        postcard0_.distance as distance7_0_,
+        postcard0_.name as name8_0_,
+        postcard0_.post_number as post_num9_0_ 
+    from
+        postcard postcard0_
+2020-11-18 21:11:53,096 INFO com.example.webapp.Application [restartedMain] Starting Application on DESKTOP-OA58HCE with PID 8636 (C:\Users\Puchok\Desktop\spring-app\postapp\target\classes started by Puchok in C:\Users\Puchok\Desktop\spring-app\postapp)
+2020-11-18 21:11:53,099 DEBUG com.example.webapp.Application [restartedMain] Running with Spring Boot v2.0.0.RELEASE, Spring v5.0.4.RELEASE
+2020-11-18 21:11:53,102 INFO com.example.webapp.Application [restartedMain] No active profile set, falling back to default profiles: default
+2020-11-18 21:11:53,251 INFO org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext [restartedMain] Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@647384a4: startup date [Wed Nov 18 21:11:53 MSK 2020]; root of context hierarchy
+2020-11-18 21:11:55,817 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$d7ba904c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-11-18 21:11:55,866 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.cache.annotation.ProxyCachingConfiguration' of type [org.springframework.cache.annotation.ProxyCachingConfiguration$$EnhancerBySpringCGLIB$$20ccc66a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-11-18 21:11:56,492 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2020-11-18 21:11:56,523 INFO org.apache.catalina.core.StandardService [restartedMain] Starting service [Tomcat]
+2020-11-18 21:11:56,523 INFO org.apache.catalina.core.StandardEngine [restartedMain] Starting Servlet Engine: Apache Tomcat/8.5.28
+2020-11-18 21:11:56,530 INFO org.apache.catalina.core.AprLifecycleListener [localhost-startStop-1] The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_261\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Java\jdk-9.0.4\bin;C:\Program Files (x86)\AMD\ATI.ACE\Core-Static;C:\Program Files\Git\cmd;C:\Users\Puchok\AppData\Local\Microsoft\WindowsApps;C:\MinGW\bin;;.]
+2020-11-18 21:11:56,671 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [localhost-startStop-1] Initializing Spring embedded WebApplicationContext
+2020-11-18 21:11:56,903 INFO org.springframework.boot.web.servlet.ServletRegistrationBean [localhost-startStop-1] Servlet dispatcherServlet mapped to [/]
+2020-11-18 21:11:56,909 INFO org.springframework.boot.web.servlet.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-18 21:11:56,909 INFO org.springframework.boot.web.servlet.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2020-11-18 21:11:56,909 INFO org.springframework.boot.web.servlet.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2020-11-18 21:11:56,909 INFO org.springframework.boot.web.servlet.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'requestContextFilter' to: [/*]
+2020-11-18 21:11:57,177 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2020-11-18 21:11:57,326 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2020-11-18 21:11:57,409 INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [restartedMain] Building JPA container EntityManagerFactory for persistence unit 'default'
+2020-11-18 21:11:57,433 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-11-18 21:11:57,727 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.2.14.Final}
+2020-11-18 21:11:57,730 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
+2020-11-18 21:11:57,792 INFO org.hibernate.annotations.common.Version [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2020-11-18 21:11:57,978 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL95Dialect
+2020-11-18 21:11:58,194 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+java.lang.reflect.InvocationTargetException: null
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl.useContextualLobCreation(LobCreatorBuilderImpl.java:113)
+	at org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl.makeLobCreatorBuilder(LobCreatorBuilderImpl.java:54)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentImpl.<init>(JdbcEnvironmentImpl.java:271)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:114)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:88)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:259)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:233)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:210)
+	at org.hibernate.engine.jdbc.internal.JdbcServicesImpl.configure(JdbcServicesImpl.java:51)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.configureService(StandardServiceRegistryImpl.java:94)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:242)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:210)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.handleTypes(MetadataBuildingProcess.java:352)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:111)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:861)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:888)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:57)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:388)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:377)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1769)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1706)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:583)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:502)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:312)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:228)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1085)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:858)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:549)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:388)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1246)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1234)
+	at com.example.webapp.Application.main(Application.java:10)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.sql.SQLFeatureNotSupportedException: Метод org.postgresql.jdbc.PgConnection.createClob() ещё не реализован
+	at org.postgresql.Driver.notImplemented(Driver.java:688)
+	at org.postgresql.jdbc.PgConnection.createClob(PgConnection.java:1269)
+	... 49 common frames omitted
+2020-11-18 21:11:58,198 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@74f29c67
+2020-11-18 21:11:58,844 DEBUG org.hibernate.SQL [restartedMain] 
+    
+    drop table if exists postcard cascade
+2020-11-18 21:11:58,860 DEBUG org.hibernate.SQL [restartedMain] 
+    
+    create table postcard (
+       id uuid not null,
+        condition_value varchar(255),
+        country varchar(100),
+        date_of_receive timestamp not null,
+        date_of_send timestamp not null,
+        description varchar(255),
+        distance int8 not null,
+        name varchar(255),
+        post_number varchar(9),
+        primary key (id)
+    )
+2020-11-18 21:11:58,873 INFO org.hibernate.tool.schema.internal.SchemaCreatorImpl [restartedMain] HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@7273e777'
+2020-11-18 21:11:58,876 INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-11-18 21:11:59,433 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2020-11-18 21:12:00,611 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-11-18 21:12:00,898 WARN org.springframework.boot.autoconfigure.mustache.MustacheAutoConfiguration [restartedMain] Cannot find template location: classpath:/templates/ (please add some templates, check your Mustache configuration, or set spring.mustache.check-template-location=false)
+2020-11-18 21:12:01,342 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2020-11-18 21:12:01,466 INFO org.springframework.jmx.export.annotation.AnnotationMBeanExporter [restartedMain] Registering beans for JMX exposure on startup
+2020-11-18 21:12:01,468 INFO org.springframework.jmx.export.annotation.AnnotationMBeanExporter [restartedMain] Bean with name 'dataSource' has been autodetected for JMX exposure
+2020-11-18 21:12:01,479 INFO org.springframework.jmx.export.annotation.AnnotationMBeanExporter [restartedMain] Located MBean 'dataSource': registering with JMX server as MBean [com.zaxxer.hikari:name=dataSource,type=HikariDataSource]
+2020-11-18 21:12:01,538 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2020-11-18 21:12:01,542 INFO com.example.webapp.Application [restartedMain] Started Application in 9.111 seconds (JVM running for 11.042)
+2020-11-18 21:12:14,275 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [http-nio-8080-exec-2] Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-18 21:12:14,648 DEBUG org.hibernate.SQL [http-nio-8080-exec-2] 
+    insert 
+    into
+        postcard
+        (condition_value, country, date_of_receive, date_of_send, description, distance, name, post_number, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2020-11-18 21:12:14,657 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [1] as [VARCHAR] - [good]
+2020-11-18 21:12:14,658 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [2] as [VARCHAR] - [Germany]
+2020-11-18 21:12:14,659 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [3] as [TIMESTAMP] - [2020-03-07T00:00]
+2020-11-18 21:12:14,670 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [4] as [TIMESTAMP] - [2020-02-19T00:00]
+2020-11-18 21:12:14,670 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [5] as [VARCHAR] - [Hi]
+2020-11-18 21:12:14,671 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [6] as [BIGINT] - [2158]
+2020-11-18 21:12:14,672 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [7] as [VARCHAR] - [Hans]
+2020-11-18 21:12:14,673 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [8] as [VARCHAR] - [GE-258741]
+2020-11-18 21:12:14,674 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [9] as [OTHER] - [5fb0c90d-6f1f-4020-bac6-067957e0c317]
+2020-11-18 21:12:49,703 DEBUG org.hibernate.SQL [http-nio-8080-exec-3] 
+    select
+        postcard0_.id as id1_0_,
+        postcard0_.condition_value as conditio2_0_,
+        postcard0_.country as country3_0_,
+        postcard0_.date_of_receive as date_of_4_0_,
+        postcard0_.date_of_send as date_of_5_0_,
+        postcard0_.description as descript6_0_,
+        postcard0_.distance as distance7_0_,
+        postcard0_.name as name8_0_,
+        postcard0_.post_number as post_num9_0_ 
+    from
+        postcard postcard0_ 
+    where
+        postcard0_.id=?
+2020-11-18 21:12:49,705 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [1] as [OTHER] - [5fb0c90d-6f1f-4020-bac6-067957e0c317]
+2020-11-18 21:12:49,773 DEBUG org.hibernate.SQL [http-nio-8080-exec-3] 
+    update
+        postcard 
+    set
+        condition_value=?,
+        country=?,
+        date_of_receive=?,
+        date_of_send=?,
+        description=?,
+        distance=?,
+        name=?,
+        post_number=? 
+    where
+        id=?
+2020-11-18 21:12:49,773 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [1] as [VARCHAR] - [bad]
+2020-11-18 21:12:49,774 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [2] as [VARCHAR] - [United Kingdom]
+2020-11-18 21:12:49,774 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [3] as [TIMESTAMP] - [2020-03-07T00:00]
+2020-11-18 21:12:49,774 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [4] as [TIMESTAMP] - [2020-02-19T00:00]
+2020-11-18 21:12:49,775 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [5] as [VARCHAR] - [What's wrong by that?]
+2020-11-18 21:12:49,775 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [6] as [BIGINT] - [4958]
+2020-11-18 21:12:49,775 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [7] as [VARCHAR] - [Tommy]
+2020-11-18 21:12:49,775 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [8] as [VARCHAR] - [EN-258741]
+2020-11-18 21:12:49,775 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [9] as [OTHER] - [5fb0c90d-6f1f-4020-bac6-067957e0c317]
+2020-11-18 21:17:39,380 INFO com.example.webapp.Application [restartedMain] Starting Application on DESKTOP-OA58HCE with PID 3408 (C:\Users\Puchok\Desktop\spring-app\postapp\target\classes started by Puchok in C:\Users\Puchok\Desktop\spring-app\postapp)
+2020-11-18 21:17:39,382 DEBUG com.example.webapp.Application [restartedMain] Running with Spring Boot v2.0.0.RELEASE, Spring v5.0.4.RELEASE
+2020-11-18 21:17:39,385 INFO com.example.webapp.Application [restartedMain] No active profile set, falling back to default profiles: default
+2020-11-18 21:17:39,526 INFO org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext [restartedMain] Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@3a06e015: startup date [Wed Nov 18 21:17:39 MSK 2020]; root of context hierarchy
+2020-11-18 21:17:42,050 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$92934735] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-11-18 21:17:42,099 INFO org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [restartedMain] Bean 'org.springframework.cache.annotation.ProxyCachingConfiguration' of type [org.springframework.cache.annotation.ProxyCachingConfiguration$$EnhancerBySpringCGLIB$$dba57d53] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-11-18 21:17:42,738 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2020-11-18 21:17:42,769 INFO org.apache.catalina.core.StandardService [restartedMain] Starting service [Tomcat]
+2020-11-18 21:17:42,770 INFO org.apache.catalina.core.StandardEngine [restartedMain] Starting Servlet Engine: Apache Tomcat/8.5.28
+2020-11-18 21:17:42,775 INFO org.apache.catalina.core.AprLifecycleListener [localhost-startStop-1] The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_261\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\Program Files\Java\jdk-9.0.4\bin;C:\Program Files (x86)\AMD\ATI.ACE\Core-Static;C:\Program Files\Git\cmd;C:\Users\Puchok\AppData\Local\Microsoft\WindowsApps;C:\MinGW\bin;;.]
+2020-11-18 21:17:42,918 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [localhost-startStop-1] Initializing Spring embedded WebApplicationContext
+2020-11-18 21:17:43,143 INFO org.springframework.boot.web.servlet.ServletRegistrationBean [localhost-startStop-1] Servlet dispatcherServlet mapped to [/]
+2020-11-18 21:17:43,148 INFO org.springframework.boot.web.servlet.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-11-18 21:17:43,149 INFO org.springframework.boot.web.servlet.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2020-11-18 21:17:43,149 INFO org.springframework.boot.web.servlet.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2020-11-18 21:17:43,149 INFO org.springframework.boot.web.servlet.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'requestContextFilter' to: [/*]
+2020-11-18 21:17:43,425 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2020-11-18 21:17:43,589 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2020-11-18 21:17:43,678 INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [restartedMain] Building JPA container EntityManagerFactory for persistence unit 'default'
+2020-11-18 21:17:43,701 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2020-11-18 21:17:43,981 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.2.14.Final}
+2020-11-18 21:17:43,984 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
+2020-11-18 21:17:44,050 INFO org.hibernate.annotations.common.Version [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2020-11-18 21:17:44,252 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL95Dialect
+2020-11-18 21:17:44,468 INFO org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl [restartedMain] HHH000424: Disabling contextual LOB creation as createClob() method threw error : java.lang.reflect.InvocationTargetException
+java.lang.reflect.InvocationTargetException: null
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl.useContextualLobCreation(LobCreatorBuilderImpl.java:113)
+	at org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl.makeLobCreatorBuilder(LobCreatorBuilderImpl.java:54)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentImpl.<init>(JdbcEnvironmentImpl.java:271)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:114)
+	at org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator.initiateService(JdbcEnvironmentInitiator.java:35)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.initiateService(StandardServiceRegistryImpl.java:88)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.createService(AbstractServiceRegistryImpl.java:259)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:233)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:210)
+	at org.hibernate.engine.jdbc.internal.JdbcServicesImpl.configure(JdbcServicesImpl.java:51)
+	at org.hibernate.boot.registry.internal.StandardServiceRegistryImpl.configureService(StandardServiceRegistryImpl.java:94)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.initializeService(AbstractServiceRegistryImpl.java:242)
+	at org.hibernate.service.internal.AbstractServiceRegistryImpl.getService(AbstractServiceRegistryImpl.java:210)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.handleTypes(MetadataBuildingProcess.java:352)
+	at org.hibernate.boot.model.process.spi.MetadataBuildingProcess.complete(MetadataBuildingProcess.java:111)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.metadata(EntityManagerFactoryBuilderImpl.java:861)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:888)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:57)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:365)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:388)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:377)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:341)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1769)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1706)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:583)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:502)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:312)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:228)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:310)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1085)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:858)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:549)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:388)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:327)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1246)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1234)
+	at com.example.webapp.Application.main(Application.java:10)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.sql.SQLFeatureNotSupportedException: Метод org.postgresql.jdbc.PgConnection.createClob() ещё не реализован
+	at org.postgresql.Driver.notImplemented(Driver.java:688)
+	at org.postgresql.jdbc.PgConnection.createClob(PgConnection.java:1269)
+	... 49 common frames omitted
+2020-11-18 21:17:44,471 INFO org.hibernate.type.BasicTypeRegistry [restartedMain] HHH000270: Type registration [java.util.UUID] overrides previous : org.hibernate.type.UUIDBinaryType@469d516a
+2020-11-18 21:17:45,091 DEBUG org.hibernate.SQL [restartedMain] 
+    
+    drop table if exists postcard cascade
+2020-11-18 21:17:45,106 DEBUG org.hibernate.SQL [restartedMain] 
+    
+    create table postcard (
+       id uuid not null,
+        condition_value varchar(255),
+        country varchar(100),
+        date_of_receive timestamp not null,
+        date_of_send timestamp not null,
+        description varchar(255),
+        distance int8 not null,
+        name varchar(255),
+        post_number varchar(9),
+        primary key (id)
+    )
+2020-11-18 21:17:45,124 INFO org.hibernate.tool.schema.internal.SchemaCreatorImpl [restartedMain] HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@1a1407ee'
+2020-11-18 21:17:45,127 INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-11-18 21:17:45,727 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2020-11-18 21:17:46,869 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration$JpaWebMvcConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-11-18 21:17:47,162 WARN org.springframework.boot.autoconfigure.mustache.MustacheAutoConfiguration [restartedMain] Cannot find template location: classpath:/templates/ (please add some templates, check your Mustache configuration, or set spring.mustache.check-template-location=false)
+2020-11-18 21:17:47,611 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2020-11-18 21:17:47,740 INFO org.springframework.jmx.export.annotation.AnnotationMBeanExporter [restartedMain] Registering beans for JMX exposure on startup
+2020-11-18 21:17:47,742 INFO org.springframework.jmx.export.annotation.AnnotationMBeanExporter [restartedMain] Bean with name 'dataSource' has been autodetected for JMX exposure
+2020-11-18 21:17:47,754 INFO org.springframework.jmx.export.annotation.AnnotationMBeanExporter [restartedMain] Located MBean 'dataSource': registering with JMX server as MBean [com.zaxxer.hikari:name=dataSource,type=HikariDataSource]
+2020-11-18 21:17:47,800 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2020-11-18 21:17:47,804 INFO com.example.webapp.Application [restartedMain] Started Application in 9.148 seconds (JVM running for 11.024)
+2020-11-18 21:18:02,772 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [http-nio-8080-exec-2] Initializing Spring FrameworkServlet 'dispatcherServlet'
+2020-11-18 21:18:03,262 DEBUG org.hibernate.SQL [http-nio-8080-exec-2] 
+    insert 
+    into
+        postcard
+        (condition_value, country, date_of_receive, date_of_send, description, distance, name, post_number, id) 
+    values
+        (?, ?, ?, ?, ?, ?, ?, ?, ?)
+2020-11-18 21:18:03,270 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [1] as [VARCHAR] - [good]
+2020-11-18 21:18:03,271 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [2] as [VARCHAR] - [Germany]
+2020-11-18 21:18:03,272 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [3] as [TIMESTAMP] - [2020-03-07T00:00]
+2020-11-18 21:18:03,280 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [4] as [TIMESTAMP] - [2020-02-19T00:00]
+2020-11-18 21:18:03,281 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [5] as [VARCHAR] - [Hi]
+2020-11-18 21:18:03,282 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [6] as [BIGINT] - [2158]
+2020-11-18 21:18:03,283 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [7] as [VARCHAR] - [Hans]
+2020-11-18 21:18:03,284 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [8] as [VARCHAR] - [GE-258741]
+2020-11-18 21:18:03,285 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-2] binding parameter [9] as [OTHER] - [1a6fbbb3-7a90-4a5c-ab26-c95873e7b28c]
+2020-11-18 21:18:21,155 DEBUG org.hibernate.SQL [http-nio-8080-exec-3] 
+    select
+        postcard0_.id as id1_0_,
+        postcard0_.condition_value as conditio2_0_,
+        postcard0_.country as country3_0_,
+        postcard0_.date_of_receive as date_of_4_0_,
+        postcard0_.date_of_send as date_of_5_0_,
+        postcard0_.description as descript6_0_,
+        postcard0_.distance as distance7_0_,
+        postcard0_.name as name8_0_,
+        postcard0_.post_number as post_num9_0_ 
+    from
+        postcard postcard0_ 
+    where
+        postcard0_.id=?
+2020-11-18 21:18:21,158 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-3] binding parameter [1] as [OTHER] - [1a6fbbb3-7a90-4a5c-ab26-c95873e7b28c]
+2020-11-18 21:19:07,967 DEBUG org.hibernate.SQL [http-nio-8080-exec-5] 
+    select
+        postcard0_.id as id1_0_0_,
+        postcard0_.condition_value as conditio2_0_0_,
+        postcard0_.country as country3_0_0_,
+        postcard0_.date_of_receive as date_of_4_0_0_,
+        postcard0_.date_of_send as date_of_5_0_0_,
+        postcard0_.description as descript6_0_0_,
+        postcard0_.distance as distance7_0_0_,
+        postcard0_.name as name8_0_0_,
+        postcard0_.post_number as post_num9_0_0_ 
+    from
+        postcard postcard0_ 
+    where
+        postcard0_.id=?
+2020-11-18 21:19:07,968 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-5] binding parameter [1] as [OTHER] - [1a6fbbb3-7a90-4a5c-ab26-c95873e7b28c]
+2020-11-18 21:19:07,973 DEBUG org.hibernate.SQL [http-nio-8080-exec-5] 
+    update
+        postcard 
+    set
+        condition_value=?,
+        country=?,
+        date_of_receive=?,
+        date_of_send=?,
+        description=?,
+        distance=?,
+        name=?,
+        post_number=? 
+    where
+        id=?
+2020-11-18 21:19:07,973 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-5] binding parameter [1] as [VARCHAR] - [bad]
+2020-11-18 21:19:07,974 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-5] binding parameter [2] as [VARCHAR] - [United Kingdom]
+2020-11-18 21:19:07,974 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-5] binding parameter [3] as [TIMESTAMP] - [2020-03-07T00:00]
+2020-11-18 21:19:07,974 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-5] binding parameter [4] as [TIMESTAMP] - [2020-02-19T00:00]
+2020-11-18 21:19:07,975 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-5] binding parameter [5] as [VARCHAR] - [What's wrong by that?]
+2020-11-18 21:19:07,975 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-5] binding parameter [6] as [BIGINT] - [4958]
+2020-11-18 21:19:07,975 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-5] binding parameter [7] as [VARCHAR] - [Tommy]
+2020-11-18 21:19:07,976 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-5] binding parameter [8] as [VARCHAR] - [EN-258741]
+2020-11-18 21:19:07,976 TRACE org.hibernate.type.descriptor.sql.BasicBinder [http-nio-8080-exec-5] binding parameter [9] as [OTHER] - [1a6fbbb3-7a90-4a5c-ab26-c95873e7b28c]
+2020-11-18 21:19:17,559 DEBUG org.hibernate.SQL [http-nio-8080-exec-6] 
+    select
+        postcard0_.id as id1_0_,
+        postcard0_.condition_value as conditio2_0_,
+        postcard0_.country as country3_0_,
+        postcard0_.date_of_receive as date_of_4_0_,
+        postcard0_.date_of_send as date_of_5_0_,
+        postcard0_.description as descript6_0_,
+        postcard0_.distance as distance7_0_,
+        postcard0_.name as name8_0_,
+        postcard0_.post_number as post_num9_0_ 
+    from
+        postcard postcard0_
