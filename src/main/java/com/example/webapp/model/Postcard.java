@@ -55,7 +55,8 @@ public class Postcard {
     private Long distance;
 
     @Column
-    private String conditionValue;
+    @Enumerated(EnumType.STRING)
+    private PostcardStatus status;
 
     @Column
     @NotNull

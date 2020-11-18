@@ -11,7 +11,7 @@ public class PostcardBuilder {
     private String name;
     private String description;
     private Long distance;
-    private String conditionValue;
+    private PostcardStatus status;
     private LocalDateTime dateOfSend;
     private LocalDateTime dateOfReceive;
 
@@ -45,8 +45,8 @@ public class PostcardBuilder {
         return this;
     }
 
-    public PostcardBuilder setConditionValue(String conditionValue) {
-        this.conditionValue = conditionValue;
+    public PostcardBuilder setConditionValue(PostcardStatus status) {
+        this.status = status;
         return this;
     }
 
@@ -62,7 +62,7 @@ public class PostcardBuilder {
 
     public Postcard getPostcard() {
         return new Postcard(id, postNumber, country, name,
-                description, distance, conditionValue,
+                description, distance, status,
                 dateOfSend, dateOfReceive);
     }
 }
