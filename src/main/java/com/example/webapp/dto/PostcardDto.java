@@ -1,7 +1,14 @@
 package com.example.webapp.dto;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.UUID;
 
+@Setter
+@Getter
+@NoArgsConstructor
 public class PostcardDto {
 
     private UUID id;
@@ -13,81 +20,6 @@ public class PostcardDto {
     private String conditionValue;
     private String dateOfSend;
     private String dateOfReceive;
-
-    public PostcardDto() {
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setPostNumber(String postNumber) {
-        this.postNumber = postNumber;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setDistance(Long distance) {
-        this.distance = distance;
-    }
-
-    public void setConditionValue(String conditionValue) {
-        this.conditionValue = conditionValue;
-    }
-
-    public void setDateOfSend(String dateOfSend) {
-        this.dateOfSend = dateOfSend;
-    }
-
-    public void setDateOfReceive(String dateOfReceive) {
-        this.dateOfReceive = dateOfReceive;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Long getDistance() {
-        return distance;
-    }
-
-    public String getConditionValue() {
-        return conditionValue;
-    }
-
-    public String getDateOfSend() {
-        return dateOfSend;
-    }
-
-    public String getDateOfReceive() {
-        return dateOfReceive;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public String getPostNumber() {
-        return postNumber;
-    }
 
     public static class Builder {
         //required parameters

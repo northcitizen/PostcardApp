@@ -2,7 +2,7 @@ package com.example.webapp.service.impl;
 
 import com.example.webapp.model.Postcard;
 import com.example.webapp.repository.PostcardRepository;
-import com.example.webapp.service.PostcardServiceInterface;
+import com.example.webapp.service.PostcardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class PostcardServiceInterfaceImpl implements PostcardServiceInterface {
+public class PostcardServiceImpl implements PostcardService {
 
     @Autowired
     CacheManager cacheManager;
@@ -22,7 +22,7 @@ public class PostcardServiceInterfaceImpl implements PostcardServiceInterface {
     final PostcardRepository postcardRepository;
 
     @Autowired
-    public PostcardServiceInterfaceImpl(PostcardRepository postcardRepository) {
+    public PostcardServiceImpl(PostcardRepository postcardRepository) {
         this.postcardRepository = postcardRepository;
     }
 

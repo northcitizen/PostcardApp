@@ -15,7 +15,6 @@ public class PostcardBuilder {
     private LocalDateTime dateOfSend;
     private LocalDateTime dateOfReceive;
 
-
     public PostcardBuilder setId(UUID id) {
         this.id = id;
         return this;

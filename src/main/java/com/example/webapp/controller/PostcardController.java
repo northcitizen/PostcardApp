@@ -2,12 +2,11 @@ package com.example.webapp.controller;
 
 import com.example.webapp.dto.PostcardDto;
 import com.example.webapp.model.Postcard;
-import com.example.webapp.service.PostcardServiceInterface;
+import com.example.webapp.service.PostcardService;
 import com.example.webapp.service.PostcardUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,32 +19,32 @@ public class PostcardController {
 
     private static final Logger logger = LoggerFactory.getLogger(PostcardController.class);
 
-    private final PostcardServiceInterface postcardServiceInterface;
+    private final PostcardService postcardService;
 
     @Autowired
-    public PostcardController(@Qualifier("postcardServiceInterfaceImpl") PostcardServiceInterface postcardServiceInterface) {
-        this.postcardServiceInterface = postcardServiceInterface;
+    public PostcardController(PostcardService postcardService) {
+        this.postcardService = postcardService;
     }
 
     @GetMapping
     public List<PostcardDto> postcardList() {
-        return PostcardUtil.mapAll(postcardServiceInterface.findAll(), PostcardDto.class);
+        return PostcardUtil.mapAll(postcardService.findAll(), PostcardDto.class);
     }
 
     @PostMapping
     public Postcard createPostcard(@RequestBody PostcardDto postcardDto) {
-        return postcardServiceInterface.save(PostcardUtil.DtoToPostcard(postcardDto));
+        return postcardService.save(PostcardUtil.DtoToPostcard(postcardDto));
     }
 
     @GetMapping(path = "/{id}")
     public Optional<Postcard> getPostcardById(@PathVariable("id") UUID id) {
-        return postcardServiceInterface.findByPostcardId(id);
+        return postcardService.findByPostcardId(id);
     }
 
     @PutMapping(path = "/{id}")
     public Postcard updatePostcard(@PathVariable("id") UUID id,
                                    @RequestBody PostcardDto postcardDetails) {
-        PostcardDto postcard = PostcardUtil.map(postcardServiceInterface.findByPostcardId(id), PostcardDto.class);
+        PostcardDto postcard = PostcardUtil.map(postcardService.findByPostcardId(id), PostcardDto.class);
         postcard.setId(id);
         postcard.setCountry(postcardDetails.getCountry());
         postcard.setDateOfSend(postcardDetails.getDateOfSend());
@@ -57,6 +56,6 @@ public class PostcardController {
         postcard.setDescription(postcardDetails.getDescription());
         postcard.setConditionValue(postcardDetails.getConditionValue());
         final Postcard postcard2 = PostcardUtil.DtoToPostcard(postcard);
-        return postcardServiceInterface.save(postcard2);
+        return postcardService.save(postcard2);
     }
 }
