@@ -41,16 +41,15 @@ public class PostcardController {
         return PostcardUtil.mapAll(postcardService.findAll(), PostcardDto.class);
     }
 
-    //35424540-3cf9-44fd-bee9-ff4e3031fce5
     @PostMapping
     public Postcard createPostcard(@RequestBody PostcardDto postcardDto) {
         User user = new User();
 
         //user - it is parent
-        user.setUser_id(postcardDto.getUser().getUser_id());//-
-        user.setFirstName("v");
-        user.setLastName("b");
-        user.setEmail("vb@gmail.com");
+        user.setUser_id(postcardDto.getUser().getUser_id());
+        user.setFirstName(postcardDto.getUser().getFirstName());
+        user.setLastName(postcardDto.getUser().getLastName());
+        user.setEmail(postcardDto.getUser().getEmail());
 
         //postcard - it is child
         postcardDto.setStatus(PostcardStatus.TRAVELLING);
