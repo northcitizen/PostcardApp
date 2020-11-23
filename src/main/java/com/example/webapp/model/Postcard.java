@@ -1,10 +1,7 @@
 package com.example.webapp.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,6 +19,7 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 public class Postcard {
 
     static final int MAX_COUNTRY_SIZE = 100;
@@ -29,18 +27,18 @@ public class Postcard {
     static final int POST_NUMBER_SIZE = 9;
 
     @Id
-    @GeneratedValue(generator = "UUID", strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "UUID", strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
     @Column
-    @NotBlank(message = "Field postnumber can not be blank")
+    @NotBlank(message = "Field 'post number' can not be blank")
     @Size(min = POST_NUMBER_SIZE, max = POST_NUMBER_SIZE)
     private String postNumber;
 
     @Column
-    @NotBlank(message = "Field country can not be blank")
+    @NotBlank(message = "Field 'country' can not be blank")
     @Size(min = MIN_COUNTRY_SIZE, max = MAX_COUNTRY_SIZE)
     private String country;
 
@@ -51,7 +49,7 @@ public class Postcard {
     private String description;
 
     @Column
-    @NotNull(message = "Field distance can not be blank")
+    @NotNull(message = "Field 'distance' can not be blank")
     private Long distance;
 
     @Column
@@ -62,11 +60,15 @@ public class Postcard {
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(pattern = "yyyy/MM/dd")
-    private LocalDateTime dateOfSend;
+    private LocalDateTime sendDate;
 
     @Column
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(pattern = "yyyy/MM/dd")
-    private LocalDateTime dateOfReceive;
+    private LocalDateTime receiveDate;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "user_id")
+    private User user;
 }

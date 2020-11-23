@@ -1,6 +1,7 @@
 package com.example.webapp.dto;
 
 import com.example.webapp.model.PostcardStatus;
+import com.example.webapp.model.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,16 +20,18 @@ public class PostcardDto {
     private String description;
     private Long distance;
     private PostcardStatus status;
-    private String dateOfSend;
-    private String dateOfReceive;
+    private String sendDate;
+    private String receiveDate;
+    private User user;
 
     public static class Builder {
         //required parameters
         private final UUID id;
         private final String postNumber;
         private final String country;
-        private final String dateOfSend;
-        private final String dateOfReceive;
+        private final String sendDate;
+        private final String receiveDate;
+        private final User user;
         //default parameters
         private String name = "name not set";
         private String description = "none";
@@ -36,12 +39,13 @@ public class PostcardDto {
         private PostcardStatus status = PostcardStatus.TRAVELLING;
 
         public Builder(UUID id, String setPostNumber, String setCountry,
-                       String setSendDate, String setReceiveDate) {
+                       String setSendDate, String setReceiveDate, User user) {
             this.id = id;
             this.postNumber = setPostNumber;
             this.country = setCountry;
-            this.dateOfSend = setSendDate;
-            this.dateOfReceive = setReceiveDate;
+            this.sendDate = setSendDate;
+            this.receiveDate = setReceiveDate;
+            this.user = user;
         }
 
         public Builder name(String name) {
@@ -59,7 +63,7 @@ public class PostcardDto {
             return this;
         }
 
-        public Builder conditionValue(PostcardStatus status) {
+        public Builder status(PostcardStatus status) {
             this.status = status;
             return this;
         }
@@ -73,11 +77,12 @@ public class PostcardDto {
         id = builder.id;
         postNumber = builder.postNumber;
         country = builder.country;
-        dateOfSend = builder.dateOfSend;
-        dateOfReceive = builder.dateOfReceive;
+        sendDate = builder.sendDate;
+        receiveDate = builder.receiveDate;
         name = builder.name;
         description = builder.description;
         distance = builder.distance;
         status = builder.status;
+        user = builder.user;
     }
 }

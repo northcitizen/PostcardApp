@@ -1,6 +1,9 @@
 package com.example.webapp.service.impl;
 
 import com.example.webapp.model.Postcard;
+import com.example.webapp.model.PostcardBuilder;
+import com.example.webapp.model.PostcardStatus;
+import com.example.webapp.model.User;
 import com.example.webapp.repository.PostcardRepository;
 import com.example.webapp.service.PostcardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,9 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -16,14 +22,15 @@ import java.util.UUID;
 @Service
 public class PostcardServiceImpl implements PostcardService {
 
-    @Autowired
-    CacheManager cacheManager;
+    static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    final CacheManager cacheManager;
     final PostcardRepository postcardRepository;
 
     @Autowired
-    public PostcardServiceImpl(PostcardRepository postcardRepository) {
+    public PostcardServiceImpl(PostcardRepository postcardRepository, CacheManager cacheManager) {
         this.postcardRepository = postcardRepository;
+        this.cacheManager = cacheManager;
     }
 
     @Override
@@ -53,5 +60,23 @@ public class PostcardServiceImpl implements PostcardService {
     @Cacheable(value = "postcardCache")
     public Optional<Postcard> findByPostcardId(UUID id) {
         return postcardRepository.findByPostcardId(id);
+    }
+
+    public Postcard add(String postNumber, String country, String name, String description,
+                        Long distance, PostcardStatus status, String sendDate,
+                        String receiveDate, User user) {
+        LocalDateTime receiveDateParse = LocalDate.parse(receiveDate, dtf).atStartOfDay();
+        LocalDateTime sendDateParse = LocalDate.parse(sendDate, dtf).atStartOfDay();
+        return new PostcardBuilder()
+                .setPostNumber(postNumber)
+                .setCountry(country)
+                .setName(name)
+                .setDescription(description)
+                .setDistance(distance)
+                .setStatus(status)
+                .setReceiveDate(sendDateParse)
+                .setSendDate(receiveDateParse)
+                .setUser(user)
+                .getPostcard();
     }
 }

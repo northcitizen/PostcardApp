@@ -60,7 +60,7 @@ public class PostcardService {
         List<Postcard> newCards = new ArrayList<>();
         if (!CollectionUtils.isEmpty(postcards)) {
             for (Postcard card : postcards) {
-                LocalDateTime date = card.getDateOfReceive();
+                LocalDateTime date = card.getReceiveDate();
                 if (date.isAfter(firstDate) && date.isBefore(secondDate)) {
                     newCards.add(card);
                 }
@@ -70,19 +70,19 @@ public class PostcardService {
     }
 
     public Postcard add(String postNumber, String country, String name, String description,
-                        Long distance, PostcardStatus status, String dateOfSend,
-                        String dateOfReceive) {
-        LocalDateTime receiveDate = LocalDate.parse(dateOfReceive, dtf).atStartOfDay();
-        LocalDateTime sendDate = LocalDate.parse(dateOfSend, dtf).atStartOfDay();
+                        Long distance, PostcardStatus status, String sendDate,
+                        String receiveDate) {
+        LocalDateTime receiveDateParse = LocalDate.parse(receiveDate, dtf).atStartOfDay();
+        LocalDateTime sendDateParse = LocalDate.parse(sendDate, dtf).atStartOfDay();
         return new PostcardBuilder()
                 .setPostNumber(postNumber)
                 .setCountry(country)
                 .setName(name)
                 .setDescription(description)
                 .setDistance(distance)
-                .setConditionValue(status)
-                .setDateOfSend(sendDate)
-                .setDateOfReceive(receiveDate)
+                .setStatus(status)
+                .setReceiveDate(sendDateParse)
+                .setSendDate(receiveDateParse)
                 .getPostcard();
     }
 
@@ -99,11 +99,11 @@ public class PostcardService {
 //    }
 
     public void addPostcard(String postNumber, String country, String name, String description,
-                            Long distance, PostcardStatus status, String dateOfSend,
-                            String dateOfReceive) {
+                            Long distance, PostcardStatus status, String sendDate,
+                            String receiveDate) {
         Postcard postcard = add(postNumber, country, name, description,
-                distance, status, dateOfSend,
-                dateOfReceive);
+                distance, status, sendDate,
+                receiveDate);
         save(postcard);
     }
 

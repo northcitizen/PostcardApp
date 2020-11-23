@@ -12,8 +12,9 @@ public class PostcardBuilder {
     private String description;
     private Long distance;
     private PostcardStatus status;
-    private LocalDateTime dateOfSend;
-    private LocalDateTime dateOfReceive;
+    private LocalDateTime receiveDate;
+    private LocalDateTime sendDate;
+    private User user;
 
     public PostcardBuilder setId(UUID id) {
         this.id = id;
@@ -45,24 +46,29 @@ public class PostcardBuilder {
         return this;
     }
 
-    public PostcardBuilder setConditionValue(PostcardStatus status) {
+    public PostcardBuilder setStatus(PostcardStatus status) {
         this.status = status;
         return this;
     }
 
-    public PostcardBuilder setDateOfSend(LocalDateTime dateOfSend) {
-        this.dateOfSend = dateOfSend;
+    public PostcardBuilder setReceiveDate(LocalDateTime receiveDate) {
+        this.receiveDate = receiveDate;
         return this;
     }
 
-    public PostcardBuilder setDateOfReceive(LocalDateTime dateOfReceive) {
-        this.dateOfReceive = dateOfReceive;
+    public PostcardBuilder setSendDate(LocalDateTime sendDate) {
+        this.sendDate = sendDate;
+        return this;
+    }
+
+    public PostcardBuilder setUser(User user) {
+        this.user = user;
         return this;
     }
 
     public Postcard getPostcard() {
         return new Postcard(id, postNumber, country, name,
                 description, distance, status,
-                dateOfSend, dateOfReceive);
+                receiveDate, sendDate, user);
     }
 }
