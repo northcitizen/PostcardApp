@@ -7,6 +7,7 @@ import com.example.webapp.model.PostcardStatus;
 import com.example.webapp.model.User;
 import com.example.webapp.repository.PostcardRepository;
 import com.example.webapp.service.PostcardService;
+import com.example.webapp.service.PostcardUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
@@ -101,5 +102,30 @@ public class PostcardServiceImpl implements PostcardService {
                 .setSendDate(sendDateParse)
                 .setUser(postcardDto.getUser())
                 .getPostcard();
+    }
+
+    @Override
+    public Postcard updatePostcard(UUID user_id, UUID id, PostcardDto postcardDto) {
+
+        User user = new User();
+        user.setUser_id(user_id);
+        user.setFirstName(postcardDto.getUser().getFirstName());
+        user.setLastName(postcardDto.getUser().getLastName());
+        user.setEmail(postcardDto.getUser().getEmail());
+
+        PostcardDto postcard = PostcardUtil.map(postcardRepository.findByPostcardId(id), PostcardDto.class);
+        postcard.setId(id);
+        postcard.setCountry(postcardDto.getCountry());
+        postcard.setSendDate(postcardDto.getSendDate());
+        postcard.setReceiveDate(postcardDto.getReceiveDate());
+        postcard.setPostNumber(postcardDto.getPostNumber());
+        postcard.setDistance(postcardDto.getDistance());
+        postcard.setName(postcardDto.getName());
+        postcard.setDistance(postcardDto.getDistance());
+        postcard.setDescription(postcardDto.getDescription());
+        postcard.setStatus(postcardDto.getStatus());
+        postcard.setUser(user);
+
+        return postcardRepository.save(PostcardUtil.DtoToPostcard(postcard));
     }
 }

@@ -26,4 +26,6 @@ public interface PostcardService {
                  String receiveDate, User user);
 
     Postcard createPostcard(PostcardDto postcardDto);
+
+    Postcard updatePostcard(UUID user_id, UUID id, PostcardDto postcardDto);
 }

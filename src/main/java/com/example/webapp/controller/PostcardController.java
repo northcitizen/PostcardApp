@@ -47,21 +47,10 @@ public class PostcardController {
         return postcardService.findByPostcardId(id);
     }
 
-    @PutMapping(path = "/{id}")
-    public Postcard updatePostcard(@PathVariable("id") UUID id,
+    @PutMapping(path = "/{user_id}/{id}")
+    public Postcard updatePostcard(@PathVariable("user_id") UUID user_id,
+                                   @PathVariable("id") UUID id,
                                    @RequestBody PostcardDto postcardDetails) {
-        PostcardDto postcard = PostcardUtil.map(postcardService.findByPostcardId(id), PostcardDto.class);
-        postcard.setId(id);
-        postcard.setCountry(postcardDetails.getCountry());
-        postcard.setSendDate(postcardDetails.getSendDate());
-        postcard.setReceiveDate(postcardDetails.getReceiveDate());
-        postcard.setPostNumber(postcardDetails.getPostNumber());
-        postcard.setDistance(postcardDetails.getDistance());
-        postcard.setName(postcardDetails.getName());
-        postcard.setDistance(postcardDetails.getDistance());
-        postcard.setDescription(postcardDetails.getDescription());
-        postcard.setStatus(postcardDetails.getStatus());
-        final Postcard postcard2 = PostcardUtil.DtoToPostcard(postcard);
-        return postcardService.save(postcard2);
+        return postcardService.updatePostcard(user_id, id, postcardDetails);
     }
 }
