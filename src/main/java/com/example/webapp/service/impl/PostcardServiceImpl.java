@@ -91,7 +91,7 @@ public class PostcardServiceImpl implements PostcardService {
         LocalDateTime receiveDateParse = LocalDate.parse(postcardDto.getReceiveDate(), dtf).atStartOfDay();
         LocalDateTime sendDateParse = LocalDate.parse(postcardDto.getSendDate(), dtf).atStartOfDay();
 
-        return new PostcardBuilder()
+        return postcardRepository.save(new PostcardBuilder()
                 .setPostNumber(postcardDto.getPostNumber())
                 .setCountry(postcardDto.getCountry())
                 .setName(postcardDto.getName())
@@ -101,7 +101,7 @@ public class PostcardServiceImpl implements PostcardService {
                 .setReceiveDate(receiveDateParse)
                 .setSendDate(sendDateParse)
                 .setUser(postcardDto.getUser())
-                .getPostcard();
+                .getPostcard());
     }
 
     @Override

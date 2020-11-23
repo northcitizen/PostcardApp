@@ -38,7 +38,7 @@ public class PostcardController {
 
     @PostMapping
     public Postcard createPostcard(@RequestBody PostcardDto postcardDto) {
-        return postcardService.save(postcardService.createPostcard(postcardDto));
+        return postcardService.createPostcard(postcardDto);
     }
 
 
