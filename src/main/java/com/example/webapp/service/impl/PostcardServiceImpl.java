@@ -1,5 +1,6 @@
 package com.example.webapp.service.impl;
 
+import com.example.webapp.dto.PostcardDto;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.model.PostcardBuilder;
 import com.example.webapp.model.PostcardStatus;
@@ -62,11 +63,14 @@ public class PostcardServiceImpl implements PostcardService {
         return postcardRepository.findByPostcardId(id);
     }
 
+    @Override
     public Postcard add(String postNumber, String country, String name, String description,
                         Long distance, PostcardStatus status, String sendDate,
                         String receiveDate, User user) {
+
         LocalDateTime receiveDateParse = LocalDate.parse(receiveDate, dtf).atStartOfDay();
         LocalDateTime sendDateParse = LocalDate.parse(sendDate, dtf).atStartOfDay();
+
         return new PostcardBuilder()
                 .setPostNumber(postNumber)
                 .setCountry(country)
@@ -77,6 +81,25 @@ public class PostcardServiceImpl implements PostcardService {
                 .setReceiveDate(sendDateParse)
                 .setSendDate(receiveDateParse)
                 .setUser(user)
+                .getPostcard();
+    }
+
+    @Override
+    public Postcard createPostcard(PostcardDto postcardDto) {
+
+        LocalDateTime receiveDateParse = LocalDate.parse(postcardDto.getReceiveDate(), dtf).atStartOfDay();
+        LocalDateTime sendDateParse = LocalDate.parse(postcardDto.getSendDate(), dtf).atStartOfDay();
+
+        return new PostcardBuilder()
+                .setPostNumber(postcardDto.getPostNumber())
+                .setCountry(postcardDto.getCountry())
+                .setName(postcardDto.getName())
+                .setDescription(postcardDto.getDescription())
+                .setDistance(postcardDto.getDistance())
+                .setStatus(postcardDto.getStatus())
+                .setReceiveDate(receiveDateParse)
+                .setSendDate(sendDateParse)
+                .setUser(postcardDto.getUser())
                 .getPostcard();
     }
 }

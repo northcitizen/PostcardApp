@@ -1,5 +1,6 @@
 package com.example.webapp.service;
 
+import com.example.webapp.dto.PostcardDto;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.model.PostcardStatus;
 import com.example.webapp.model.User;
@@ -23,4 +24,6 @@ public interface PostcardService {
     Postcard add(String postNumber, String country, String name, String description,
                  Long distance, PostcardStatus status, String sendDate,
                  String receiveDate, User user);
+
+    Postcard createPostcard(PostcardDto postcardDto);
 }

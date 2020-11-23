@@ -2,12 +2,9 @@ package com.example.webapp.controller;
 
 import com.example.webapp.dto.PostcardDto;
 import com.example.webapp.model.Postcard;
-import com.example.webapp.model.PostcardStatus;
-import com.example.webapp.model.User;
-import com.example.webapp.repository.UserRepository;
 import com.example.webapp.service.PostcardService;
 import com.example.webapp.service.PostcardUtil;
-import com.example.webapp.service.UserMapper;
+import com.example.webapp.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +21,13 @@ public class PostcardController {
     //todo:
     private static final Logger logger = LoggerFactory.getLogger(PostcardController.class);
 
-    private UserMapper userMapper;
-
     private final PostcardService postcardService;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    public PostcardController(PostcardService postcardService, UserRepository userRepository) {
+    public PostcardController(PostcardService postcardService, UserService userService) {
         this.postcardService = postcardService;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
 
@@ -43,26 +38,7 @@ public class PostcardController {
 
     @PostMapping
     public Postcard createPostcard(@RequestBody PostcardDto postcardDto) {
-        User user = new User();
-
-        //user - it is parent
-        user.setUser_id(postcardDto.getUser().getUser_id());
-        user.setFirstName(postcardDto.getUser().getFirstName());
-        user.setLastName(postcardDto.getUser().getLastName());
-        user.setEmail(postcardDto.getUser().getEmail());
-
-        //postcard - it is child
-        postcardDto.setStatus(PostcardStatus.TRAVELLING);
-        postcardDto.setDescription(postcardDto.getDescription());
-        postcardDto.setDistance(postcardDto.getDistance());
-        postcardDto.setName(postcardDto.getName());
-        postcardDto.setPostNumber(postcardDto.getPostNumber());
-        postcardDto.setCountry(postcardDto.getCountry());
-        postcardDto.setReceiveDate(postcardDto.getReceiveDate());
-        postcardDto.setSendDate(postcardDto.getSendDate());
-        postcardDto.setUser(user);
-
-        return postcardService.save(PostcardUtil.DtoToPostcard(postcardDto));
+        return postcardService.save(postcardService.createPostcard(postcardDto));
     }
 
 
