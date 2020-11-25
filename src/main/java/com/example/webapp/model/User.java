@@ -1,6 +1,9 @@
 package com.example.webapp.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -16,13 +19,14 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
+//@ToString(exclude = {"postcards"})
+//@EqualsAndHashCode(exclude = {"postcards"})
 public class User {
     @Id
     @GeneratedValue(generator = "UUID", strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "user_id", updatable = false, nullable = false)
-    private UUID user_id;
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID id;
 
     @Column
     @NotBlank(message = "Field 'first name' can not be blank")
@@ -36,10 +40,11 @@ public class User {
     @Email
     private String email;
 
-    @OneToMany(mappedBy = "user",
-            cascade = CascadeType.MERGE,
+    @OneToMany(targetEntity = Postcard.class,
+            cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private List<Postcard> postcards = new ArrayList<>();
 
 }

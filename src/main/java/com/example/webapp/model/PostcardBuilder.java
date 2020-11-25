@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class PostcardBuilder {
 
-    private UUID id;
+    private UUID pid;
     private String postNumber;
     private String country;
     private String name;
@@ -16,8 +16,8 @@ public class PostcardBuilder {
     private LocalDateTime sendDate;
     private User user;
 
-    public PostcardBuilder setId(UUID id) {
-        this.id = id;
+    public PostcardBuilder setPid(UUID pid) {
+        this.pid = pid;
         return this;
     }
 
@@ -67,7 +67,7 @@ public class PostcardBuilder {
     }
 
     public Postcard getPostcard() {
-        return new Postcard(id, postNumber, country, name,
+        return new Postcard(pid, postNumber, country, name,
                 description, distance, status,
                 receiveDate, sendDate, user);
     }

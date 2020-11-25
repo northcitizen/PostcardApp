@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -43,8 +42,8 @@ public class PostcardController {
 
 
     @GetMapping(path = "/{id}")
-    public Optional<Postcard> getPostcardById(@PathVariable("id") UUID id) {
-        return postcardService.findByPostcardId(id);
+    public PostcardDto getPostcardById(@PathVariable("id") UUID id) {
+        return PostcardUtil.map(postcardService.findByPostcardId(id), PostcardDto.class);
     }
 
     @PutMapping(path = "/{user_id}/{id}")

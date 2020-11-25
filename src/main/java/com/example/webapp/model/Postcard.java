@@ -1,8 +1,11 @@
 package com.example.webapp.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -19,7 +22,8 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
+//@ToString(exclude = {"user"})
+//@EqualsAndHashCode(exclude = {"user"})
 public class Postcard {
 
     static final int MAX_COUNTRY_SIZE = 100;
@@ -27,10 +31,10 @@ public class Postcard {
     static final int POST_NUMBER_SIZE = 9;
 
     @Id
-    @GeneratedValue(generator = "UUID", strategy = GenerationType.IDENTITY)
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
+//    @GeneratedValue(generator = "UUID", strategy = GenerationType.IDENTITY)
+//    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    //@Column(name = "pid")//, updatable = false, nullable = false)
+    private UUID pid;
 
     @Column
     @NotBlank(message = "Field 'post number' can not be blank")
@@ -68,7 +72,7 @@ public class Postcard {
     @JsonFormat(pattern = "yyyy/MM/dd")
     private LocalDateTime receiveDate;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "user_id")
+    @ManyToOne
+    @JsonIgnore
     private User user;
 }

@@ -2,18 +2,19 @@ package com.example.webapp.dto;
 
 import com.example.webapp.model.PostcardStatus;
 import com.example.webapp.model.User;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class PostcardDto {
 
-    private UUID id;
+    private UUID pid;
     private String postNumber;
     private String country;
     private String name;
@@ -74,7 +75,7 @@ public class PostcardDto {
     }
 
     private PostcardDto(Builder builder) {
-        id = builder.id;
+        pid = builder.id;
         postNumber = builder.postNumber;
         country = builder.country;
         sendDate = builder.sendDate;

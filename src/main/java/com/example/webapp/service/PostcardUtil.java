@@ -1,15 +1,10 @@
 package com.example.webapp.service;
 
-import com.example.webapp.dto.PostcardDto;
-import com.example.webapp.dto.UserDto;
-import com.example.webapp.model.Postcard;
-import com.example.webapp.model.PostcardBuilder;
-import com.example.webapp.model.User;
-import com.example.webapp.model.UserBuilder;
-import org.modelmapper.ModelMapper;
+import org.modelmapper.*;
 import org.modelmapper.convention.MatchingStrategies;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.List;
@@ -21,6 +16,23 @@ public class PostcardUtil {
 
     private static ModelMapper modelMapper = new ModelMapper();
 
+
+    static Provider<LocalDateTime> localDateTimeProvider = new AbstractProvider<LocalDateTime>() {
+        @Override
+        public LocalDateTime get() {
+            return LocalDateTime.now();
+        }
+    };
+
+    static Converter<String, LocalDateTime> toStringDate = new AbstractConverter<String, LocalDateTime>() {
+        @Override
+        protected LocalDateTime convert(String source) {
+            DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate localDate = LocalDate.parse(source, format);
+            return localDate.atStartOfDay();
+        }
+    };
+
     /**
      * Model mapper property setting are specified in the following block.
      * Default property matching strategy is set to Strict see {@link MatchingStrategies}
@@ -29,6 +41,11 @@ public class PostcardUtil {
     static {
         modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        modelMapper.createTypeMap(String.class, LocalDate.class);
+        modelMapper.addConverter(toStringDate);
+        TypeMap<String, LocalDateTime> stringLocalDateTypeMap;
+        stringLocalDateTypeMap = modelMapper.getTypeMap(String.class, LocalDateTime.class)
+                .setProvider(localDateTimeProvider);
     }
 
     /**
@@ -64,40 +81,4 @@ public class PostcardUtil {
                 .map(entity -> map(entity, outCLass))
                 .collect(Collectors.toList());
     }
-
-    public static Postcard DtoToPostcard(PostcardDto postcardDto) {
-        return new PostcardBuilder()
-                .setId(postcardDto.getId())
-                .setPostNumber(postcardDto.getPostNumber())
-                .setCountry(postcardDto.getCountry())
-                .setReceiveDate(LocalDate.parse(postcardDto.getSendDate()).atStartOfDay())
-                .setSendDate(LocalDate.parse(postcardDto.getReceiveDate()).atStartOfDay())
-                .setName(postcardDto.getName())
-                .setStatus(postcardDto.getStatus())
-                .setDistance(postcardDto.getDistance())
-                .setDescription(postcardDto.getDescription())
-                .setUser(postcardDto.getUser())
-                .getPostcard();
-    }
-
-    public static User DtoToUser(UserDto userDto) {
-        return new UserBuilder()
-                .setId(userDto.getId())
-                .setFirstName(userDto.getFirstName())
-                .setLastName(userDto.getLastName())
-                .setEmail(userDto.getEmail())
-                .getUser();
-    }
-
-//    public static PostcardDto postcardToDto(Postcard postcard) {
-//        return new PostcardDto.Builder(postcard.getId(), postcard.getPostNumber(),
-//                postcard.getCountry(),
-//                postcard.getSendDate().toString(),
-//                postcard.getReceiveDate().toString())
-//                .name(postcard.getName())
-//                .status(postcard.getStatus())
-//                .distance(postcard.getDistance())
-//                .description(postcard.getDescription())
-//                .build();
-//    }
 }

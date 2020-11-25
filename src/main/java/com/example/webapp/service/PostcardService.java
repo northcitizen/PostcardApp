@@ -6,7 +6,6 @@ import com.example.webapp.model.PostcardStatus;
 import com.example.webapp.model.User;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface PostcardService {
@@ -19,7 +18,7 @@ public interface PostcardService {
 
     void deleteById(UUID uuid);
 
-    Optional<Postcard> findByPostcardId(UUID id);
+    Postcard findByPostcardId(UUID id);
 
     Postcard add(String postNumber, String country, String name, String description,
                  Long distance, PostcardStatus status, String sendDate,

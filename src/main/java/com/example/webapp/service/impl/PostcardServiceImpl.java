@@ -18,7 +18,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -60,7 +59,7 @@ public class PostcardServiceImpl implements PostcardService {
 
     @Override
     @Cacheable(value = "postcardCache")
-    public Optional<Postcard> findByPostcardId(UUID id) {
+    public Postcard findByPostcardId(UUID id) {
         return postcardRepository.findByPostcardId(id);
     }
 
@@ -108,13 +107,13 @@ public class PostcardServiceImpl implements PostcardService {
     public Postcard updatePostcard(UUID user_id, UUID id, PostcardDto postcardDto) {
 
         User user = new User();
-        user.setUser_id(user_id);
+        user.setId(user_id);
         user.setFirstName(postcardDto.getUser().getFirstName());
         user.setLastName(postcardDto.getUser().getLastName());
         user.setEmail(postcardDto.getUser().getEmail());
 
         PostcardDto postcard = PostcardUtil.map(postcardRepository.findByPostcardId(id), PostcardDto.class);
-        postcard.setId(id);
+        postcard.setPid(id);
         postcard.setCountry(postcardDto.getCountry());
         postcard.setSendDate(postcardDto.getSendDate());
         postcard.setReceiveDate(postcardDto.getReceiveDate());
@@ -126,6 +125,6 @@ public class PostcardServiceImpl implements PostcardService {
         postcard.setStatus(postcardDto.getStatus());
         postcard.setUser(user);
 
-        return postcardRepository.save(PostcardUtil.DtoToPostcard(postcard));
+        return postcardRepository.save(PostcardUtil.map(postcard, Postcard.class));
     }
 }
