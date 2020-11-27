@@ -18,8 +18,6 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-//@ToString(exclude = {"postcards"})
-//@EqualsAndHashCode(exclude = {"postcards"})
 public class User {
     @Id
     @GeneratedValue(generator = "UUID", strategy = GenerationType.IDENTITY)

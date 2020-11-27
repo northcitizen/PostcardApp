@@ -36,6 +36,11 @@ public class PostcardController {
         return postcardService.createPostcard(postcardDto, id);
     }
 
+    @PostMapping(path = "/list/{id}")
+    public List<Postcard> createListPostcards(@RequestBody List<PostcardDto> postcardList, @PathVariable("id") UUID id) {
+        return postcardService.createListPostcards(postcardList, id);
+    }
+
     @GetMapping(path = "/{user_id}")
     public PostcardDto getPostcardById(@PathVariable("user_id") UUID id) {
         return PostcardUtil.map(postcardService.findByPostcardId(id), PostcardDto.class);

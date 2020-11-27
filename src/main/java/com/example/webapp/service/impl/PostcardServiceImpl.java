@@ -2,29 +2,22 @@ package com.example.webapp.service.impl;
 
 import com.example.webapp.dto.PostcardDto;
 import com.example.webapp.model.Postcard;
-import com.example.webapp.model.PostcardBuilder;
-import com.example.webapp.model.PostcardStatus;
-import com.example.webapp.model.User;
 import com.example.webapp.repository.PostcardRepository;
 import com.example.webapp.repository.UserRepository;
 import com.example.webapp.service.PostcardService;
 import com.example.webapp.service.PostcardUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
 @Service
 public class PostcardServiceImpl implements PostcardService {
-
-    static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     final CacheManager cacheManager;
     final PostcardRepository postcardRepository;
@@ -69,64 +62,26 @@ public class PostcardServiceImpl implements PostcardService {
     }
 
     @Override
-    public Postcard add(String postNumber, String country, String name, String description,
-                        Long distance, PostcardStatus status, String sendDate,
-                        String receiveDate, User user) {
-
-        LocalDateTime receiveDateParse = LocalDate.parse(receiveDate, dtf).atStartOfDay();
-        LocalDateTime sendDateParse = LocalDate.parse(sendDate, dtf).atStartOfDay();
-
-        return new PostcardBuilder()
-                .setPostNumber(postNumber)
-                .setCountry(country)
-                .setName(name)
-                .setDescription(description)
-                .setDistance(distance)
-                .setStatus(status)
-                .setReceiveDate(sendDateParse)
-                .setSendDate(receiveDateParse)
-                .setUser(user)
-                .getPostcard();
+    public Postcard createPostcard(PostcardDto postcardDto, UUID id) {
+        Postcard temp = PostcardUtil.map(postcardDto, Postcard.class);
+        temp.setUser(userRepository.findUserById(id));
+        return postcardRepository.save(temp);
     }
 
     @Override
-    public Postcard createPostcard(PostcardDto postcardDto, UUID id) {
-
-        LocalDateTime receiveDateParse = LocalDate.parse(postcardDto.getReceiveDate(), dtf).atStartOfDay();
-        LocalDateTime sendDateParse = LocalDate.parse(postcardDto.getSendDate(), dtf).atStartOfDay();
-
-        User user = userRepository.findUserById(id);
-
-        return postcardRepository.save(new PostcardBuilder()
-                .setPid(postcardDto.getPid())
-                .setPostNumber(postcardDto.getPostNumber())
-                .setCountry(postcardDto.getCountry())
-                .setName(postcardDto.getName())
-                .setDescription(postcardDto.getDescription())
-                .setDistance(postcardDto.getDistance())
-                .setStatus(postcardDto.getStatus())
-                .setReceiveDate(receiveDateParse)
-                .setSendDate(sendDateParse)
-                .setUser(user)
-                .getPostcard());
+    public List<Postcard> createListPostcards(List<PostcardDto> postcardList, UUID id) {
+        List<Postcard> postcardList1 = PostcardUtil.mapAll(postcardList, Postcard.class);
+        postcardList1.forEach(postcard -> postcard.setUser(userRepository.findUserById(id)));
+        return (List<Postcard>) postcardRepository.saveAll(postcardList1);
     }
 
     @Override
     public Postcard updatePostcard(UUID user_id, UUID id, PostcardDto postcardDto) {
-
-        User user = userRepository.findUserById(user_id);
-
-        PostcardDto postcard = PostcardUtil.map(postcardRepository.findByPostcardId(id), PostcardDto.class);
-        postcard.setCountry(postcardDto.getCountry());
-        postcard.setSendDate(postcardDto.getSendDate());
-        postcard.setReceiveDate(postcardDto.getReceiveDate());
-        postcard.setPostNumber(postcardDto.getPostNumber());
-        postcard.setDistance(postcardDto.getDistance());
-        postcard.setName(postcardDto.getName());
-        postcard.setDescription(postcardDto.getDescription());
-        postcard.setStatus(postcardDto.getStatus());
-        postcard.setUser(user);
-
-        return postcardRepository.save(PostcardUtil.map(postcard, Postcard.class));
+        Postcard postcard = PostcardUtil.map(postcardRepository.findByPostcardId(id), Postcard.class);
+        Postcard postcardUpdate = PostcardUtil.map(postcardDto, Postcard.class);
+        postcardUpdate.setUser(userRepository.findUserById(user_id));
+        postcardUpdate.setPid(id);
+        BeanUtils.copyProperties(postcardUpdate, postcard);
+        return postcardRepository.save(postcard);
     }
 }
