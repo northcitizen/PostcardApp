@@ -92,6 +92,17 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "/create list of cards",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
