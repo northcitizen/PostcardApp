@@ -28,7 +28,7 @@
 			"response": []
 		},
 		{
-			"name": "/find by Id",
+			"name": "/find postcard by Id",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -39,7 +39,7 @@
 			"response": []
 		},
 		{
-			"name": "/update",
+			"name": "/update postcard",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -50,7 +50,40 @@
 			"response": []
 		},
 		{
-			"name": "user",
+			"name": "/create user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/get user by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/delete user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/delete postcard",
 			"request": {
 				"method": "GET",
 				"header": [],
