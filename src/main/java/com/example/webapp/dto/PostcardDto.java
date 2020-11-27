@@ -2,6 +2,7 @@ package com.example.webapp.dto;
 
 import com.example.webapp.model.PostcardStatus;
 import com.example.webapp.model.User;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.util.UUID;
@@ -23,6 +24,7 @@ public class PostcardDto {
     private PostcardStatus status;
     private String sendDate;
     private String receiveDate;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private User user;
 
     public static class Builder {

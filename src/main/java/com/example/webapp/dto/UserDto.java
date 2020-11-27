@@ -20,7 +20,7 @@ public class UserDto {
     private String lastName;
     @JsonProperty(required = true)
     private String email;
-    @JsonProperty(required = true)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<PostcardDto> postcards;
 
     public static class Builder {

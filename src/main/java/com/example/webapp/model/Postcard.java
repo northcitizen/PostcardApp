@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -22,8 +23,6 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-//@ToString(exclude = {"user"})
-//@EqualsAndHashCode(exclude = {"user"})
 public class Postcard {
 
     static final int MAX_COUNTRY_SIZE = 100;
@@ -31,9 +30,9 @@ public class Postcard {
     static final int POST_NUMBER_SIZE = 9;
 
     @Id
-//    @GeneratedValue(generator = "UUID", strategy = GenerationType.IDENTITY)
-//    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    //@Column(name = "pid")//, updatable = false, nullable = false)
+    @GeneratedValue(generator = "UUID", strategy = GenerationType.IDENTITY)
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "pid", updatable = false, nullable = false)
     private UUID pid;
 
     @Column
@@ -72,7 +71,11 @@ public class Postcard {
     @JsonFormat(pattern = "yyyy/MM/dd")
     private LocalDateTime receiveDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = {//REMOVE and REFRESH are not applied to User
+            CascadeType.MERGE,
+            CascadeType.DETACH,
+            CascadeType.PERSIST})
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonIgnore
     private User user;
 }

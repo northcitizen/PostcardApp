@@ -16,7 +16,7 @@ public interface PostcardService {
 
     Postcard save(Postcard postcard);
 
-    void deleteById(UUID uuid);
+    void delete(Postcard postcard);
 
     Postcard findByPostcardId(UUID id);
 
@@ -24,7 +24,7 @@ public interface PostcardService {
                  Long distance, PostcardStatus status, String sendDate,
                  String receiveDate, User user);
 
-    Postcard createPostcard(PostcardDto postcardDto);
+    Postcard createPostcard(PostcardDto postcardDto, UUID id);
 
     Postcard updatePostcard(UUID user_id, UUID id, PostcardDto postcardDto);
 }

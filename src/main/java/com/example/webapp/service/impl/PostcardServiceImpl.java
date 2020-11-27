@@ -6,6 +6,7 @@ import com.example.webapp.model.PostcardBuilder;
 import com.example.webapp.model.PostcardStatus;
 import com.example.webapp.model.User;
 import com.example.webapp.repository.PostcardRepository;
+import com.example.webapp.repository.UserRepository;
 import com.example.webapp.service.PostcardService;
 import com.example.webapp.service.PostcardUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +28,15 @@ public class PostcardServiceImpl implements PostcardService {
 
     final CacheManager cacheManager;
     final PostcardRepository postcardRepository;
+    final UserRepository userRepository;
 
     @Autowired
-    public PostcardServiceImpl(PostcardRepository postcardRepository, CacheManager cacheManager) {
+    public PostcardServiceImpl(PostcardRepository postcardRepository,
+                               CacheManager cacheManager,
+                               UserRepository userRepository) {
         this.postcardRepository = postcardRepository;
         this.cacheManager = cacheManager;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -53,8 +58,8 @@ public class PostcardServiceImpl implements PostcardService {
     }
 
     @Override
-    public void deleteById(UUID id) {
-        postcardRepository.deleteById(id);
+    public void delete(Postcard postcard) {
+        postcardRepository.delete(postcard);
     }
 
     @Override
@@ -85,12 +90,15 @@ public class PostcardServiceImpl implements PostcardService {
     }
 
     @Override
-    public Postcard createPostcard(PostcardDto postcardDto) {
+    public Postcard createPostcard(PostcardDto postcardDto, UUID id) {
 
         LocalDateTime receiveDateParse = LocalDate.parse(postcardDto.getReceiveDate(), dtf).atStartOfDay();
         LocalDateTime sendDateParse = LocalDate.parse(postcardDto.getSendDate(), dtf).atStartOfDay();
 
+        User user = userRepository.findUserById(id);
+
         return postcardRepository.save(new PostcardBuilder()
+                .setPid(postcardDto.getPid())
                 .setPostNumber(postcardDto.getPostNumber())
                 .setCountry(postcardDto.getCountry())
                 .setName(postcardDto.getName())
@@ -99,28 +107,22 @@ public class PostcardServiceImpl implements PostcardService {
                 .setStatus(postcardDto.getStatus())
                 .setReceiveDate(receiveDateParse)
                 .setSendDate(sendDateParse)
-                .setUser(postcardDto.getUser())
+                .setUser(user)
                 .getPostcard());
     }
 
     @Override
     public Postcard updatePostcard(UUID user_id, UUID id, PostcardDto postcardDto) {
 
-        User user = new User();
-        user.setId(user_id);
-        user.setFirstName(postcardDto.getUser().getFirstName());
-        user.setLastName(postcardDto.getUser().getLastName());
-        user.setEmail(postcardDto.getUser().getEmail());
+        User user = userRepository.findUserById(user_id);
 
         PostcardDto postcard = PostcardUtil.map(postcardRepository.findByPostcardId(id), PostcardDto.class);
-        postcard.setPid(id);
         postcard.setCountry(postcardDto.getCountry());
         postcard.setSendDate(postcardDto.getSendDate());
         postcard.setReceiveDate(postcardDto.getReceiveDate());
         postcard.setPostNumber(postcardDto.getPostNumber());
         postcard.setDistance(postcardDto.getDistance());
         postcard.setName(postcardDto.getName());
-        postcard.setDistance(postcardDto.getDistance());
         postcard.setDescription(postcardDto.getDescription());
         postcard.setStatus(postcardDto.getStatus());
         postcard.setUser(user);

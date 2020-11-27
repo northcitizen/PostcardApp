@@ -4,7 +4,6 @@ import com.example.webapp.dto.PostcardDto;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.service.PostcardService;
 import com.example.webapp.service.PostcardUtil;
-import com.example.webapp.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,28 +20,24 @@ public class PostcardController {
     private static final Logger logger = LoggerFactory.getLogger(PostcardController.class);
 
     private final PostcardService postcardService;
-    private final UserService userService;
 
     @Autowired
-    public PostcardController(PostcardService postcardService, UserService userService) {
+    public PostcardController(PostcardService postcardService) {
         this.postcardService = postcardService;
-        this.userService = userService;
     }
-
 
     @GetMapping
     public List<PostcardDto> postcardList() {
         return PostcardUtil.mapAll(postcardService.findAll(), PostcardDto.class);
     }
 
-    @PostMapping
-    public Postcard createPostcard(@RequestBody PostcardDto postcardDto) {
-        return postcardService.createPostcard(postcardDto);
+    @PostMapping(path = "/{id}")
+    public Postcard createPostcard(@RequestBody PostcardDto postcardDto, @PathVariable("id") UUID id) {
+        return postcardService.createPostcard(postcardDto, id);
     }
 
-
-    @GetMapping(path = "/{id}")
-    public PostcardDto getPostcardById(@PathVariable("id") UUID id) {
+    @GetMapping(path = "/{user_id}")
+    public PostcardDto getPostcardById(@PathVariable("user_id") UUID id) {
         return PostcardUtil.map(postcardService.findByPostcardId(id), PostcardDto.class);
     }
 
@@ -51,5 +46,10 @@ public class PostcardController {
                                    @PathVariable("id") UUID id,
                                    @RequestBody PostcardDto postcardDetails) {
         return postcardService.updatePostcard(user_id, id, postcardDetails);
+    }
+
+    @PostMapping(path = "/delete/{pid}")
+    public void deletePostcard(@PathVariable("pid") UUID id) {
+        postcardService.delete(postcardService.findByPostcardId(id));
     }
 }

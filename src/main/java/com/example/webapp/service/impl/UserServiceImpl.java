@@ -12,6 +12,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -27,11 +28,21 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    public void delete(User user) {
+        userRepository.delete(user);
+    }
+
+    @Override
     public User save(UserDto userDto) {
         return userRepository.save(addUser(userDto.getFirstName(),
                 userDto.getLastName(),
                 userDto.getEmail(),
                 PostcardUtil.mapAll(userDto.getPostcards(), Postcard.class)));
+    }
+
+    @Override
+    public User findUserById(UUID id) {
+        return userRepository.findUserById(id);
     }
 
     @Override

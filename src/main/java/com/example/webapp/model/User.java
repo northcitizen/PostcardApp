@@ -9,7 +9,6 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,11 +39,11 @@ public class User {
     @Email
     private String email;
 
-    @OneToMany(targetEntity = Postcard.class,
+    @OneToMany(mappedBy = "user",//in case of targetEntity = Postcard.class, - can not deleted Parent
+            //and creates table postcard-users
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private List<Postcard> postcards = new ArrayList<>();
+    private List<Postcard> postcards;
 
 }
