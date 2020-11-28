@@ -103,6 +103,17 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "/create address",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
