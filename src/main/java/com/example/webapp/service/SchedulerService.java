@@ -45,7 +45,6 @@ public class SchedulerService {
             changePostcardListNumber();
         }
         logger.info(String.valueOf(postcardList.size()));
-
     }
 
     public static void setCardsNumber(int cardsNumber) {
