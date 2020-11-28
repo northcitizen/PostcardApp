@@ -44,7 +44,7 @@ public class SchedulerService {
             logger.info("POSTCARD LIST CHANGED");
             changePostcardListNumber();
         }
-        logger.info(String.valueOf(postcardList.size()));
+        logger.info(String.valueOf(postcardList.size()) + " postcards in database");
     }
 
     public static void setCardsNumber(int cardsNumber) {

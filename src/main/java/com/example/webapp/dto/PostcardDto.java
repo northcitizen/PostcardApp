@@ -16,13 +16,21 @@ import java.util.UUID;
 public class PostcardDto {
 
     private UUID pid;
+    @JsonProperty(required = true)
     private String postNumber;
+    @JsonProperty(required = true)
     private String country;
+    @JsonProperty(required = true)
     private String name;
+    @JsonProperty(required = true)
     private String description;
+    @JsonProperty(required = true)
     private Long distance;
+    @JsonProperty(required = true)
     private PostcardStatus status;
+    @JsonProperty(required = true)
     private String sendDate;
+    @JsonProperty(required = true)
     private String receiveDate;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private User user;

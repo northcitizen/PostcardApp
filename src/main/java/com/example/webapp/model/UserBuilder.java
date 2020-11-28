@@ -9,6 +9,7 @@ public class UserBuilder {
     private String lastName;
     private String email;
     private List<Postcard> postcards;
+    private List<Address> addresses;
 
     public UserBuilder setId(UUID id) {
         this.id = id;
@@ -35,7 +36,12 @@ public class UserBuilder {
         return this;
     }
 
+    public UserBuilder setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+        return this;
+    }
+
     public User getUser() {
-        return new User(id, firstName, lastName, email, postcards);
+        return new User(id, firstName, lastName, email, postcards, addresses);
     }
 }
