@@ -1,7 +1,6 @@
 package com.example.webapp.controller;
 
 import com.example.webapp.dto.PostcardDto;
-import com.example.webapp.exception.PostcardNotSavedException;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.service.PostcardService;
 import com.example.webapp.service.PostcardUtil;
@@ -34,13 +33,13 @@ public class PostcardController {
 
     @PostMapping(path = "/{id}")
     public Postcard createPostcard(@RequestBody PostcardDto postcardDto,
-                                   @PathVariable("id") UUID id) throws PostcardNotSavedException {
+                                   @PathVariable("id") UUID id) {
         return postcardService.createPostcard(postcardDto, id);
     }
 
     @PostMapping(path = "/list/{id}")
     public List<Postcard> createListPostcards(@RequestBody List<PostcardDto> postcardList,
-                                              @PathVariable("id") UUID id) throws PostcardNotSavedException {
+                                              @PathVariable("id") UUID id) {
         return postcardService.createListPostcards(postcardList, id);
     }
 
