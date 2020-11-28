@@ -114,6 +114,17 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "/create country",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
