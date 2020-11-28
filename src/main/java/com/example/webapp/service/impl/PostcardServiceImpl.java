@@ -1,6 +1,7 @@
 package com.example.webapp.service.impl;
 
 import com.example.webapp.dto.PostcardDto;
+import com.example.webapp.exception.PostcardNotSavedException;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.repository.PostcardRepository;
 import com.example.webapp.repository.UserRepository;
@@ -62,14 +63,14 @@ public class PostcardServiceImpl implements PostcardService {
     }
 
     @Override
-    public Postcard createPostcard(PostcardDto postcardDto, UUID id) {
+    public Postcard createPostcard(PostcardDto postcardDto, UUID id) throws PostcardNotSavedException {
         Postcard temp = PostcardUtil.map(postcardDto, Postcard.class);
         temp.setUser(userRepository.findUserById(id));
         return postcardRepository.save(temp);
     }
 
     @Override
-    public List<Postcard> createListPostcards(List<PostcardDto> postcardList, UUID id) {
+    public List<Postcard> createListPostcards(List<PostcardDto> postcardList, UUID id) throws PostcardNotSavedException {
         List<Postcard> postcardList1 = PostcardUtil.mapAll(postcardList, Postcard.class);
         postcardList1.forEach(postcard -> postcard.setUser(userRepository.findUserById(id)));
         return (List<Postcard>) postcardRepository.saveAll(postcardList1);
