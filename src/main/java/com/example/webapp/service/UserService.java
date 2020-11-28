@@ -1,6 +1,8 @@
 package com.example.webapp.service;
 
 import com.example.webapp.dto.UserDto;
+import com.example.webapp.model.Address;
+import com.example.webapp.model.Country;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.model.User;
 
@@ -15,5 +17,7 @@ public interface UserService {
 
     User findUserById(UUID id);
 
-    User addUser(String firstName, String lastName, String email, List<Postcard> postcards);
+    User addUser(String firstName, String lastName,
+                 String email, List<Postcard> postcards,
+                 List<Address> addresses, List<Country> countries);
 }

@@ -22,6 +22,10 @@ public class UserDto {
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<PostcardDto> postcards;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<AddressDto> addresses;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<CountryDto> countries;
 
     public static class Builder {
         private final UUID id;
@@ -29,14 +33,19 @@ public class UserDto {
         private final String lastName;
         private final String email;
         private final List<PostcardDto> postcards;
+        private final List<AddressDto> addresses;
+        private final List<CountryDto> countries;
 
         public Builder(UUID id, String firstName, String lastName,
-                       String email, List<PostcardDto> postcards) {
+                       String email, List<PostcardDto> postcards,
+                       List<AddressDto> addresses, List<CountryDto> countries) {
             this.id = id;
             this.firstName = firstName;
             this.lastName = lastName;
             this.email = email;
             this.postcards = postcards;
+            this.addresses = addresses;
+            this.countries = countries;
         }
 
         public UserDto build() {
@@ -50,5 +59,7 @@ public class UserDto {
         lastName = builder.lastName;
         email = builder.email;
         postcards = builder.postcards;
+        addresses = builder.addresses;
+        countries = builder.countries;
     }
 }

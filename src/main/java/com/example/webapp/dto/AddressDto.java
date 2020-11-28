@@ -1,6 +1,7 @@
 package com.example.webapp.dto;
 
 import com.example.webapp.model.User;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.util.UUID;
@@ -14,11 +15,17 @@ import java.util.UUID;
 public class AddressDto {
 
     private UUID aid;
+    @JsonProperty(required = true)
     private String building;
+    @JsonProperty(required = true)
     private String street;
+    @JsonProperty(required = true)
     private String city;
+    @JsonProperty(required = true)
     private String postNumber;
+    @JsonProperty(required = true)
     private String country;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private User user;
 
     public static class Builder {

@@ -10,6 +10,7 @@ public class UserBuilder {
     private String email;
     private List<Postcard> postcards;
     private List<Address> addresses;
+    private List<Country> countries;
 
     public UserBuilder setId(UUID id) {
         this.id = id;
@@ -41,7 +42,12 @@ public class UserBuilder {
         return this;
     }
 
+    public UserBuilder setCountries(List<Country> countries){
+        this.countries = countries;
+        return this;
+    }
+
     public User getUser() {
-        return new User(id, firstName, lastName, email, postcards, addresses);
+        return new User(id, firstName, lastName, email, postcards, addresses, countries);
     }
 }

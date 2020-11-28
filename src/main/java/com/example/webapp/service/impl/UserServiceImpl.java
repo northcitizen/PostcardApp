@@ -1,9 +1,7 @@
 package com.example.webapp.service.impl;
 
 import com.example.webapp.dto.UserDto;
-import com.example.webapp.model.Postcard;
-import com.example.webapp.model.User;
-import com.example.webapp.model.UserBuilder;
+import com.example.webapp.model.*;
 import com.example.webapp.repository.UserRepository;
 import com.example.webapp.service.PostcardUtil;
 import com.example.webapp.service.UserService;
@@ -36,7 +34,9 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(addUser(userDto.getFirstName(),
                 userDto.getLastName(),
                 userDto.getEmail(),
-                PostcardUtil.mapAll(userDto.getPostcards(), Postcard.class)));
+                PostcardUtil.mapAll(userDto.getPostcards(), Postcard.class),
+                PostcardUtil.mapAll(userDto.getAddresses(), Address.class),
+                PostcardUtil.mapAll(userDto.getCountries(), Country.class)));
     }
 
     @Override
@@ -45,12 +45,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User addUser(String firstName, String lastName, String email, List<Postcard> postcards) {
+    public User addUser(String firstName, String lastName,
+                        String email, List<Postcard> postcards,
+                        List<Address> addresses, List<Country> countries) {
         return new UserBuilder()
                 .setFirstName(firstName)
                 .setLastName(lastName)
                 .setEmail(email)
                 .setPostcards(postcards)
+                .setAddresses(addresses)
+                .setCountries(countries)
                 .getUser();
     }
 }
