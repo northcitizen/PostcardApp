@@ -8,4 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface CountryRepository extends CrudRepository<Country, UUID> {
+    Country findCountryById(UUID id);
 }

@@ -27,8 +27,8 @@ public class Address {
     @Id
     @GeneratedValue(generator = "UUID", strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "aid", updatable = false, nullable = false)
-    private UUID aid;
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID id;
 
     @Column
     @NotBlank(message = "Field 'building' can not be blank")

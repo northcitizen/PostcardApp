@@ -14,7 +14,7 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class AddressDto {
 
-    private UUID aid;
+    private UUID id;
     @JsonProperty(required = true)
     private String building;
     @JsonProperty(required = true)
@@ -29,7 +29,7 @@ public class AddressDto {
     private User user;
 
     public static class Builder {
-        private final UUID aid;
+        private final UUID id;
         private final String building;
         private final String street;
         private final String city;
@@ -37,9 +37,9 @@ public class AddressDto {
         private final String country;
         private final User user;
 
-        public Builder(UUID aid, String building, String street, String city,
+        public Builder(UUID id, String building, String street, String city,
                        String postNumber, String country, User user) {
-            this.aid = aid;
+            this.id = id;
             this.building = building;
             this.street = street;
             this.city = city;
@@ -54,7 +54,7 @@ public class AddressDto {
     }
 
     private AddressDto(Builder builder) {
-        aid = builder.aid;
+        id = builder.id;
         building = builder.building;
         street = builder.street;
         city = builder.city;

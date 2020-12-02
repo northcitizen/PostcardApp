@@ -10,4 +10,10 @@ public interface CountryService {
     Country save(Country country);
 
     Country createCountry(CountryDto countryDto, UUID id);
+
+    Country findCountryById(UUID id);
+
+    void delete(Country country);
+
+    Country updateCountry(UUID id, CountryDto countryDto);
 }

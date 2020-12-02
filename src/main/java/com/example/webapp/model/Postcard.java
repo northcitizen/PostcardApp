@@ -32,8 +32,8 @@ public class Postcard {
     @Id
     @GeneratedValue(generator = "UUID", strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "pid", updatable = false, nullable = false)
-    private UUID pid;
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID id;
 
     @Column
     @NotBlank(message = "Field 'post number' can not be blank")

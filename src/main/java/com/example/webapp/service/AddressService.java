@@ -8,5 +8,11 @@ import java.util.UUID;
 public interface AddressService {
     Address save(Address address);
 
-    Address createAddress(AddressDto addressDto, UUID id);
+    void delete(Address address);
+
+    Address createAddress(AddressDto addressDto);
+
+    Address findAddressById(UUID id);
+
+    Address updateAddress(UUID id, AddressDto addressDto);
 }

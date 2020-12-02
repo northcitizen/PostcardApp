@@ -20,9 +20,9 @@ import java.util.UUID;
 @Service
 public class PostcardServiceImpl implements PostcardService {
 
-    final CacheManager cacheManager;
-    final PostcardRepository postcardRepository;
-    final UserRepository userRepository;
+    private final CacheManager cacheManager;
+    private final PostcardRepository postcardRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public PostcardServiceImpl(PostcardRepository postcardRepository,
@@ -41,7 +41,7 @@ public class PostcardServiceImpl implements PostcardService {
 
     @Override
     @Cacheable(value = "postcardCache")
-    public List<Postcard> findAll() {
+    public List<Postcard> findAll() throws NullPointerException{
         return (List<Postcard>) postcardRepository.findAll();
     }
 
@@ -58,16 +58,17 @@ public class PostcardServiceImpl implements PostcardService {
 
     @Override
     @Cacheable(value = "postcardCache")
-    public Postcard findByPostcardId(UUID id) {
+    public Postcard findByPostcardId(UUID id) throws NullPointerException {
         return postcardRepository.findByPostcardId(id);
+
     }
 
     @Override
-    public Postcard createPostcard(PostcardDto postcardDto, UUID id) {
+    public Postcard createPostcard(PostcardDto postcardDto) {
 
         try {
             Postcard temp = PostcardUtil.map(postcardDto, Postcard.class);
-            temp.setUser(userRepository.findUserById(id));
+            temp.setUser(userRepository.findUserById(postcardDto.getUser().getId()));
             return postcardRepository.save(temp);
         } catch (RuntimeException e) {
             postcardRepository.deleteAll();
@@ -76,10 +77,10 @@ public class PostcardServiceImpl implements PostcardService {
     }
 
     @Override
-    public List<Postcard> createListPostcards(List<PostcardDto> postcardList, UUID id) {
+    public List<Postcard> createListPostcards(List<PostcardDto> postcardList) {
         try {
             List<Postcard> postcardList1 = PostcardUtil.mapAll(postcardList, Postcard.class);
-            postcardList1.forEach(postcard -> postcard.setUser(userRepository.findUserById(id)));
+            postcardList1.forEach(postcard -> postcard.setUser(userRepository.findUserById(postcard.getUser().getId())));
             return (List<Postcard>) postcardRepository.saveAll(postcardList1);
         } catch (RuntimeException e) {
             postcardRepository.deleteAll();
@@ -88,11 +89,11 @@ public class PostcardServiceImpl implements PostcardService {
     }
 
     @Override
-    public Postcard updatePostcard(UUID user_id, UUID id, PostcardDto postcardDto) {
+    public Postcard updatePostcard(UUID id, PostcardDto postcardDto) {
         Postcard postcard = PostcardUtil.map(postcardRepository.findByPostcardId(id), Postcard.class);
         Postcard postcardUpdate = PostcardUtil.map(postcardDto, Postcard.class);
-        postcardUpdate.setUser(userRepository.findUserById(user_id));
-        postcardUpdate.setPid(id);
+        postcardUpdate.setUser(userRepository.findUserById(postcardDto.getUser().getId()));
+        postcardUpdate.setId(id);
         BeanUtils.copyProperties(postcardUpdate, postcard);
         return postcardRepository.save(postcard);
     }

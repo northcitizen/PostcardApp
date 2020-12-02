@@ -18,9 +18,9 @@ public interface PostcardService {
 
     Postcard findByPostcardId(UUID id);
 
-    Postcard createPostcard(PostcardDto postcardDto, UUID id);
+    Postcard createPostcard(PostcardDto postcardDto);
 
-    Postcard updatePostcard(UUID user_id, UUID id, PostcardDto postcardDto);
+    Postcard updatePostcard(UUID id, PostcardDto postcardDto);
 
-    List<Postcard> createListPostcards(List<PostcardDto> postcardList, UUID id);
+    List<Postcard> createListPostcards(List<PostcardDto> postcardList);
 }

@@ -27,8 +27,8 @@ public class Country {
     @Id
     @GeneratedValue(generator = "UUID", strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "cid", updatable = false, nullable = false)
-    private UUID cid;
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID id;
 
     @Column
     @NotBlank(message = "Field 'country' can not be blank")

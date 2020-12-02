@@ -42,7 +42,7 @@ public class UserBuilder {
         return this;
     }
 
-    public UserBuilder setCountries(List<Country> countries){
+    public UserBuilder setCountries(List<Country> countries) {
         this.countries = countries;
         return this;
     }

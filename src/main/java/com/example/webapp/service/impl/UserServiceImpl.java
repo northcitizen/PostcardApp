@@ -5,6 +5,7 @@ import com.example.webapp.model.*;
 import com.example.webapp.repository.UserRepository;
 import com.example.webapp.service.PostcardUtil;
 import com.example.webapp.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,8 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements UserService {
 
-    final CacheManager cacheManager;
-    final UserRepository userRepository;
+    private final CacheManager cacheManager;
+    private final UserRepository userRepository;
 
     @Autowired
     public UserServiceImpl(CacheManager cacheManager, UserRepository userRepository) {
@@ -31,16 +32,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(UserDto userDto) {
-        return userRepository.save(addUser(userDto.getFirstName(),
-                userDto.getLastName(),
-                userDto.getEmail(),
-                PostcardUtil.mapAll(userDto.getPostcards(), Postcard.class),
-                PostcardUtil.mapAll(userDto.getAddresses(), Address.class),
-                PostcardUtil.mapAll(userDto.getCountries(), Country.class)));
+        return userRepository.save(
+                addUser(userDto.getFirstName(),
+                        userDto.getLastName(),
+                        userDto.getEmail(),
+                        PostcardUtil.mapAll(userDto.getPostcards(), Postcard.class),
+                        PostcardUtil.mapAll(userDto.getAddresses(), Address.class),
+                        PostcardUtil.mapAll(userDto.getCountries(), Country.class)));
     }
 
     @Override
-    public User findUserById(UUID id) {
+    public User findUserById(UUID id) throws NullPointerException {
         return userRepository.findUserById(id);
     }
 
@@ -57,4 +59,13 @@ public class UserServiceImpl implements UserService {
                 .setCountries(countries)
                 .getUser();
     }
+
+    @Override
+    public User updateUser(UUID id, UserDto userDto) {
+        User userUpdate = PostcardUtil.map(userDto, User.class);
+        userUpdate.setId(id);
+        return userRepository.save(userUpdate);
+    }
+
+
 }

@@ -15,7 +15,7 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class PostcardDto {
 
-    private UUID pid;
+    private UUID id;
     @JsonProperty(required = true)
     private String postNumber;
     @JsonProperty(required = true)
@@ -85,7 +85,7 @@ public class PostcardDto {
     }
 
     private PostcardDto(Builder builder) {
-        pid = builder.id;
+        id = builder.id;
         postNumber = builder.postNumber;
         country = builder.country;
         sendDate = builder.sendDate;

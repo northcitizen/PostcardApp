@@ -14,7 +14,7 @@ import java.util.UUID;
 @EqualsAndHashCode
 public class CountryDto {
 
-    private UUID cid;
+    private UUID id;
     @JsonProperty(required = true)
     private String country;
     @JsonProperty(required = true)
@@ -25,14 +25,14 @@ public class CountryDto {
     private User user;
 
     public static class Builder {
-        private final UUID cid;
+        private final UUID id;
         private final String country;
         private final Long cardsNumber;
         private final Long totalDistance;
         private final User user;
 
-        public Builder(UUID cid, String country, Long cardsNumber, Long totalDistance, User user) {
-            this.cid = cid;
+        public Builder(UUID id, String country, Long cardsNumber, Long totalDistance, User user) {
+            this.id = id;
             this.country = country;
             this.cardsNumber = cardsNumber;
             this.totalDistance = totalDistance;
@@ -45,7 +45,7 @@ public class CountryDto {
     }
 
     private CountryDto(Builder builder) {
-        cid = builder.cid;
+        id = builder.id;
         country = builder.country;
         cardsNumber = builder.cardsNumber;
         totalDistance = builder.totalDistance;

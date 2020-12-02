@@ -25,7 +25,7 @@ public class UserController {
         return userService.save(user);
     }
 
-    @PostMapping(path = "/{id}")
+    @DeleteMapping(path = "/{id}")
     public void deleteUser(@PathVariable("id") UUID id) {
         userService.delete(userService.findUserById(id));
     }
@@ -33,5 +33,11 @@ public class UserController {
     @GetMapping(path = "/{id}")
     public UserDto getUser(@PathVariable("id") UUID id) {
         return PostcardUtil.map(userService.findUserById(id), UserDto.class);
+    }
+
+    @PutMapping(path = "/{id}")
+    public User updateUser(@PathVariable("id") UUID id,
+                                   @RequestBody UserDto userDto) {
+        return userService.updateUser(id, userDto);
     }
 }

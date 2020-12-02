@@ -18,6 +18,6 @@ public interface PostcardRepository extends CrudRepository<Postcard, UUID> {
 
     Postcard findByPostNumber(String postNumber);
 
-    @Query("select p from Postcard p where p.pid = ?1")
+    @Query("select p from Postcard p where p.id = ?1")
     Postcard findByPostcardId(UUID id);
 }
