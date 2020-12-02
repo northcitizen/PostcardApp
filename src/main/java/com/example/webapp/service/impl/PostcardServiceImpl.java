@@ -41,7 +41,7 @@ public class PostcardServiceImpl implements PostcardService {
 
     @Override
     @Cacheable(value = "postcardCache")
-    public List<Postcard> findAll() throws NullPointerException{
+    public List<Postcard> findAll() throws NullPointerException {
         return (List<Postcard>) postcardRepository.findAll();
     }
 

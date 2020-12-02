@@ -5,7 +5,6 @@ import com.example.webapp.model.*;
 import com.example.webapp.repository.UserRepository;
 import com.example.webapp.service.PostcardUtil;
 import com.example.webapp.service.UserService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
