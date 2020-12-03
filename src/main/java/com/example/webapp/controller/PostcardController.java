@@ -17,8 +17,9 @@ import java.util.UUID;
 @RequestMapping(path = "/postcards")
 public class PostcardController {
 
-    //todo:
+    //todo: надо убрать
     private static final Logger logger = LoggerFactory.getLogger(PostcardController.class);
+    // почему logger, а не LOGGER?
 
     private final PostcardService postcardService;
 
@@ -30,13 +31,14 @@ public class PostcardController {
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
     public List<PostcardDto> postcardList() {
+        // желательно перенести логику в сервис
         logger.debug("get postcard list request");
         try {
             return PostcardUtil.mapAll(postcardService.findAll(), PostcardDto.class);
         } catch (Exception e) {
             logger.debug("mapping from postcard to postcardDto failed", e);
         }
-        return null;
+        return null; // пользователь API не получит информацию о том, что произошла ошибка: кинуть эксепшен/отдавать запрос в другом виде
     }
 
     @PostMapping
@@ -46,23 +48,25 @@ public class PostcardController {
     }
 
     @PostMapping(path = "/batch")
+    // обычно называют createPostcardList
     public List<Postcard> createListPostcards(@RequestBody List<PostcardDto> postcardList) {
         return postcardService.createListPostcards(postcardList);
     }
 
-    @GetMapping(path = "/users/{id}")/*postcard id! not user*/
-    public PostcardDto getPostcardByUser(@PathVariable("id") UUID id) {/*id can be null*/
-        return PostcardUtil.map(postcardService.findByPostcardId(id), PostcardDto.class);
+    // открыток может быть много
+    @GetMapping(path = "/users/{user_id}")/*postcard id! not user*/ /*добавили семантики параметру -> можем избавиться от комментария*/
+    public PostcardDto getPostcardByUser(@PathVariable("user_id") UUID id) {/*id can be null*/ //TODO: delete comment, add semantics
+        return PostcardUtil.map(postcardService.findByPostcardId(id), PostcardDto.class); // TODO: перенести в сервис
     }
 
-    @PutMapping(path = "/{id}")
-    public Postcard updatePostcard(@PathVariable("id") UUID id,
+    @PutMapping(path = "/{id}") //{id} избыточно
+    public Postcard updatePostcard(@PathVariable("id") UUID id, // id избыточно
                                    @RequestBody PostcardDto postcardDetails) {
         return postcardService.updatePostcard(id, postcardDetails);
     }
 
     @DeleteMapping(path = "/{id}")
     public void deletePostcard(@PathVariable("id") UUID id) {
-        postcardService.delete(postcardService.findByPostcardId(id));
+        postcardService.delete(postcardService.findByPostcardId(id)); // TODO: перенести в сервис
     }
 }

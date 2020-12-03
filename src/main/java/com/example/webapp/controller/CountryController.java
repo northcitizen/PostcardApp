@@ -20,9 +20,9 @@ public class CountryController {
         this.countryService = countryService;
     }
 
-    @PostMapping(path = "/{id}")
+    @PostMapping(path = "/{id}") // лишнее
     public Country createCountry(@RequestBody CountryDto countryDto,
-                                 @PathVariable("id") UUID id) {
+                                 @PathVariable("id") UUID id) { // лишнее
         return countryService.createCountry(countryDto, id);
     }
 
@@ -36,8 +36,8 @@ public class CountryController {
         countryService.delete(countryService.findCountryById(id));
     }
 
-    @PutMapping(path = "/{id}")
-    public Country updatedCountry(@PathVariable("id") UUID id,
+    @PutMapping(path = "/{id}") // лишнее
+    public Country updatedCountry(@PathVariable("id") UUID id, // лишнее
                                   @RequestBody CountryDto countryDto) {
         return countryService.updateCountry(id, countryDto);
     }

@@ -17,9 +17,9 @@ public interface UserService {
 
     User findUserById(UUID id);
 
-    User addUser(String firstName, String lastName,
-                 String email, List<Postcard> postcards,
-                 List<Address> addresses, List<Country> countries);
+//    User addUser(String firstName, String lastName,
+//                 String email, List<Postcard> postcards,
+//                 List<Address> addresses, List<Country> countries);
 
     User updateUser(UUID id, UserDto userDto);
 }

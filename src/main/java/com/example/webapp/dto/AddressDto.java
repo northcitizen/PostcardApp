@@ -28,6 +28,7 @@ public class AddressDto {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private User user;
 
+    // why not @Builder?
     public static class Builder {
         private final UUID id;
         private final String building;
@@ -53,6 +54,7 @@ public class AddressDto {
         }
     }
 
+    // конструкторы с любыми модификаторами обычно идут после объявления полей класса
     private AddressDto(Builder builder) {
         id = builder.id;
         building = builder.building;

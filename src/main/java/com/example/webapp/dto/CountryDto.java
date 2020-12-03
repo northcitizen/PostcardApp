@@ -24,6 +24,7 @@ public class CountryDto {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private User user;
 
+    // why not @Builder?
     public static class Builder {
         private final UUID id;
         private final String country;
@@ -44,6 +45,7 @@ public class CountryDto {
         }
     }
 
+    // конструкторы с любыми модификаторами обычно идут после объявления полей класса
     private CountryDto(Builder builder) {
         id = builder.id;
         country = builder.country;

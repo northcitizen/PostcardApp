@@ -27,16 +27,16 @@ public class UserController {
 
     @DeleteMapping(path = "/{id}")
     public void deleteUser(@PathVariable("id") UUID id) {
-        userService.delete(userService.findUserById(id));
+        userService.delete(userService.findUserById(id)); // TODO: если пользователь не найден? перенести в сервис
     }
 
     @GetMapping(path = "/{id}")
     public UserDto getUser(@PathVariable("id") UUID id) {
-        return PostcardUtil.map(userService.findUserById(id), UserDto.class);
+        return PostcardUtil.map(userService.findUserById(id), UserDto.class); // TODO: пользователь может быть не найден, перенести в сервис
     }
 
-    @PutMapping(path = "/{id}")
-    public User updateUser(@PathVariable("id") UUID id,
+    @PutMapping(path = "/{id}") // избыточно
+    public User updateUser(@PathVariable("id") UUID id, // избыточно
                            @RequestBody UserDto userDto) {
         return userService.updateUser(id, userDto);
     }

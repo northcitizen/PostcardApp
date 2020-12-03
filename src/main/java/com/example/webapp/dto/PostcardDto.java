@@ -47,7 +47,7 @@ public class PostcardDto {
         private String name = "name not set";
         private String description = "none";
         private Long distance = 0L;
-        private PostcardStatus status = PostcardStatus.TRAVELLING;
+        private PostcardStatus status = PostcardStatus.TRAVELLING; // задавать в зависимости от того, что прислал пользователь
 
         public Builder(UUID id, String setPostNumber, String setCountry,
                        String setSendDate, String setReceiveDate, User user) {
@@ -84,6 +84,7 @@ public class PostcardDto {
         }
     }
 
+    // конструкторы с любыми модификаторами обычно идут после объявления полей класса
     private PostcardDto(Builder builder) {
         id = builder.id;
         postNumber = builder.postNumber;

@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 
 import java.time.ZonedDateTime;
 
-public class PostcardException {
+public class PostcardException /*extends Exception*/ {
     private final String message;
     private final Throwable throwable;
     private final HttpStatus httpStatus;

@@ -15,7 +15,7 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private final CacheManager cacheManager;
+    private final CacheManager cacheManager; // не используется
     private final UserRepository userRepository;
 
     @Autowired
@@ -32,9 +32,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(UserDto userDto) {
         return userRepository.save(
-                addUser(userDto.getFirstName(),
-                        userDto.getLastName(),
-                        userDto.getEmail(),
+                addUser(userDto.getFirstName(), // можно скрыть .getFirstName() внутри addUser
+                        userDto.getLastName(), // можно скрыть .getLastName() внутри addUser
+                        userDto.getEmail(), // можно скрыть .getEmail() внутри addUser
                         PostcardUtil.mapAll(userDto.getPostcards(), Postcard.class),
                         PostcardUtil.mapAll(userDto.getAddresses(), Address.class),
                         PostcardUtil.mapAll(userDto.getCountries(), Country.class)));
@@ -46,9 +46,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User addUser(String firstName, String lastName,
-                        String email, List<Postcard> postcards,
-                        List<Address> addresses, List<Country> countries) {
+    public User updateUser(UUID id, UserDto userDto) {
+        User userUpdate = PostcardUtil.map(userDto, User.class);
+        userUpdate.setId(id);
+        return userRepository.save(userUpdate);
+    }
+
+    //    @Override
+    private User addUser(String firstName, String lastName,
+                         String email, List<Postcard> postcards,
+                         List<Address> addresses, List<Country> countries) {
         return new UserBuilder()
                 .setFirstName(firstName)
                 .setLastName(lastName)
@@ -57,13 +64,6 @@ public class UserServiceImpl implements UserService {
                 .setAddresses(addresses)
                 .setCountries(countries)
                 .getUser();
-    }
-
-    @Override
-    public User updateUser(UUID id, UserDto userDto) {
-        User userUpdate = PostcardUtil.map(userDto, User.class);
-        userUpdate.setId(id);
-        return userRepository.save(userUpdate);
     }
 
 
