@@ -1,7 +1,10 @@
 package com.example.webapp.service.impl;
 
 import com.example.webapp.dto.UserDto;
-import com.example.webapp.model.*;
+import com.example.webapp.model.Address;
+import com.example.webapp.model.Country;
+import com.example.webapp.model.Postcard;
+import com.example.webapp.model.User;
 import com.example.webapp.repository.UserRepository;
 import com.example.webapp.service.PostcardUtil;
 import com.example.webapp.service.UserService;
@@ -9,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -31,13 +33,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(UserDto userDto) {
-        return userRepository.save(
-                addUser(userDto.getFirstName(), // можно скрыть .getFirstName() внутри addUser
-                        userDto.getLastName(), // можно скрыть .getLastName() внутри addUser
-                        userDto.getEmail(), // можно скрыть .getEmail() внутри addUser
-                        PostcardUtil.mapAll(userDto.getPostcards(), Postcard.class),
-                        PostcardUtil.mapAll(userDto.getAddresses(), Address.class),
-                        PostcardUtil.mapAll(userDto.getCountries(), Country.class)));
+        return userRepository.save(addUser(userDto));
     }
 
     @Override
@@ -52,19 +48,15 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(userUpdate);
     }
 
-    //    @Override
-    private User addUser(String firstName, String lastName,
-                         String email, List<Postcard> postcards,
-                         List<Address> addresses, List<Country> countries) {
-        return new UserBuilder()
-                .setFirstName(firstName)
-                .setLastName(lastName)
-                .setEmail(email)
-                .setPostcards(postcards)
-                .setAddresses(addresses)
-                .setCountries(countries)
-                .getUser();
+    //@Override забыл почему так
+    private User addUser(UserDto userDto) {
+        return User.builder()
+                .firstName(userDto.getFirstName())
+                .lastName(userDto.getLastName())
+                .email(userDto.getEmail())
+                .postcards(PostcardUtil.mapAll(userDto.getPostcards(), Postcard.class))
+                .addresses(PostcardUtil.mapAll(userDto.getAddresses(), Address.class))
+                .countries(PostcardUtil.mapAll(userDto.getCountries(), Country.class))
+                .build();
     }
-
-
 }
