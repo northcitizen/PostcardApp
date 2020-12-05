@@ -1,12 +1,16 @@
 package com.example.webapp.service.impl;
 
 import com.example.webapp.dto.PostcardDto;
+import com.example.webapp.exception.PostcardNotFoundException;
 import com.example.webapp.exception.PostcardNotSavedException;
+import com.example.webapp.exception.PostcardNotUpdatedException;
+import com.example.webapp.exception.UserNotFoundException;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.repository.PostcardRepository;
 import com.example.webapp.repository.UserRepository;
 import com.example.webapp.service.PostcardService;
 import com.example.webapp.service.PostcardUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
@@ -18,6 +22,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@Slf4j
 public class PostcardServiceImpl implements PostcardService {
 
     private final CacheManager cacheManager;
@@ -41,8 +46,14 @@ public class PostcardServiceImpl implements PostcardService {
 
     @Override
     @Cacheable(value = "postcardCache")
-    public List<Postcard> findAll() throws NullPointerException {
-        return (List<Postcard>) postcardRepository.findAll();
+    public List<Postcard> findAll() {
+        try {
+            log.debug("get postcard list request...");
+            return (List<Postcard>) postcardRepository.findAll();
+        } catch (RuntimeException e) {
+            log.error("postcards not found...");
+            throw new PostcardNotFoundException();
+        }
     }
 
     @Override
@@ -52,37 +63,56 @@ public class PostcardServiceImpl implements PostcardService {
     }
 
     @Override
-    public void delete(Postcard postcard) {
-        postcardRepository.delete(postcard);
+    public void delete(UUID id) {
+        if (postcardRepository.findByPostcardId(id) == null)
+            throw new PostcardNotFoundException("postcard not found in update service...");
+        postcardRepository.delete(postcardRepository.findByPostcardId(id));
     }
 
     @Override
     @Cacheable(value = "postcardCache")
-    public Postcard findByPostcardId(UUID id) throws NullPointerException {
-        return postcardRepository.findByPostcardId(id);
+    public Postcard findByPostcardById(UUID id) {
+        try {
+            log.debug("find postcard by id request...");
+            return postcardRepository.findByPostcardId(id);
+        } catch (RuntimeException e) {
+            log.error("postcard not found by id...", e);
+            throw new PostcardNotFoundException();
+        }
 
     }
 
     @Override
     public Postcard createPostcard(PostcardDto postcardDto) {
-
+        if (userRepository.findUserById(postcardDto.getUser().getId()) == null)
+            throw new UserNotFoundException("user not found by creating postcard...");
         try {
+            log.debug("creating postcard");
             Postcard temp = PostcardUtil.map(postcardDto, Postcard.class);
             temp.setUser(userRepository.findUserById(postcardDto.getUser().getId()));
             return postcardRepository.save(temp);
         } catch (RuntimeException e) {
+            log.error("error occurred by mapping...", e);
             postcardRepository.deleteAll();
             throw new PostcardNotSavedException();
         }
     }
 
     @Override
-    public List<Postcard> createListPostcards(List<PostcardDto> postcardList) {
+    public List<Postcard> createPostcardList(List<PostcardDto> postcardList) {
+
+        postcardList.forEach(postcard -> {
+            if (userRepository.findUserById(postcard.getUser().getId()) == null)
+                throw new UserNotFoundException("user not found by creating list of postcards...");
+        });
+
         try {
+            log.debug("creating list of postcards...");
             List<Postcard> postcardList1 = PostcardUtil.mapAll(postcardList, Postcard.class);
             postcardList1.forEach(postcard -> postcard.setUser(userRepository.findUserById(postcard.getUser().getId())));
             return (List<Postcard>) postcardRepository.saveAll(postcardList1);
         } catch (RuntimeException e) {
+            log.error("error occurred by mapping...", e);
             postcardRepository.deleteAll();
             throw new PostcardNotSavedException();
         }
@@ -90,11 +120,22 @@ public class PostcardServiceImpl implements PostcardService {
 
     @Override
     public Postcard updatePostcard(UUID id, PostcardDto postcardDto) {
-        Postcard postcard = PostcardUtil.map(postcardRepository.findByPostcardId(id), Postcard.class);
-        Postcard postcardUpdate = PostcardUtil.map(postcardDto, Postcard.class);
-        postcardUpdate.setUser(userRepository.findUserById(postcardDto.getUser().getId()));
-        postcardUpdate.setId(id);
-        BeanUtils.copyProperties(postcardUpdate, postcard);
-        return postcardRepository.save(postcard);
+
+        if (userRepository.findUserById(postcardDto.getUser().getId()) == null)
+            throw new UserNotFoundException("user not found in update service...");
+        if (postcardRepository.findByPostcardId(id) == null)
+            throw new PostcardNotFoundException("postcard not found in update service...");
+        try {
+            log.debug("update postcard service...");
+            Postcard postcard = PostcardUtil.map(postcardRepository.findByPostcardId(id), Postcard.class);
+            Postcard postcardUpdate = PostcardUtil.map(postcardDto, Postcard.class);
+            postcardUpdate.setUser(userRepository.findUserById(postcardDto.getUser().getId()));
+            postcardUpdate.setId(id);
+            BeanUtils.copyProperties(postcardUpdate, postcard);
+            return postcardRepository.save(postcard);
+        } catch (RuntimeException e) {
+            log.error("error occurred by mapping", e);
+            throw new PostcardNotUpdatedException();
+        }
     }
 }

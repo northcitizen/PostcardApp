@@ -35,9 +35,11 @@ public class AddressController {
         addressService.delete(addressService.findAddressById(id)); // что будет если удалить адрес, который используется
     }
 
-    @PutMapping(path = "/{id}")
-    public Address updateAddress(@PathVariable("id") UUID id,
-                                 @RequestBody AddressDto addressDto) { // id передается дважды
-        return addressService.updateAddress(id, addressDto);
-    }
+//    @PutMapping(path = "/{id}")
+//    public Address updateAddress(//@PathVariable("id") UUID id,
+//          //todo: id
+//                                 @RequestBody AddressDto addressDto) { // id передается дважды
+//        return addressService.updateAddress(id, addressDto);
+//    }
+    //добавить список всех адресов
 }

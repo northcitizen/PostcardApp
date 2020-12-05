@@ -2,8 +2,7 @@ package com.example.webapp.service;
 
 import com.example.webapp.model.Postcard;
 import com.example.webapp.repository.PostcardRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -11,9 +10,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Slf4j
 public class SchedulerService {
 
-    private static final Logger logger = LoggerFactory.getLogger(SchedulerService.class);
     final PostcardRepository postcardRepository;
     private static int cardsNumber;
     private List<Postcard> list;
@@ -35,16 +34,16 @@ public class SchedulerService {
 
     @Scheduled(initialDelayString = "${scheduler.delay}", fixedDelayString = "${scheduler.delay}")
     public void postcardTask() throws InterruptedException {
-        logger.info("List of cards");
+        log.info("List of cards");
         List<Postcard> postcardList = (List<Postcard>) postcardRepository.findAll();
         int currentCardsNumber = postcardList.size();
         if (currentCardsNumber == getCardsNumber()) {
-            logger.error("CAUTION!");
+            log.error("CAUTION!");
         } else {
-            logger.info("POSTCARD LIST CHANGED");
+            log.info("POSTCARD LIST CHANGED");
             changePostcardListNumber();
         }
-        logger.info(String.valueOf(postcardList.size()) + " postcards in database");
+        log.info(String.valueOf(postcardList.size()) + " postcards in database");
     }
 
     public static void setCardsNumber(int cardsNumber) {

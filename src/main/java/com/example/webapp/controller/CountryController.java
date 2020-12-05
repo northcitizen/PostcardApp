@@ -20,10 +20,10 @@ public class CountryController {
         this.countryService = countryService;
     }
 
-    @PostMapping(path = "/{id}") // лишнее
+    @PostMapping(path = "/{user_id}") // лишнее
     public Country createCountry(@RequestBody CountryDto countryDto,
-                                 @PathVariable("id") UUID id) { // лишнее
-        return countryService.createCountry(countryDto, id);
+                                 @PathVariable("user_id") UUID userId) { // лишнее
+        return countryService.createCountry(countryDto, userId);
     }
 
     @GetMapping(path = "/{id}")
