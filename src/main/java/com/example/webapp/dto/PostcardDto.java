@@ -49,6 +49,7 @@ public class PostcardDto {
         private Long distance = 0L;
         private PostcardStatus status = PostcardStatus.TRAVELLING; // задавать в зависимости от того, что прислал пользователь
 
+        // вычислять на ходу
         public Builder(UUID id, String setPostNumber, String setCountry,
                        String setSendDate, String setReceiveDate, User user) {
             this.id = id;
