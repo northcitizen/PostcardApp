@@ -7,15 +7,15 @@ import java.util.UUID;
 
 public interface UserService {
 
-    void delete(User user);
+    void delete(UUID id);
 
     User save(UserDto userDto);
 
-    User findUserById(UUID id);
+    UserDto findUserById(UUID id);
 
 //    User addUser(String firstName, String lastName,
 //                 String email, List<Postcard> postcards,
 //                 List<Address> addresses, List<Country> countries);
 
-    User updateUser(UUID id, UserDto userDto);
+    User updateUser(UserDto userDto);
 }

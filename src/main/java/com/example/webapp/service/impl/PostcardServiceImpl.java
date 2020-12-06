@@ -25,7 +25,7 @@ import java.util.UUID;
 @Slf4j
 public class PostcardServiceImpl implements PostcardService {
 
-    private final CacheManager cacheManager;
+    private final CacheManager cacheManager;//TODO : использовать кэш
     private final PostcardRepository postcardRepository;
     private final UserRepository userRepository;
 
@@ -46,10 +46,10 @@ public class PostcardServiceImpl implements PostcardService {
 
     @Override
     @Cacheable(value = "postcardCache")
-    public List<Postcard> findAll() {
+    public List<PostcardDto> findAll() {
         try {
             log.debug("get postcard list request...");
-            return (List<Postcard>) postcardRepository.findAll();
+            return PostcardUtil.mapAll((List<Postcard>) postcardRepository.findAll(), PostcardDto.class);
         } catch (RuntimeException e) {
             log.error("postcards not found...");
             throw new PostcardNotFoundException();
@@ -71,10 +71,10 @@ public class PostcardServiceImpl implements PostcardService {
 
     @Override
     @Cacheable(value = "postcardCache")
-    public Postcard findByPostcardById(UUID id) {
+    public PostcardDto findByPostcardById(UUID id) {
         try {
             log.debug("find postcard by id request...");
-            return postcardRepository.findByPostcardId(id);
+            return PostcardUtil.map(postcardRepository.findByPostcardId(id), PostcardDto.class);
         } catch (RuntimeException e) {
             log.error("postcard not found by id...", e);
             throw new PostcardNotFoundException();

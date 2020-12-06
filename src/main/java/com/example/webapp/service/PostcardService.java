@@ -12,13 +12,13 @@ public interface PostcardService {
 
     Postcard findByPostNumber(String postNumber);
 
-    List<Postcard> findAll();
+    List<PostcardDto> findAll();
 
     Postcard save(Postcard postcard);
 
     void delete(UUID id);
 
-    Postcard findByPostcardById(UUID id);
+    PostcardDto findByPostcardById(UUID id);
 
     Postcard createPostcard(PostcardDto postcardDto) throws UserNotFoundException, PostcardNotSavedException;
 

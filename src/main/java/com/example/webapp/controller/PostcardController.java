@@ -3,7 +3,6 @@ package com.example.webapp.controller;
 import com.example.webapp.dto.PostcardDto;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.service.PostcardService;
-import com.example.webapp.service.PostcardUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +26,7 @@ public class PostcardController {
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
     public List<PostcardDto> postcardList() {
-        return PostcardUtil.mapAll(postcardService.findAll(), PostcardDto.class);
+        return postcardService.findAll();
     }
 
     @PostMapping
@@ -43,8 +42,8 @@ public class PostcardController {
 
     // открыток может быть много ***upd***: нет, тут одна открытка, так как ищем открытку по id
     @GetMapping(path = "/{id}")/*postcard id! not user*/ /*добавили семантики параметру -> можем избавиться от комментария*/
-    public PostcardDto getPostcardById(@PathVariable("id") UUID userId) {/*id can be null*/ //TODO: delete comments, add semantics
-        return PostcardUtil.map(postcardService.findByPostcardById(userId), PostcardDto.class); // TODO: перенести в сервис
+    public PostcardDto getPostcardById(@PathVariable("id") UUID id) {/*id can be null*/ //TODO: delete comments, add semantics
+        return postcardService.findByPostcardById(id); // TODO: перенести в сервис
     }//забыл, что тут переносить в сервис
 
     @PutMapping(path = "/{id}") //{id} избыточно //upd:это id открытки, то есть мне ее в dto перенести?
