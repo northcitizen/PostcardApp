@@ -9,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.UUID;
 
@@ -51,6 +52,10 @@ public class Address {
     @NotBlank(message = "Field 'country' can not be blank")
     @Size(min = MIN_COUNTRY_SIZE, max = MAX_COUNTRY_SIZE)
     private String country;
+
+    @Column
+    @NotNull
+    private Boolean status;
 
     @ManyToOne(cascade = {
             CascadeType.MERGE,

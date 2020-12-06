@@ -1,4 +1,4 @@
-package com.example.webapp.exception;
+package com.example.webapp.exception.postcard;
 
 public class PostcardNotFoundException extends RuntimeException {
 

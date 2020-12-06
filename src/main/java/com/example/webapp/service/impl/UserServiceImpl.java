@@ -1,10 +1,9 @@
 package com.example.webapp.service.impl;
 
 import com.example.webapp.dto.UserDto;
-import com.example.webapp.exception.UserNotFoundException;
-import com.example.webapp.exception.UserNotUpdatedException;
+import com.example.webapp.exception.user.UserNotFoundException;
+import com.example.webapp.exception.user.UserNotUpdatedException;
 import com.example.webapp.model.Address;
-import com.example.webapp.model.Country;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.model.User;
 import com.example.webapp.repository.UserRepository;
@@ -33,7 +32,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(UUID id) {
         if (userRepository.findUserById(id) == null)
-            throw new UserNotFoundException("postcard not found in update service...");
+            throw new UserNotFoundException("user not found in delete service...");
         userRepository.delete(userRepository.findUserById(id));
     }
 
@@ -76,7 +75,6 @@ public class UserServiceImpl implements UserService {
                 .email(userDto.getEmail())
                 .postcards(PostcardUtil.mapAll(userDto.getPostcards(), Postcard.class))
                 .addresses(PostcardUtil.mapAll(userDto.getAddresses(), Address.class))
-                .countries(PostcardUtil.mapAll(userDto.getCountries(), Country.class))
                 .build();
     }
 }

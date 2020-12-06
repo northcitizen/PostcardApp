@@ -47,10 +47,4 @@ public class User {
             orphanRemoval = true,
             fetch = FetchType.LAZY)
     private List<Address> addresses;
-
-    @OneToMany(mappedBy = "user",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY)
-    private List<Country> countries;
 }

@@ -1,8 +1,8 @@
 package com.example.webapp.service;
 
 import com.example.webapp.dto.PostcardDto;
-import com.example.webapp.exception.PostcardNotSavedException;
-import com.example.webapp.exception.UserNotFoundException;
+import com.example.webapp.exception.postcard.PostcardNotSavedException;
+import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.Postcard;
 
 import java.util.List;

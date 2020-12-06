@@ -1,10 +1,10 @@
 package com.example.webapp.service.impl;
 
 import com.example.webapp.dto.PostcardDto;
-import com.example.webapp.exception.PostcardNotFoundException;
-import com.example.webapp.exception.PostcardNotSavedException;
-import com.example.webapp.exception.PostcardNotUpdatedException;
-import com.example.webapp.exception.UserNotFoundException;
+import com.example.webapp.exception.postcard.PostcardNotFoundException;
+import com.example.webapp.exception.postcard.PostcardNotSavedException;
+import com.example.webapp.exception.postcard.PostcardNotUpdatedException;
+import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.repository.PostcardRepository;
 import com.example.webapp.repository.UserRepository;
@@ -72,11 +72,13 @@ public class PostcardServiceImpl implements PostcardService {
     @Override
     @Cacheable(value = "postcardCache")
     public PostcardDto findByPostcardById(UUID id) {
+        if (postcardRepository.findByPostcardId(id) == null)
+            throw new PostcardNotFoundException("postcard not found...");
         try {
             log.debug("find postcard by id request...");
             return PostcardUtil.map(postcardRepository.findByPostcardId(id), PostcardDto.class);
         } catch (RuntimeException e) {
-            log.error("postcard not found by id...", e);
+            log.error("error occurred by mapping...", e);
             throw new PostcardNotFoundException();
         }
 
