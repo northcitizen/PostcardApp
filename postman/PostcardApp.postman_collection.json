@@ -380,6 +380,44 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "delete addresses/addr_id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/addresses/6cb703d5-9703-4598-a7df-f3fc44818066",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"addresses",
+						"6cb703d5-9703-4598-a7df-f3fc44818066"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/get list of addresses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/addresses/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"addresses",
+						""
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
