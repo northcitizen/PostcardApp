@@ -46,10 +46,9 @@ public class PostcardController {
         return postcardService.findByPostcardById(id); // TODO: перенести в сервис
     }//забыл, что тут переносить в сервис
 
-    @PutMapping(path = "/{id}") //{id} избыточно //upd:это id открытки, то есть мне ее в dto перенести?
-    public Postcard updatePostcard(@PathVariable("id") UUID id, // id избыточно
-                                   @RequestBody PostcardDto postcardDetails) {
-        return postcardService.updatePostcard(id, postcardDetails);
+    @PutMapping //{id} избыточно //upd:это id открытки, то есть мне ее в dto перенести?
+    public Postcard updatePostcard(@RequestBody PostcardDto postcardDetails) {
+        return postcardService.updatePostcard(postcardDetails);
     }
 
     @DeleteMapping(path = "/{id}")

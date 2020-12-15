@@ -22,7 +22,7 @@ public interface PostcardService {
 
     Postcard createPostcard(PostcardDto postcardDto) throws UserNotFoundException, PostcardNotSavedException;
 
-    Postcard updatePostcard(UUID id, PostcardDto postcardDto);
+    Postcard updatePostcard(PostcardDto postcardDto);
 
     List<Postcard> createPostcardList(List<PostcardDto> postcardList);
 }

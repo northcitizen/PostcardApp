@@ -1,5 +1,7 @@
 package com.example.webapp.exception.user;
 
+import java.util.UUID;
+
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException() {
     }
@@ -10,6 +12,10 @@ public class UserNotFoundException extends RuntimeException {
 
     public UserNotFoundException(String message, Throwable cause) {
         super(message, cause);
+    }
+
+    public UserNotFoundException(UUID id) {
+        super(String.format("user with Id %s not found", id));
     }
 
     public UserNotFoundException(Throwable cause) {

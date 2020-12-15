@@ -13,7 +13,7 @@ public interface AddressService {
 
     Address createAddress(AddressDto addressDto);
 
-    AddressDto findAddressById(UUID id);
+    AddressDto findById(UUID id);
 
     Address updateAddress(AddressDto addressDto);
 

@@ -60,4 +60,16 @@ public class AddressExceptionHandler {
         log.error("bad request: the current address");
         return new ResponseEntity<>(addressException, badRequest);
     }
+
+    @ExceptionHandler(value = {AddressConvertingException.class})
+    public ResponseEntity<Object> handleAddressConvertingException(AddressConvertingException e) {
+        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
+        AddressException addressException = new AddressException(
+                e.getMessage(),
+                e,
+                badRequest,
+                ZonedDateTime.now(ZoneId.of("Z")));
+        log.error("converting error");
+        return new ResponseEntity<>(addressException, badRequest);
+    }
 }

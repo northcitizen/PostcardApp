@@ -14,10 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
 @Slf4j
+@Transactional
 public class UserServiceImpl implements UserService {
 
     private final CacheManager cacheManager; //TODO применить кэш
@@ -31,7 +34,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(UUID id) {
-        if (userRepository.findUserById(id) == null)
+        if (Objects.isNull(userRepository.findUserById(id)))
             throw new UserNotFoundException("user not found in delete service...");
         userRepository.delete(userRepository.findUserById(id));
     }
@@ -54,7 +57,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUser(UserDto userDto) {
-        if (userRepository.findUserById(userDto.getId()) == null)
+        if (Objects.isNull(userRepository.findUserById(userDto.getId())))
             throw new UserNotFoundException("user not found in update service...");
         try {
             log.debug("update user service...");
@@ -67,7 +70,6 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    //@Override забыл почему так private
     private User addUser(UserDto userDto) {
         return User.builder()
                 .firstName(userDto.getFirstName())

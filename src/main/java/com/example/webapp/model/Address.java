@@ -1,15 +1,11 @@
 package com.example.webapp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.UUID;
 
@@ -19,6 +15,7 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Address {
 
     static final int MAX_COUNTRY_SIZE = 100;
@@ -54,8 +51,7 @@ public class Address {
     private String country;
 
     @Column
-    @NotNull
-    private Boolean status;
+    private boolean status;
 
     @ManyToOne(cascade = {
             CascadeType.MERGE,

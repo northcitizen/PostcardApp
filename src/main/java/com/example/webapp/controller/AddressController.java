@@ -28,12 +28,12 @@ public class AddressController {
 
     @GetMapping(path = "/{id}")
     public AddressDto getAddress(@PathVariable("id") UUID id) {
-        return addressService.findAddressById(id);
+        return addressService.findById(id);
     }
 
     @DeleteMapping(path = "/{id}")
     public void deleteAddress(@PathVariable("id") UUID id) {
-        addressService.delete(id); // что будет если удалить адрес, который используется
+        addressService.delete(id);
     }
 
     @PutMapping
@@ -41,7 +41,6 @@ public class AddressController {
         return addressService.updateAddress(addressDto);
     }
 
-    //добавить список всех адресов
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
     public List<AddressDto> postcardList() {

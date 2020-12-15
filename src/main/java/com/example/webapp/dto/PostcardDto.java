@@ -1,7 +1,6 @@
 package com.example.webapp.dto;
 
 import com.example.webapp.model.PostcardStatus;
-import com.example.webapp.model.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -13,9 +12,10 @@ import java.util.UUID;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
+@Builder
 public class PostcardDto {
 
-    private UUID id;
+    private java.util.UUID id;
     @JsonProperty(required = true)
     private String postNumber;
     @JsonProperty(required = true)
@@ -33,5 +33,5 @@ public class PostcardDto {
     @JsonProperty(required = true)
     private String receiveDate;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private User user;
+    private UUID userId;
 }

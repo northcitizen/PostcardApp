@@ -9,13 +9,15 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.UUID;
 
+@Builder
 @Entity
 @Table(name = "users")
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@ToString
+@EqualsAndHashCode
 public class User {
     @Id
     @GeneratedValue(generator = "UUID", strategy = GenerationType.IDENTITY)
