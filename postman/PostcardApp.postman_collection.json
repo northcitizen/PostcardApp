@@ -418,6 +418,17 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "findAddress by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}
