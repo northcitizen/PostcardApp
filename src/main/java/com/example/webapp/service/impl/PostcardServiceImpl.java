@@ -103,15 +103,16 @@ public class PostcardServiceImpl implements PostcardService {
     @Override
     public List<Postcard> createPostcardList(List<PostcardDto> postcardDTOList) {
 
+        UUID userId  = postcardDTOList.get(0).getUserId();
         postcardDTOList.forEach(postcard -> {
-            if (Objects.isNull(userRepository.findUserById(postcard.getUserId()))) {
+            if (Objects.isNull(userRepository.findUserById(userId))) {
                 throw new UserNotFoundException("user not found by creating list of postcards...");
             }
         });
         try {
             log.debug("creating list of postcards...");
             List<Postcard> postcardList = PostcardUtil.mapAll(postcardDTOList, Postcard.class);
-            postcardList.forEach(postcard -> postcard.setUser(userRepository.findUserById(postcard.getUser().getId())));
+            postcardList.forEach(postcard -> postcard.setUser(userRepository.findUserById(userId)));
             return (List<Postcard>) postcardRepository.saveAll(postcardList);
         } catch (Exception e) {
             log.error("error occurred by mapping...", e);
