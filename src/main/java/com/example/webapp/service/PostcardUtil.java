@@ -83,7 +83,7 @@ public class PostcardUtil {
     public static <D, T> List<D> mapAll(final Collection<T> entityList, Class<D> outCLass) {
         if (Objects.isNull(entityList)) {
             log.error("mapping NULL {}", entityList);
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
         return entityList.stream()
                 .map(entity -> map(entity, outCLass))
