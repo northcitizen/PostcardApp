@@ -23,7 +23,6 @@ public class UserDto {
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<PostcardDto> postcards;
-    //todo: вывести стат. по полученным из стран открыткам ниже все заккоментить
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<AddressDto> addresses;
 }

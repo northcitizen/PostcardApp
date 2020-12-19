@@ -1,6 +1,7 @@
 package com.example.webapp.controller;
 
 import com.example.webapp.dto.AddressDto;
+import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.Address;
 import com.example.webapp.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,28 +23,33 @@ public class AddressController {
     }
 
     @PostMapping
-    public Address createAddress(@RequestBody AddressDto addressDto) {
+    public Address create(@RequestBody AddressDto addressDto) {
         return addressService.createAddress(addressDto);
     }
 
     @GetMapping(path = "/{id}")
-    public AddressDto getAddress(@PathVariable("id") UUID id) {
-        return addressService.findById(id);
+    public AddressDto get(@PathVariable("id") UUID id) {
+        try {
+            return addressService.findById(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UserNotFoundException();
+        }
     }
 
     @DeleteMapping(path = "/{id}")
-    public void deleteAddress(@PathVariable("id") UUID id) {
+    public void delete(@PathVariable("id") UUID id) {
         addressService.delete(id);
     }
 
     @PutMapping
-    public Address updateAddress(@RequestBody AddressDto addressDto) {
+    public Address update(@RequestBody AddressDto addressDto) {
         return addressService.updateAddress(addressDto);
     }
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public List<AddressDto> postcardList() {
+    public List<AddressDto> getAll() {
         return addressService.findAll();
     }
 }

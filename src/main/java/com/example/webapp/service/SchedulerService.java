@@ -2,29 +2,49 @@ package com.example.webapp.service;
 
 import com.example.webapp.model.Postcard;
 import com.example.webapp.repository.PostcardRepository;
+import com.example.webapp.repository.SettingsRepositoryImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.List;
 
 @Service
 @Slf4j
 public class SchedulerService {
 
-    final PostcardRepository postcardRepository;
+    private final SettingsRepositoryImpl settingsRepository;
+    private final PostcardRepository postcardRepository;
     private static int cardsNumber;
     private List<Postcard> list;
 
     @Autowired
-    public SchedulerService(PostcardRepository postcardRepository) {
+    public SchedulerService(SettingsRepositoryImpl settingsRepository, PostcardRepository postcardRepository) {
+        this.settingsRepository = settingsRepository;
         this.postcardRepository = postcardRepository;
     }
 
-    public SchedulerService(PostcardRepository postcardRepository, List<Postcard> list) {
-        this.postcardRepository = postcardRepository;
+    @PostConstruct
+    private void init() {
         this.list = (List<Postcard>) postcardRepository.findAll();
+        if (list.size() > settingsRepository.getCriticalPostcardNumber()) {
+            log.warn("приложение запущено с критическим чилом открфток в системе");
+        }
+    }
+
+    @PreDestroy
+    private void destroy() {
+        try {
+            this.list = (List<Postcard>) postcardRepository.findAll();
+            if (list.size() > settingsRepository.getCriticalPostcardNumber()) {
+                log.warn("приложение отсановлено...");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void changePostcardListNumber() {

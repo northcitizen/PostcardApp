@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface AddressService {
-    Address save(Address address);
 
     void delete(UUID id);
 

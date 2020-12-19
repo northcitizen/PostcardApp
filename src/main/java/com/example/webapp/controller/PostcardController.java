@@ -30,29 +30,28 @@ public class PostcardController {
     }
 
     @PostMapping
-    public Postcard createPostcard(@RequestBody PostcardDto postcardDto) {
-        log.debug("://" + postcardDto.toString());
+    public Postcard create(@RequestBody PostcardDto postcardDto) {
+        log.debug("create postcard with parameters {}", postcardDto);
         return postcardService.createPostcard(postcardDto);
     }
 
     @PostMapping(path = "/batch")
-    public List<Postcard> createPostcardList(@RequestBody List<PostcardDto> postcardList) {
+    public List<Postcard> createList(@RequestBody List<PostcardDto> postcardList) {
         return postcardService.createPostcardList(postcardList);
     }
 
-    // открыток может быть много ***upd***: нет, тут одна открытка, так как ищем открытку по id
-    @GetMapping(path = "/{id}")/*postcard id! not user*/ /*добавили семантики параметру -> можем избавиться от комментария*/
-    public PostcardDto getPostcardById(@PathVariable("id") UUID id) {/*id can be null*/ //TODO: delete comments, add semantics
-        return postcardService.findByPostcardById(id); // TODO: перенести в сервис
-    }//забыл, что тут переносить в сервис
+    @GetMapping(path = "/{id}")
+    public PostcardDto getById(@PathVariable("id") UUID id) {
+        return postcardService.findByPostcardById(id);
+    }
 
-    @PutMapping //{id} избыточно //upd:это id открытки, то есть мне ее в dto перенести?
-    public Postcard updatePostcard(@RequestBody PostcardDto postcardDetails) {
+    @PutMapping
+    public Postcard update(@RequestBody PostcardDto postcardDetails) {
         return postcardService.updatePostcard(postcardDetails);
     }
 
     @DeleteMapping(path = "/{id}")
-    public void deletePostcard(@PathVariable("id") UUID id) {
+    public void delete(@PathVariable("id") UUID id) {
         postcardService.delete(id);
     }
 }

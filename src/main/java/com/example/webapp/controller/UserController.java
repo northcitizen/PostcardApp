@@ -6,6 +6,8 @@ import com.example.webapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping(path = "/users")
 public class UserController {
@@ -18,22 +20,22 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@RequestBody UserDto user) {
-        return (User) userService.save(user);
+    public User create(@RequestBody UserDto user) {
+        return userService.createUser(user);
     }
 
     @DeleteMapping(path = "/{id}")
-    public void deleteUser(@PathVariable("id") java.util.UUID id) {
+    public void delete(@PathVariable("id") UUID id) {
         userService.delete(id);
     }
 
     @GetMapping(path = "/{id}")
-    public UserDto getUser(@PathVariable("id") java.util.UUID id) {
+    public UserDto get(@PathVariable("id") UUID id) {
         return userService.findUserById(id);
     }
 
     @PutMapping
-    public User updateUser(@RequestBody UserDto userDto) {
-        return (User) userService.updateUser(userDto);
+    public User update(@RequestBody UserDto userDto) {
+        return userService.updateUser(userDto);
     }
 }

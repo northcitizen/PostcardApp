@@ -10,13 +10,9 @@ public interface UserService {
 
     void delete(UUID id);
 
-    User save(UserDto userDto);
-
     UserDto findUserById(UUID id);
 
-//    User addUser(String firstName, String lastName,
-//                 String email, List<Postcard> postcards,
-//                 List<Address> addresses, List<Country> countries);
-
     User updateUser(UserDto userDto);
+
+    User createUser(UserDto userDto);
 }

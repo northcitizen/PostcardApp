@@ -14,8 +14,6 @@ public interface PostcardService {
 
     List<PostcardDto> findAll();
 
-    Postcard save(Postcard postcard);
-
     void delete(UUID id);
 
     PostcardDto findByPostcardById(UUID id);

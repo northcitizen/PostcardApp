@@ -14,8 +14,6 @@ import com.example.webapp.service.PostcardService;
 import com.example.webapp.service.PostcardUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -32,16 +30,14 @@ import java.util.UUID;
 @Transactional
 public class PostcardServiceImpl implements PostcardService {
 
-    private final CacheManager cacheManager;//TODO : использовать кэш
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     private final PostcardRepository postcardRepository;
     private final UserRepository userRepository;
 
     @Autowired
     public PostcardServiceImpl(PostcardRepository postcardRepository,
-                               CacheManager cacheManager,
                                UserRepository userRepository) {
         this.postcardRepository = postcardRepository;
-        this.cacheManager = cacheManager;
         this.userRepository = userRepository;
     }
 
@@ -57,16 +53,10 @@ public class PostcardServiceImpl implements PostcardService {
         try {
             log.debug("get postcard list request...");
             return PostcardUtil.mapAll((List<Postcard>) postcardRepository.findAll(), PostcardDto.class);
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             log.error("postcards not found...");
             throw new PostcardNotFoundException();
         }
-    }
-
-    @Override
-    @CacheEvict(value = "postcardCache", allEntries = true)
-    public Postcard save(Postcard postcard) {
-        return postcardRepository.save(postcard);
     }
 
     @Override
@@ -91,7 +81,7 @@ public class PostcardServiceImpl implements PostcardService {
         }
         try {
             return postcardToDTO(postcard);
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             log.error("error occurred during converting postcard to dto...", e);
             throw new PostcardConvertingException(id);
         }
@@ -103,7 +93,7 @@ public class PostcardServiceImpl implements PostcardService {
         log.debug("creating postcard with parameters {}", postcardDto);
         try {
             return postcardRepository.save(dtoToPostcard(postcardDto));
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             log.error("error occurred during converting dto to postcard...", e);
             postcardRepository.deleteAll();
             throw new PostcardConvertingException(e);
@@ -123,7 +113,7 @@ public class PostcardServiceImpl implements PostcardService {
             List<Postcard> postcardList = PostcardUtil.mapAll(postcardDTOList, Postcard.class);
             postcardList.forEach(postcard -> postcard.setUser(userRepository.findUserById(postcard.getUser().getId())));
             return (List<Postcard>) postcardRepository.saveAll(postcardList);
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             log.error("error occurred by mapping...", e);
             postcardRepository.deleteAll();
             throw new PostcardNotSavedException();
@@ -141,14 +131,13 @@ public class PostcardServiceImpl implements PostcardService {
         try {
             log.debug("update postcard by id {}", id);
             return postcardRepository.save(dtoToPostcard(postcardDto));
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             log.error("error occurred by mapping", e);
             throw new PostcardNotUpdatedException();
         }
     }
 
     private Postcard dtoToPostcard(PostcardDto postcardDto) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         UUID userId = postcardDto.getUserId();
         User user = userRepository.findUserById(userId);
         if (Objects.isNull(user)) {
@@ -156,18 +145,7 @@ public class PostcardServiceImpl implements PostcardService {
             throw new UserNotFoundException(userId);
         }
         try {
-            return Postcard.builder()
-                    .id(postcardDto.getId())
-                    .postNumber(postcardDto.getPostNumber())
-                    .country(postcardDto.getCountry())
-                    .name(postcardDto.getName())
-                    .description(postcardDto.getDescription())
-                    .distance(postcardDto.getDistance())
-                    .status(postcardDto.getStatus())
-                    .sendDate(LocalDate.parse(postcardDto.getSendDate(), formatter).atStartOfDay())
-                    .receiveDate(LocalDate.parse(postcardDto.getReceiveDate(), formatter).atStartOfDay())
-                    .user(user)
-                    .build();
+            return buildPostcard(postcardDto, user);
         } catch (DateTimeParseException e) {
             log.error("error occurred during parsing date", e);
             throw new PostcardConvertingException(e);
@@ -181,6 +159,30 @@ public class PostcardServiceImpl implements PostcardService {
             log.error("user with Id {} not found", userId);
             throw new UserNotFoundException(userId);
         }
+        try {
+            return buildPostcardDTO(postcard, userId);
+        } catch (Exception e) {
+            log.error("error occurred during converting", e);
+            throw new PostcardConvertingException();
+        }
+    }
+
+    private Postcard buildPostcard(PostcardDto postcardDto, User user) {
+        return Postcard.builder()
+                .id(postcardDto.getId())
+                .postNumber(postcardDto.getPostNumber())
+                .country(postcardDto.getCountry())
+                .name(postcardDto.getName())
+                .description(postcardDto.getDescription())
+                .distance(postcardDto.getDistance())
+                .status(postcardDto.getStatus())
+                .sendDate(LocalDate.parse(postcardDto.getSendDate(), formatter).atStartOfDay())
+                .receiveDate(LocalDate.parse(postcardDto.getReceiveDate(), formatter).atStartOfDay())
+                .user(user)
+                .build();
+    }
+
+    private PostcardDto buildPostcardDTO(Postcard postcard, UUID userId) {
         return PostcardDto.builder()
                 .id(postcard.getId())
                 .postNumber(postcard.getPostNumber())

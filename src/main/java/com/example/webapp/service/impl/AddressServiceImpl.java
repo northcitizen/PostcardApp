@@ -35,11 +35,6 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Address save(Address address) {
-        return addressRepository.save(address);
-    }
-
-    @Override
     @Transactional
     public void delete(UUID id) {
         log.debug("deleting address by id {}", id);
@@ -60,7 +55,7 @@ public class AddressServiceImpl implements AddressService {
         log.debug("creating address with parameter {}", addressDto);
         try {
             return addressRepository.save(dtoToAddress(addressDto));
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             log.error("error occurred during converting dto to address", e);
             throw new AddressConvertingException(e);
         }
@@ -77,7 +72,7 @@ public class AddressServiceImpl implements AddressService {
         try {
             log.debug("find address by id {} request...", id);
             return addressToDTO(address);
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             log.error("error occurred during converting entity to DTO", e);
             throw new AddressConvertingException(id);
         }
@@ -95,7 +90,7 @@ public class AddressServiceImpl implements AddressService {
         try {
             log.debug("update postcard by id {}", id);
             return addressRepository.save(dtoToAddress(addressDto));
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             log.error("error occurred during converting dto to address", e);
             throw new AddressConvertingException(id);
         }
@@ -106,7 +101,7 @@ public class AddressServiceImpl implements AddressService {
         try {
             log.debug("get addresses list request...");
             return PostcardUtil.mapAll((List<Address>) addressRepository.findAll(), AddressDto.class);
-        } catch (RuntimeException e) {
+        } catch (Exception e) {
             log.error("error occurred during mapping...");
             throw new AddressNotFoundException("address not found exception", e);
         }

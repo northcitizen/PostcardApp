@@ -1,5 +1,6 @@
 package com.example.webapp.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.*;
 import org.modelmapper.convention.MatchingStrategies;
 
@@ -7,9 +8,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class PostcardUtil {
 
     static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -77,6 +81,10 @@ public class PostcardUtil {
      * @return list of mapped object with <code><D></code> type.
      */
     public static <D, T> List<D> mapAll(final Collection<T> entityList, Class<D> outCLass) {
+        if (Objects.isNull(entityList)) {
+            log.error("mapping NULL {}", entityList);
+            return Collections.EMPTY_LIST;
+        }
         return entityList.stream()
                 .map(entity -> map(entity, outCLass))
                 .collect(Collectors.toList());
