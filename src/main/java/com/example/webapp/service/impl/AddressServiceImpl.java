@@ -3,7 +3,7 @@ package com.example.webapp.service.impl;
 import com.example.webapp.dto.AddressDto;
 import com.example.webapp.exception.address.AddressConvertingException;
 import com.example.webapp.exception.address.AddressNotFoundException;
-import com.example.webapp.exception.address.LastAddressException;
+import com.example.webapp.exception.address.DeleteActiveAddressException;
 import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.Address;
 import com.example.webapp.model.User;
@@ -36,82 +36,67 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     @Transactional
-    public void delete(UUID id) {
-        log.debug("deleting address by id {}", id);
+    public void delete(UUID id) throws AddressNotFoundException {
         Address address = addressRepository.findAddressById(id);
         if (Objects.isNull(address)) {
             log.error("address with id {} not found", id);
             throw new AddressNotFoundException();
         }
-        if (address.isStatus()) {
-            log.error("can not delete address with id {}, because it's current address", id);
-            throw new LastAddressException("can not delete the current address");
+        if (address.isActive()) {
+            log.error("can not delete address with id {}, because it's active", id);
+            throw new DeleteActiveAddressException("can not delete active address");
         }
         addressRepository.delete(address);
     }
 
     @Override
-    public Address createAddress(AddressDto addressDto) {
-        log.debug("creating address with parameter {}", addressDto);
-        try {
-            return addressRepository.save(dtoToAddress(addressDto));
-        } catch (Exception e) {
-            log.error("error occurred during converting dto to address", e);
-            throw new AddressConvertingException(e);
-        }
+    public Address createAddress(AddressDto addressDto) throws UserNotFoundException, AddressConvertingException {
+        return addressRepository.save(convertDtoToAddress(addressDto));
     }
 
     @Override
-    public AddressDto findById(UUID id) {
-        log.debug("finding address by id {}", id);
+    public AddressDto findById(UUID id) throws AddressNotFoundException, UserNotFoundException, AddressConvertingException {
         Address address = addressRepository.findAddressById(id);
         if (Objects.isNull(address)) {
-            log.error("address not found by id {}", id);
+            log.error("address with id {} not found", id);
             throw new AddressNotFoundException(id);
         }
-        try {
-            log.debug("find address by id {} request...", id);
-            return addressToDTO(address);
-        } catch (Exception e) {
-            log.error("error occurred during converting entity to DTO", e);
-            throw new AddressConvertingException(id);
-        }
+        return convertAddressToDTO(address);
     }
 
     @Override
-    public Address updateAddress(AddressDto addressDto) {
-        log.debug("updating address with parameters {}", addressDto);
+    public Address updateAddress(AddressDto addressDto) throws AddressConvertingException, AddressNotFoundException, UserNotFoundException {
         UUID id = addressDto.getId();
         Address addressToUpdate = addressRepository.findAddressById(id);
         if (Objects.isNull(addressToUpdate)) {
-            log.error("address not found by id {}", id);
+            log.error("address with id {} not found", id);
             throw new AddressNotFoundException(id);
         }
-        try {
-            log.debug("update postcard by id {}", id);
-            return addressRepository.save(dtoToAddress(addressDto));
-        } catch (Exception e) {
-            log.error("error occurred during converting dto to address", e);
-            throw new AddressConvertingException(id);
-        }
+        return addressRepository.save(convertDtoToAddress(addressDto));
     }
 
     @Override
-    public List<AddressDto> findAll() {
+    public List<AddressDto> findAll() throws AddressConvertingException {
+        List<Address> addresses = (List<Address>) addressRepository.findAll();
         try {
-            log.debug("get addresses list request...");
-            return PostcardUtil.mapAll((List<Address>) addressRepository.findAll(), AddressDto.class);
+            return PostcardUtil.mapAll(addresses, AddressDto.class);
         } catch (Exception e) {
-            log.error("error occurred during mapping...");
-            throw new AddressNotFoundException("address not found exception", e);
+            String message = "error occurred during mapping addresses";
+            log.error(message, e);
+            throw new AddressConvertingException(message, e);
         }
     }
 
-    private Address dtoToAddress(AddressDto addressDto) {
+    private Address convertDtoToAddress(AddressDto addressDto) throws AddressConvertingException, UserNotFoundException {
+        if (Objects.isNull(addressDto)) {
+            String message = "can not convert null value to address";
+            log.error(message);
+            throw new AddressConvertingException(message);
+        }
         UUID userId = addressDto.getUserId();
         User user = userRepository.findUserById(userId);
         if (Objects.isNull(user)) {
-            log.error("user with Id {} not found", userId);
+            log.error("user with id {} not found", userId);
             throw new UserNotFoundException(userId);
         }
         return Address.builder()
@@ -120,18 +105,23 @@ public class AddressServiceImpl implements AddressService {
                 .postNumber(addressDto.getPostNumber())
                 .city(addressDto.getCity())
                 .country(addressDto.getCountry())
-                .status(addressDto.isStatus())
+                .active(addressDto.isStatus())
                 .street(addressDto.getStreet())
                 .user(user)
                 .build();
     }
 
-    private AddressDto addressToDTO(Address address) {
+    private AddressDto convertAddressToDTO(Address address) throws UserNotFoundException, AddressConvertingException {
+        if (Objects.isNull(address)) {
+            String message = "can not convert null value to address dto";
+            log.error(message);
+            throw new AddressConvertingException(message);
+        }
         UUID userId = address.getUser().getId();
         User user = userRepository.findUserById(userId);
         if (Objects.isNull(user)) {
             log.error("user with Id {} not found", userId);
-            throw new UserNotFoundException();
+            throw new UserNotFoundException(userId);
         }
         return AddressDto.builder()
                 .id(address.getId())
@@ -139,7 +129,7 @@ public class AddressServiceImpl implements AddressService {
                 .city(address.getCity())
                 .country(address.getCountry())
                 .postNumber(address.getPostNumber())
-                .status(address.isStatus())
+                .status(address.isActive())
                 .street(address.getStreet())
                 .userId(userId)
                 .build();

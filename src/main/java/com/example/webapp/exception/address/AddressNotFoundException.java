@@ -2,7 +2,7 @@ package com.example.webapp.exception.address;
 
 import java.util.UUID;
 
-public class AddressNotFoundException extends RuntimeException {
+public class AddressNotFoundException extends Exception {
     public AddressNotFoundException() {
     }
 
@@ -15,7 +15,7 @@ public class AddressNotFoundException extends RuntimeException {
     }
 
     public AddressNotFoundException(UUID id) {
-        super(String.format("address with Id %s not found", id));
+        super(String.format("address with id %s not found", id));
     }
 
     public AddressNotFoundException(Throwable cause) {

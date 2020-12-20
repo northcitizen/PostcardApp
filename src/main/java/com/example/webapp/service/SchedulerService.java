@@ -63,7 +63,7 @@ public class SchedulerService {
             log.info("POSTCARD LIST CHANGED");
             changePostcardListNumber();
         }
-        log.info(String.valueOf(postcardList.size()) + " postcards in database");
+        log.info(postcardList.size() + " postcards in database");
     }
 
     public static void setCardsNumber(int cardsNumber) {

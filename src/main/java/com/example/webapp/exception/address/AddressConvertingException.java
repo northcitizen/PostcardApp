@@ -2,7 +2,7 @@ package com.example.webapp.exception.address;
 
 import java.util.UUID;
 
-public class AddressConvertingException extends RuntimeException {
+public class AddressConvertingException extends Exception {
     public AddressConvertingException() {
     }
 

@@ -14,7 +14,7 @@ import java.util.UUID;
 @Builder
 public class AddressDto {
 
-    private java.util.UUID id;
+    private UUID id;
     @JsonProperty(required = true)
     private String building;
     @JsonProperty(required = true)
@@ -27,7 +27,7 @@ public class AddressDto {
     private String country;
     @JsonProperty(required = true)
     private boolean status;
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(required = true, access = JsonProperty.Access.WRITE_ONLY)
     private UUID userId;
 
 }

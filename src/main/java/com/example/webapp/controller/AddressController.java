@@ -1,9 +1,11 @@
 package com.example.webapp.controller;
 
 import com.example.webapp.dto.AddressDto;
-import com.example.webapp.exception.user.UserNotFoundException;
+import com.example.webapp.exception.address.AddressException;
+import com.example.webapp.exception.address.AddressNotFoundException;
 import com.example.webapp.model.Address;
 import com.example.webapp.service.AddressService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/addresses")
+@Slf4j
 public class AddressController {
 
     private final AddressService addressService;
@@ -23,33 +26,58 @@ public class AddressController {
     }
 
     @PostMapping
-    public Address create(@RequestBody AddressDto addressDto) {
-        return addressService.createAddress(addressDto);
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Address create(@RequestBody AddressDto addressDto) throws AddressException {
+        log.debug("creating address with parameter {}", addressDto);
+        try {
+            return addressService.createAddress(addressDto);
+        } catch (Exception e) {
+            /*
+              можем использовать общий AddressException вместо AddressNotUpdatedException, AddressNotSavedException и
+              т.д. для каждого действия. Теряем в семантике, но видится, что при большом числе контроллеров и методов в
+              них разработка сведется к написанию многочисленных однотипных исключений
+             */
+            throw new AddressException("exception while creating address", e);
+        }
     }
 
     @GetMapping(path = "/{id}")
-    public AddressDto get(@PathVariable("id") UUID id) {
+    public AddressDto find(@PathVariable("id") UUID id) throws AddressException {
+        log.debug("finding address by id {}", id);
         try {
             return addressService.findById(id);
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new UserNotFoundException();
+            throw new AddressException("exception while finding address with id=\"" + id + "\"", e);
         }
     }
 
     @DeleteMapping(path = "/{id}")
-    public void delete(@PathVariable("id") UUID id) {
-        addressService.delete(id);
+    public void delete(@PathVariable("id") UUID id) throws AddressNotFoundException, AddressException {
+        log.debug("deleting address by id {}", id);
+        try {
+            addressService.delete(id);
+        } catch (Exception e) {
+            throw new AddressException("exception while deleting address with id=\"" + id + "\"", e);
+        }
     }
 
     @PutMapping
-    public Address update(@RequestBody AddressDto addressDto) {
-        return addressService.updateAddress(addressDto);
+    public Address update(@RequestBody AddressDto addressDto) throws AddressException {
+        log.debug("updating address with parameters {}", addressDto);
+        try {
+            return addressService.updateAddress(addressDto);
+        } catch (Exception e) {
+            throw new AddressException("exception while updating address", e);
+        }
     }
 
     @GetMapping
-    @ResponseStatus(code = HttpStatus.OK)
-    public List<AddressDto> getAll() {
-        return addressService.findAll();
+    public List<AddressDto> findAll() throws AddressException {
+        log.debug("get addresses list request...");
+        try {
+            return addressService.findAll();
+        } catch (Exception e) {
+            throw new AddressException("exception while finding addresses", e);
+        }
     }
 }

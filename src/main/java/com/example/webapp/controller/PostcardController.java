@@ -1,6 +1,7 @@
 package com.example.webapp.controller;
 
 import com.example.webapp.dto.PostcardDto;
+import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.service.PostcardService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,13 +31,14 @@ public class PostcardController {
     }
 
     @PostMapping
-    public Postcard create(@RequestBody PostcardDto postcardDto) {
+    public Postcard create(@RequestBody PostcardDto postcardDto) throws UserNotFoundException {
         log.debug("create postcard with parameters {}", postcardDto);
         return postcardService.createPostcard(postcardDto);
     }
 
     @PostMapping(path = "/batch")
     public List<Postcard> createList(@RequestBody List<PostcardDto> postcardList) {
+        log.debug("creating list of postcards...");
         return postcardService.createPostcardList(postcardList);
     }
 

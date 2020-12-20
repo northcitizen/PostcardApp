@@ -102,8 +102,7 @@ public class PostcardServiceImpl implements PostcardService {
 
     @Override
     public List<Postcard> createPostcardList(List<PostcardDto> postcardDTOList) {
-
-        UUID userId  = postcardDTOList.get(0).getUserId();
+        UUID userId = postcardDTOList.get(0).getUserId();
         postcardDTOList.forEach(postcard -> {
             if (Objects.isNull(userRepository.findUserById(userId))) {
                 throw new UserNotFoundException("user not found by creating list of postcards...");
@@ -138,7 +137,7 @@ public class PostcardServiceImpl implements PostcardService {
         }
     }
 
-    private Postcard dtoToPostcard(PostcardDto postcardDto) {
+    private Postcard dtoToPostcard(PostcardDto postcardDto) throws UserNotFoundException {
         UUID userId = postcardDto.getUserId();
         User user = userRepository.findUserById(userId);
         if (Objects.isNull(user)) {
@@ -153,7 +152,7 @@ public class PostcardServiceImpl implements PostcardService {
         }
     }
 
-    private PostcardDto postcardToDTO(Postcard postcard) {
+    private PostcardDto postcardToDTO(Postcard postcard) throws UserNotFoundException {
         UUID userId = postcard.getUser().getId();
         User user = userRepository.findUserById(userId);
         if (Objects.isNull(user)) {

@@ -51,7 +51,7 @@ public class Address {
     private String country;
 
     @Column
-    private boolean status;
+    private boolean active;
 
     @ManyToOne(cascade = {
             CascadeType.MERGE,

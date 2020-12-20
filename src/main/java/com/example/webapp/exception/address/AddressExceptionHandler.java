@@ -11,65 +11,36 @@ import java.time.ZonedDateTime;
 
 @RestControllerAdvice
 @Slf4j
+/*
+    Оставшиеся здесь исключения показывают конкретные кейсы, а не абстрактные, как например в
+    AddressNotUpdatedException (и ему подобных), который говорит пользователю API: что-то пошло не так при
+    обновлении адреса, но из названия исключения все равно это не узнаешь, что именно, поэтому читай stacktrace
+ */
 public class AddressExceptionHandler {
-
-    @ExceptionHandler(value = {AddressNotSavedException.class})
-    public ResponseEntity<Object> handleAddressNotSavedException(AddressNotSavedException e) {
-        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
-        AddressException addressException = new AddressException(
-                e.getMessage(),
-                e,
-                badRequest,
-                ZonedDateTime.now(ZoneId.of("Z")));
-        log.error("bad request: address not saved");
-        return new ResponseEntity<>(addressException, badRequest);
-    }
 
     @ExceptionHandler(value = {AddressNotFoundException.class})
     public ResponseEntity<Object> handleAddressNotFoundException(AddressNotFoundException e) {
-        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
-        AddressException addressException = new AddressException(
-                e.getMessage(),
-                e,
-                badRequest,
-                ZonedDateTime.now(ZoneId.of("Z")));
-        log.error("bad request: address not found");
-        return new ResponseEntity<>(addressException, badRequest);
+        return getHandledExceptionResponse(e, "address not found");
     }
 
-    @ExceptionHandler(value = {AddressNotUpdatedException.class})
-    public ResponseEntity<Object> handleAddressNotUpdatedException(AddressNotUpdatedException e) {
-        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
-        AddressException addressException = new AddressException(
-                e.getMessage(),
-                e,
-                badRequest,
-                ZonedDateTime.now(ZoneId.of("Z")));
-        log.error("bad request: address not updated");
-        return new ResponseEntity<>(addressException, badRequest);
-    }
-
-    @ExceptionHandler(value = {LastAddressException.class})
-    public ResponseEntity<Object> handleLastAddressException(LastAddressException e) {
-        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
-        AddressException addressException = new AddressException(
-                e.getMessage(),
-                e,
-                badRequest,
-                ZonedDateTime.now(ZoneId.of("Z")));
-        log.error("bad request: the current address");
-        return new ResponseEntity<>(addressException, badRequest);
+    @ExceptionHandler(value = {DeleteActiveAddressException.class})
+    public ResponseEntity<Object> handleLastAddressException(DeleteActiveAddressException e) {
+        return getHandledExceptionResponse(e, "the current address");
     }
 
     @ExceptionHandler(value = {AddressConvertingException.class})
     public ResponseEntity<Object> handleAddressConvertingException(AddressConvertingException e) {
+        return getHandledExceptionResponse(e, "converting error");
+    }
+
+    private ResponseEntity<Object> getHandledExceptionResponse(Exception e, String message) {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
-        AddressException addressException = new AddressException(
+        AddressApiException addressException = new AddressApiException(
                 e.getMessage(),
                 e,
                 badRequest,
                 ZonedDateTime.now(ZoneId.of("Z")));
-        log.error("converting error");
+        log.error(message);
         return new ResponseEntity<>(addressException, badRequest);
     }
 }
