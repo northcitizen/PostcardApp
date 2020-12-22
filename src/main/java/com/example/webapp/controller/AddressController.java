@@ -27,12 +27,8 @@ public class AddressController {
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public Address create(@RequestBody AddressDto addressDto) throws AddressException {
-        log.debug("creating address with parameter {}", addressDto);
-        try {
-            return addressService.createAddress(addressDto);
-        } catch (Exception e) {
-            throw new AddressException("exception while creating address", e);
-        }
+        log.debug("creating address with parameters {}", addressDto);
+        return addressService.createAddress(addressDto);
     }
 
     @GetMapping(path = "/{id}")

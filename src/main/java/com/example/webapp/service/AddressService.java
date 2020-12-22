@@ -2,6 +2,7 @@ package com.example.webapp.service;
 
 import com.example.webapp.dto.AddressDto;
 import com.example.webapp.exception.address.AddressConvertingException;
+import com.example.webapp.exception.address.AddressException;
 import com.example.webapp.exception.address.AddressNotFoundException;
 import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.Address;
@@ -13,7 +14,7 @@ public interface AddressService {
 
     void delete(UUID id) throws AddressNotFoundException;
 
-    Address createAddress(AddressDto addressDto) throws UserNotFoundException, AddressConvertingException;
+    Address createAddress(AddressDto addressDto) throws AddressException;
 
     AddressDto findById(UUID id) throws AddressConvertingException, AddressNotFoundException, UserNotFoundException;
 
