@@ -11,11 +11,6 @@ import java.time.ZonedDateTime;
 
 @RestControllerAdvice
 @Slf4j
-/*
-    Оставшиеся здесь исключения показывают конкретные кейсы, а не абстрактные, как например в
-    AddressNotUpdatedException (и ему подобных), который говорит пользователю API: что-то пошло не так при
-    обновлении адреса, но из названия исключения все равно это не узнаешь, что именно, поэтому читай stacktrace
- */
 public class AddressExceptionHandler {
 
     @ExceptionHandler(value = {AddressNotFoundException.class})

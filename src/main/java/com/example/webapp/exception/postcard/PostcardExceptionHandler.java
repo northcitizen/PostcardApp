@@ -13,11 +13,6 @@ import java.time.ZonedDateTime;
 @Slf4j
 public class PostcardExceptionHandler {
 
-    @ExceptionHandler(value = {PostcardNotSavedException.class})
-    public ResponseEntity<Object> handlePostcardNotSavedException(PostcardNotSavedException e) {
-        return getHandledExceptionResponse(e, "postcard not saved");
-    }
-
     @ExceptionHandler(value = {PostcardNotFoundException.class})
     public ResponseEntity<Object> handlePostcardNotFoundException(PostcardNotFoundException e) {
         return getHandledExceptionResponse(e, "postcard not found");
@@ -28,10 +23,6 @@ public class PostcardExceptionHandler {
         return getHandledExceptionResponse(e, "converting error");
     }
 
-    @ExceptionHandler(value = {PostcardNotUpdatedException.class})
-    public ResponseEntity<Object> handlePostcardNotUpdatedException(PostcardNotUpdatedException e) {
-        return getHandledExceptionResponse(e, "updating error");
-    }
 
     private ResponseEntity<Object> getHandledExceptionResponse(Exception e, String message) {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;

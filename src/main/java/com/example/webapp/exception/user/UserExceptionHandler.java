@@ -18,11 +18,6 @@ public class UserExceptionHandler {
         return getHandledExceptionResponse(e, "user not found");
     }
 
-    @ExceptionHandler(value = {UserNotSavedException.class})
-    public ResponseEntity<Object> handleUserNotSavedException(UserNotSavedException e) {
-        return getHandledExceptionResponse(e, "user not saved");
-    }
-
     @ExceptionHandler(value = {UserConvertingException.class})
     public ResponseEntity<Object> handleUserConvertingException(UserConvertingException e) {
         return getHandledExceptionResponse(e, "converting error");

@@ -2,7 +2,6 @@ package com.example.webapp.exception.user;
 
 import java.util.UUID;
 
-// https://docs.oracle.com/javase/tutorial/essential/exceptions/runtime.html
 public class UserNotFoundException extends Exception {
     public UserNotFoundException() {
     }

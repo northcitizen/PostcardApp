@@ -3,8 +3,6 @@ package com.example.webapp.service;
 import com.example.webapp.dto.PostcardDto;
 import com.example.webapp.exception.postcard.PostcardConvertingException;
 import com.example.webapp.exception.postcard.PostcardNotFoundException;
-import com.example.webapp.exception.postcard.PostcardNotSavedException;
-import com.example.webapp.exception.postcard.PostcardNotUpdatedException;
 import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.Postcard;
 
@@ -21,9 +19,9 @@ public interface PostcardService {
 
     PostcardDto findByPostcardById(UUID id) throws PostcardConvertingException, PostcardNotFoundException;
 
-    Postcard createPostcard(PostcardDto postcardDto) throws UserNotFoundException, PostcardNotSavedException, PostcardConvertingException;
+    Postcard createPostcard(PostcardDto postcardDto) throws UserNotFoundException, PostcardConvertingException;
 
-    Postcard updatePostcard(PostcardDto postcardDto) throws PostcardNotSavedException, UserNotFoundException, PostcardConvertingException, PostcardNotFoundException, PostcardNotUpdatedException;
+    Postcard updatePostcard(PostcardDto postcardDto) throws UserNotFoundException, PostcardConvertingException, PostcardNotFoundException;
 
-    List<Postcard> createPostcardList(List<PostcardDto> postcardList) throws UserNotFoundException, PostcardConvertingException, PostcardNotSavedException, PostcardNotFoundException;
+    List<Postcard> createPostcardList(List<PostcardDto> postcardList) throws UserNotFoundException, PostcardConvertingException, PostcardNotFoundException;
 }

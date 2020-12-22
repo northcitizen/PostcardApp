@@ -3,8 +3,6 @@ package com.example.webapp.service.impl;
 import com.example.webapp.dto.PostcardDto;
 import com.example.webapp.exception.postcard.PostcardConvertingException;
 import com.example.webapp.exception.postcard.PostcardNotFoundException;
-import com.example.webapp.exception.postcard.PostcardNotSavedException;
-import com.example.webapp.exception.postcard.PostcardNotUpdatedException;
 import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.model.User;
@@ -101,7 +99,7 @@ public class PostcardServiceImpl implements PostcardService {
     }
 
     @Override
-    public List<Postcard> createPostcardList(List<PostcardDto> postcardDTOList) throws PostcardNotSavedException {
+    public List<Postcard> createPostcardList(List<PostcardDto> postcardDTOList) throws PostcardConvertingException {
         UUID userId = postcardDTOList.get(0).getUserId();
         postcardDTOList.forEach(postcard -> {
             if (Objects.isNull(userRepository.findUserById(userId))) {
@@ -120,12 +118,12 @@ public class PostcardServiceImpl implements PostcardService {
         } catch (Exception e) {
             log.error("error occurred by mapping...", e);
             postcardRepository.deleteAll();
-            throw new PostcardNotSavedException();
+            throw new PostcardConvertingException();
         }
     }
 
     @Override
-    public Postcard updatePostcard(PostcardDto postcardDto) throws PostcardNotFoundException, PostcardNotUpdatedException {
+    public Postcard updatePostcard(PostcardDto postcardDto) throws PostcardNotFoundException, PostcardConvertingException {
         log.debug("updating postcard with parameters {}", postcardDto);
         UUID id = postcardDto.getId();
         Postcard postcardToUpdate = postcardRepository.findByPostcardId(id);
@@ -138,7 +136,7 @@ public class PostcardServiceImpl implements PostcardService {
             return postcardRepository.save(dtoToPostcard(postcardDto));
         } catch (Exception e) {
             log.error("error occurred by mapping", e);
-            throw new PostcardNotUpdatedException();
+            throw new PostcardConvertingException();
         }
     }
 

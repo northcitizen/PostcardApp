@@ -2,7 +2,6 @@ package com.example.webapp.controller;
 
 import com.example.webapp.dto.AddressDto;
 import com.example.webapp.exception.address.AddressException;
-import com.example.webapp.exception.address.AddressNotFoundException;
 import com.example.webapp.model.Address;
 import com.example.webapp.service.AddressService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,11 +31,6 @@ public class AddressController {
         try {
             return addressService.createAddress(addressDto);
         } catch (Exception e) {
-            /*
-              можем использовать общий AddressException вместо AddressNotUpdatedException, AddressNotSavedException и
-              т.д. для каждого действия. Теряем в семантике, но видится, что при большом числе контроллеров и методов в
-              них разработка сведется к написанию многочисленных однотипных исключений
-             */
             throw new AddressException("exception while creating address", e);
         }
     }
@@ -52,7 +46,7 @@ public class AddressController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public void delete(@PathVariable("id") UUID id) throws AddressNotFoundException, AddressException {
+    public void delete(@PathVariable("id") UUID id) throws AddressException {
         log.debug("deleting address by id {}", id);
         try {
             addressService.delete(id);

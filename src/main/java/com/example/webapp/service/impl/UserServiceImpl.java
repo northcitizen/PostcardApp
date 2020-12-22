@@ -5,7 +5,6 @@ import com.example.webapp.dto.PostcardDto;
 import com.example.webapp.dto.UserDto;
 import com.example.webapp.exception.user.UserConvertingException;
 import com.example.webapp.exception.user.UserNotFoundException;
-import com.example.webapp.exception.user.UserNotUpdatedException;
 import com.example.webapp.model.Address;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.model.User;
@@ -76,7 +75,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(UserDto userDto) throws UserNotFoundException, UserNotUpdatedException {
+    public User updateUser(UserDto userDto) throws UserNotFoundException, UserConvertingException {
         if (Objects.isNull(userRepository.findUserById(userDto.getId())))
             throw new UserNotFoundException("user not found in update service...");
         try {
@@ -84,7 +83,7 @@ public class UserServiceImpl implements UserService {
             return userRepository.save(dtoToUser(userDto));
         } catch (Exception e) {
             log.error("error occurred by mapping", e);
-            throw new UserNotUpdatedException();
+            throw new UserConvertingException();
         }
     }
 

@@ -3,7 +3,6 @@ package com.example.webapp.service;
 import com.example.webapp.dto.UserDto;
 import com.example.webapp.exception.user.UserConvertingException;
 import com.example.webapp.exception.user.UserNotFoundException;
-import com.example.webapp.exception.user.UserNotUpdatedException;
 import com.example.webapp.model.User;
 
 import java.util.UUID;
@@ -15,7 +14,7 @@ public interface UserService {
 
     UserDto findUserById(UUID id) throws UserNotFoundException;
 
-    User updateUser(UserDto userDto) throws UserNotUpdatedException, UserNotFoundException;
+    User updateUser(UserDto userDto) throws UserConvertingException, UserNotFoundException;
 
     User createUser(UserDto userDto) throws UserConvertingException;
 }
