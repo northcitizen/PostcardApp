@@ -15,37 +15,32 @@ public class PostcardExceptionHandler {
 
     @ExceptionHandler(value = {PostcardNotSavedException.class})
     public ResponseEntity<Object> handlePostcardNotSavedException(PostcardNotSavedException e) {
-        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
-        PostcardException postcardException = new PostcardException(
-                e.getMessage(),
-                e,
-                badRequest,
-                ZonedDateTime.now(ZoneId.of("Z")));
-        log.error("bad request: postcard not saved");
-        return new ResponseEntity<>(postcardException, badRequest);
+        return getHandledExceptionResponse(e, "postcard not saved");
     }
 
     @ExceptionHandler(value = {PostcardNotFoundException.class})
     public ResponseEntity<Object> handlePostcardNotFoundException(PostcardNotFoundException e) {
-        HttpStatus badRequest = HttpStatus.BAD_REQUEST;
-        PostcardException postcardException = new PostcardException(
-                e.getMessage(),
-                e,
-                badRequest,
-                ZonedDateTime.now(ZoneId.of("Z")));
-        log.error("bad request: postcard not found");
-        return new ResponseEntity<>(postcardException, badRequest);
+        return getHandledExceptionResponse(e, "postcard not found");
+    }
+
+    @ExceptionHandler(value = {PostcardConvertingException.class})
+    public ResponseEntity<Object> handlePostcardNotConvertingException(PostcardConvertingException e) {
+        return getHandledExceptionResponse(e, "converting error");
     }
 
     @ExceptionHandler(value = {PostcardNotUpdatedException.class})
     public ResponseEntity<Object> handlePostcardNotUpdatedException(PostcardNotUpdatedException e) {
+        return getHandledExceptionResponse(e, "updating error");
+    }
+
+    private ResponseEntity<Object> getHandledExceptionResponse(Exception e, String message) {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
-        PostcardException postcardException = new PostcardException(
+        PostcardApiException postcardException = new PostcardApiException(
                 e.getMessage(),
                 e,
                 badRequest,
                 ZonedDateTime.now(ZoneId.of("Z")));
-        log.error("bad request: postcard not updated");
+        log.error(message);
         return new ResponseEntity<>(postcardException, badRequest);
     }
 }

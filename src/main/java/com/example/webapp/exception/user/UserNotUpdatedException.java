@@ -1,6 +1,6 @@
 package com.example.webapp.exception.user;
 
-public class UserNotUpdatedException extends RuntimeException {
+public class UserNotUpdatedException extends Exception {
 
     public UserNotUpdatedException() {
     }

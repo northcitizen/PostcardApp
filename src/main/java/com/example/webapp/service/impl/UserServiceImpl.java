@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(UUID id) {
+    public void delete(UUID id) throws UserNotFoundException {
         User userById = userRepository.findUserById(id);
         if (Objects.isNull(userById)) {
             log.error("user not found by id {} ...", id);
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(UserDto userDto) {
+    public User createUser(UserDto userDto) throws UserConvertingException {
         log.debug("creating user with parameter {}", userDto);
         try {
             return userRepository.save(dtoToUser(userDto));
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto findUserById(UUID id) throws NullPointerException {
+    public UserDto findUserById(UUID id) throws UserNotFoundException {
         User userById = null;
         try {
             userById = userRepository.findUserById(id);
@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(UserDto userDto) {
+    public User updateUser(UserDto userDto) throws UserNotFoundException, UserNotUpdatedException {
         if (Objects.isNull(userRepository.findUserById(userDto.getId())))
             throw new UserNotFoundException("user not found in update service...");
         try {
@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private User addUser(UserDto userDto) {
+    private User addUser(UserDto userDto) throws UserConvertingException {
         if (Objects.isNull(userDto)) {
             throw new UserConvertingException();
         }
@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
-    private UserDto userToDTO(User user) {
+    private UserDto userToDTO(User user) throws UserConvertingException{
         if (Objects.isNull(user)) {
             log.error("user is null");
             throw new UserConvertingException();
@@ -117,7 +117,7 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
-    private User dtoToUser(UserDto userDto) {
+    private User dtoToUser(UserDto userDto) throws UserConvertingException{
         if (Objects.isNull(userDto)) {
             log.error("user is null");
             throw new UserConvertingException();

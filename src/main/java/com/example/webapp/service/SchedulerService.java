@@ -31,7 +31,7 @@ public class SchedulerService {
     private void init() {
         this.list = (List<Postcard>) postcardRepository.findAll();
         if (list.size() > settingsRepository.getCriticalPostcardNumber()) {
-            log.warn("приложение запущено с критическим чилом открфток в системе");
+            log.warn("application started with critical number of postcards");
         }
     }
 
@@ -40,7 +40,7 @@ public class SchedulerService {
         try {
             this.list = (List<Postcard>) postcardRepository.findAll();
             if (list.size() > settingsRepository.getCriticalPostcardNumber()) {
-                log.warn("приложение отсановлено...");
+                log.warn("application stopped");
             }
         } catch (Exception e) {
             e.printStackTrace();

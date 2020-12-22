@@ -12,15 +12,30 @@ import java.time.ZonedDateTime;
 @RestControllerAdvice
 @Slf4j
 public class UserExceptionHandler {
+
     @ExceptionHandler(value = {UserNotFoundException.class})
     public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException e) {
+        return getHandledExceptionResponse(e, "user not found");
+    }
+
+    @ExceptionHandler(value = {UserNotSavedException.class})
+    public ResponseEntity<Object> handleUserNotSavedException(UserNotSavedException e) {
+        return getHandledExceptionResponse(e, "user not saved");
+    }
+
+    @ExceptionHandler(value = {UserConvertingException.class})
+    public ResponseEntity<Object> handleUserConvertingException(UserConvertingException e) {
+        return getHandledExceptionResponse(e, "converting error");
+    }
+
+    private ResponseEntity<Object> getHandledExceptionResponse(Exception e, String message) {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
-        UserException userException = new UserException(
+        UserApiException userException = new UserApiException(
                 e.getMessage(),
                 e,
                 badRequest,
                 ZonedDateTime.now(ZoneId.of("Z")));
-        log.error("bad request: user not found");
+        log.error(message);
         return new ResponseEntity<>(userException, badRequest);
     }
 }

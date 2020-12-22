@@ -6,6 +6,7 @@ import com.example.webapp.exception.postcard.PostcardNotFoundException;
 import com.example.webapp.exception.postcard.PostcardNotSavedException;
 import com.example.webapp.exception.postcard.PostcardNotUpdatedException;
 import com.example.webapp.exception.user.UserNotFoundException;
+import com.example.webapp.exception.user.UserNotSavedException;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.model.User;
 import com.example.webapp.repository.PostcardRepository;
@@ -49,7 +50,7 @@ public class PostcardServiceImpl implements PostcardService {
 
     @Override
     @Cacheable(value = "postcardCache")
-    public List<PostcardDto> findAll() {
+    public List<PostcardDto> findAll() throws PostcardNotFoundException {
         try {
             log.debug("get postcard list request...");
             return PostcardUtil.mapAll((List<Postcard>) postcardRepository.findAll(), PostcardDto.class);
@@ -60,7 +61,7 @@ public class PostcardServiceImpl implements PostcardService {
     }
 
     @Override
-    public void delete(UUID id) {
+    public void delete(UUID id) throws PostcardNotFoundException {
         log.debug("deleting postcard by id {}", id);
         Postcard postcard = postcardRepository.findByPostcardId(id);
         if (Objects.isNull(postcard)) {
@@ -72,7 +73,7 @@ public class PostcardServiceImpl implements PostcardService {
 
     @Override
     @Cacheable(value = "postcardCache")
-    public PostcardDto findByPostcardById(UUID id) {
+    public PostcardDto findByPostcardById(UUID id) throws PostcardConvertingException, PostcardNotFoundException {
         log.debug("finding postcard by id {}", id);
         Postcard postcard = postcardRepository.findByPostcardId(id);
         if (Objects.isNull(postcard)) {
@@ -89,7 +90,7 @@ public class PostcardServiceImpl implements PostcardService {
     }
 
     @Override
-    public Postcard createPostcard(PostcardDto postcardDto) {
+    public Postcard createPostcard(PostcardDto postcardDto) throws PostcardConvertingException {
         log.debug("creating postcard with parameters {}", postcardDto);
         try {
             return postcardRepository.save(dtoToPostcard(postcardDto));
@@ -101,11 +102,15 @@ public class PostcardServiceImpl implements PostcardService {
     }
 
     @Override
-    public List<Postcard> createPostcardList(List<PostcardDto> postcardDTOList) {
+    public List<Postcard> createPostcardList(List<PostcardDto> postcardDTOList) throws PostcardNotSavedException {
         UUID userId = postcardDTOList.get(0).getUserId();
         postcardDTOList.forEach(postcard -> {
             if (Objects.isNull(userRepository.findUserById(userId))) {
-                throw new UserNotFoundException("user not found by creating list of postcards...");
+                try {
+                    throw new UserNotFoundException("user not found by creating list of postcards...");
+                } catch (UserNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         });
         try {
@@ -121,11 +126,12 @@ public class PostcardServiceImpl implements PostcardService {
     }
 
     @Override
-    public Postcard updatePostcard(PostcardDto postcardDto) {
+    public Postcard updatePostcard(PostcardDto postcardDto) throws PostcardNotFoundException, PostcardNotUpdatedException{
         log.debug("updating postcard with parameters {}", postcardDto);
         UUID id = postcardDto.getId();
         Postcard postcardToUpdate = postcardRepository.findByPostcardId(id);
         if (Objects.isNull(postcardToUpdate)) {
+            log.error("postcard not found by id {}", id);
             throw new PostcardNotFoundException("postcard not found in update service...");
         }
         try {
@@ -137,7 +143,7 @@ public class PostcardServiceImpl implements PostcardService {
         }
     }
 
-    private Postcard dtoToPostcard(PostcardDto postcardDto) throws UserNotFoundException {
+    private Postcard dtoToPostcard(PostcardDto postcardDto) throws PostcardConvertingException, UserNotFoundException {
         UUID userId = postcardDto.getUserId();
         User user = userRepository.findUserById(userId);
         if (Objects.isNull(user)) {
@@ -152,7 +158,7 @@ public class PostcardServiceImpl implements PostcardService {
         }
     }
 
-    private PostcardDto postcardToDTO(Postcard postcard) throws UserNotFoundException {
+    private PostcardDto postcardToDTO(Postcard postcard) throws UserNotFoundException, PostcardConvertingException {
         UUID userId = postcard.getUser().getId();
         User user = userRepository.findUserById(userId);
         if (Objects.isNull(user)) {

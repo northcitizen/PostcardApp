@@ -1,6 +1,6 @@
 package com.example.webapp.exception.postcard;
 
-public class PostcardNotFoundException extends RuntimeException {
+public class PostcardNotFoundException extends Exception {
 
     public PostcardNotFoundException() {
     }

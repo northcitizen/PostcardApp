@@ -2,7 +2,7 @@ package com.example.webapp.exception.user;
 
 import java.util.UUID;
 
-public class UserConvertingException extends RuntimeException {
+public class UserConvertingException extends Exception {
     public UserConvertingException() {
     }
 

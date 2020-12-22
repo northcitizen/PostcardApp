@@ -1,6 +1,10 @@
 package com.example.webapp.controller;
 
 import com.example.webapp.dto.PostcardDto;
+import com.example.webapp.exception.postcard.PostcardConvertingException;
+import com.example.webapp.exception.postcard.PostcardException;
+import com.example.webapp.exception.postcard.PostcardNotFoundException;
+import com.example.webapp.exception.postcard.PostcardNotSavedException;
 import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.service.PostcardService;
@@ -26,34 +30,58 @@ public class PostcardController {
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public List<PostcardDto> postcardList() {
-        return postcardService.findAll();
+    public List<PostcardDto> postcardList() throws PostcardException{
+        try {
+            return postcardService.findAll();
+        } catch (PostcardNotFoundException e) {
+            throw new PostcardException("exception while getting all postcards", e);
+        }
     }
 
     @PostMapping
-    public Postcard create(@RequestBody PostcardDto postcardDto) throws UserNotFoundException {
+    public Postcard create(@RequestBody PostcardDto postcardDto) throws PostcardException {
         log.debug("create postcard with parameters {}", postcardDto);
-        return postcardService.createPostcard(postcardDto);
+        try {
+            return postcardService.createPostcard(postcardDto);
+        } catch (Exception e) {
+            throw new PostcardException("exception while creating postcard", e);
+        }
     }
 
     @PostMapping(path = "/batch")
-    public List<Postcard> createList(@RequestBody List<PostcardDto> postcardList) {
+    public List<Postcard> createList(@RequestBody List<PostcardDto> postcardList) throws PostcardException {
         log.debug("creating list of postcards...");
-        return postcardService.createPostcardList(postcardList);
+        try {
+            return postcardService.createPostcardList(postcardList);
+        } catch (Exception e) {
+            throw new PostcardException("exception while creating list of postcards", e);
+        }
     }
 
     @GetMapping(path = "/{id}")
-    public PostcardDto getById(@PathVariable("id") UUID id) {
-        return postcardService.findByPostcardById(id);
+    public PostcardDto getById(@PathVariable("id") UUID id) throws PostcardException {
+        try {
+            return postcardService.findByPostcardById(id);
+        } catch (Exception e) {
+            throw new PostcardException("exception while finding by id", e);
+        }
     }
 
     @PutMapping
-    public Postcard update(@RequestBody PostcardDto postcardDetails) {
-        return postcardService.updatePostcard(postcardDetails);
+    public Postcard update(@RequestBody PostcardDto postcardDetails) throws PostcardException {
+        try {
+            return postcardService.updatePostcard(postcardDetails);
+        } catch (Exception e) {
+            throw new PostcardException("exception while updating postcard", e);
+        }
     }
 
     @DeleteMapping(path = "/{id}")
-    public void delete(@PathVariable("id") UUID id) {
-        postcardService.delete(id);
+    public void delete(@PathVariable("id") UUID id) throws PostcardException {
+        try {
+            postcardService.delete(id);
+        } catch (Exception e) {
+            throw new PostcardException("exception while deleting", e);
+        }
     }
 }

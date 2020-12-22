@@ -2,7 +2,7 @@ package com.example.webapp.exception.postcard;
 
 import java.util.UUID;
 
-public class PostcardConvertingException extends RuntimeException {
+public class PostcardConvertingException extends Exception {
     public PostcardConvertingException() {
     }
 

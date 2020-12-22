@@ -1,6 +1,7 @@
 package com.example.webapp;
 
 import com.example.webapp.dto.UserDto;
+import com.example.webapp.exception.user.UserConvertingException;
 import com.example.webapp.model.User;
 import com.example.webapp.service.impl.UserServiceImpl;
 import org.hamcrest.Matcher;
@@ -18,7 +19,7 @@ public class UserSaveTest {
     private UserServiceImpl userService;
 
     @Test
-    public void saveUserTest() {
+    public void saveUserTest() throws UserConvertingException {
         User user = userService.createUser(UserDto.builder()
                 .firstName("firstName")
                 .lastName("lastName")
