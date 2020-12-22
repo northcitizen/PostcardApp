@@ -6,7 +6,6 @@ import com.example.webapp.exception.postcard.PostcardNotFoundException;
 import com.example.webapp.exception.postcard.PostcardNotSavedException;
 import com.example.webapp.exception.postcard.PostcardNotUpdatedException;
 import com.example.webapp.exception.user.UserNotFoundException;
-import com.example.webapp.exception.user.UserNotSavedException;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.model.User;
 import com.example.webapp.repository.PostcardRepository;
@@ -126,7 +125,7 @@ public class PostcardServiceImpl implements PostcardService {
     }
 
     @Override
-    public Postcard updatePostcard(PostcardDto postcardDto) throws PostcardNotFoundException, PostcardNotUpdatedException{
+    public Postcard updatePostcard(PostcardDto postcardDto) throws PostcardNotFoundException, PostcardNotUpdatedException {
         log.debug("updating postcard with parameters {}", postcardDto);
         UUID id = postcardDto.getId();
         Postcard postcardToUpdate = postcardRepository.findByPostcardId(id);

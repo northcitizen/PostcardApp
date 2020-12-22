@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
-    private UserDto userToDTO(User user) throws UserConvertingException{
+    private UserDto userToDTO(User user) throws UserConvertingException {
         if (Objects.isNull(user)) {
             log.error("user is null");
             throw new UserConvertingException();
@@ -117,7 +117,7 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
-    private User dtoToUser(UserDto userDto) throws UserConvertingException{
+    private User dtoToUser(UserDto userDto) throws UserConvertingException {
         if (Objects.isNull(userDto)) {
             log.error("user is null");
             throw new UserConvertingException();

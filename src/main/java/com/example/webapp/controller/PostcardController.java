@@ -1,11 +1,8 @@
 package com.example.webapp.controller;
 
 import com.example.webapp.dto.PostcardDto;
-import com.example.webapp.exception.postcard.PostcardConvertingException;
 import com.example.webapp.exception.postcard.PostcardException;
 import com.example.webapp.exception.postcard.PostcardNotFoundException;
-import com.example.webapp.exception.postcard.PostcardNotSavedException;
-import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.service.PostcardService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +27,7 @@ public class PostcardController {
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public List<PostcardDto> postcardList() throws PostcardException{
+    public List<PostcardDto> postcardList() throws PostcardException {
         try {
             return postcardService.findAll();
         } catch (PostcardNotFoundException e) {
@@ -63,7 +60,7 @@ public class PostcardController {
         try {
             return postcardService.findByPostcardById(id);
         } catch (Exception e) {
-            throw new PostcardException("exception while finding by id", e);
+            throw new PostcardException("exception while getting postcard with id=\"" + id + "\"", e);
         }
     }
 
@@ -81,7 +78,7 @@ public class PostcardController {
         try {
             postcardService.delete(id);
         } catch (Exception e) {
-            throw new PostcardException("exception while deleting", e);
+            throw new PostcardException("exception while deleting postcard with id=\"" + id + "\"", e);
         }
     }
 }

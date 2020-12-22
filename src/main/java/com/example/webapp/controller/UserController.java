@@ -3,7 +3,6 @@ package com.example.webapp.controller;
 import com.example.webapp.dto.UserDto;
 import com.example.webapp.exception.user.UserConvertingException;
 import com.example.webapp.exception.user.UserException;
-import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.User;
 import com.example.webapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,21 +35,21 @@ public class UserController {
         try {
             userService.delete(id);
         } catch (Exception e) {
-            throw new UserException("exception while deleting user", e);
+            throw new UserException("exception while deleting user with id=\"" + id + "\"", e);
         }
     }
 
     @GetMapping(path = "/{id}")
-    public UserDto get(@PathVariable("id") UUID id) throws UserException{
+    public UserDto get(@PathVariable("id") UUID id) throws UserException {
         try {
             return userService.findUserById(id);
         } catch (Exception e) {
-            throw new UserException("exception while getting user", e);
+            throw new UserException("exception while getting user with id=\"" + id + "\"", e);
         }
     }
 
     @PutMapping
-    public User update(@RequestBody UserDto userDto) throws UserException{
+    public User update(@RequestBody UserDto userDto) throws UserException {
         try {
             return userService.updateUser(userDto);
         } catch (Exception e) {
