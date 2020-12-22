@@ -1,0 +1,435 @@
+{
+	"info": {
+		"_postman_id": "768b4d08-3f8b-4022-987b-ca007e1e7417",
+		"name": "PostcardApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/postcards",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/postcards",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"postcards"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/create postcard",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"postNumber\": \"US-582321\",\r\n    \"country\": \"USA\",\r\n    \"name\": \"Anne\",\r\n    \"description\": \"How are you\",\r\n    \"distance\": 4563,\r\n    \"status\": \"RECEIVED\",\r\n    \"sendDate\": \"2020-11-12\",\r\n    \"receiveDate\": \"2020-11-27\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/postcards/c4feb40d-9dbe-43de-943e-9e5f35a219ea",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"postcards",
+						"c4feb40d-9dbe-43de-943e-9e5f35a219ea"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/update postcard",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"postNumber\": \"RF-123456\",\r\n    \"country\": \"IceLand\",\r\n    \"name\": \"Tiky\",\r\n    \"description\": \"Hi\",\r\n    \"distance\": 7856,\r\n    \"status\": \"RECEIVED\",\r\n    \"sendDate\": \"2019-12-12\",\r\n    \"receiveDate\": \"2020-01-12\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/postcards/449d9fa9-cb82-4fb6-b677-53b151b80700/a4effb93-d4bb-4bf4-bda9-1f59ed8cba3e",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"postcards",
+						"449d9fa9-cb82-4fb6-b677-53b151b80700",
+						"a4effb93-d4bb-4bf4-bda9-1f59ed8cba3e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/find postcard by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/postcards/fa154e37-2ea9-4de6-901e-8b093581b5ee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"postcards",
+						"fa154e37-2ea9-4de6-901e-8b093581b5ee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/delete postcard",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/postcards/4d96f62e-93d4-4c3c-b056-fd7ce8919b72",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"postcards",
+						"4d96f62e-93d4-4c3c-b056-fd7ce8919b72"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/create list of cards",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n    \"postNumber\": \"IL-589632\",\r\n    \"country\": \"Iceland\",\r\n    \"name\": \"Kito\",\r\n    \"description\": \"none\",\r\n    \"distance\": 6321,\r\n    \"status\": \"RECEIVED\",\r\n    \"sendDate\": \"2018-02-12\",\r\n    \"receiveDate\": \"2018-04-27\"\r\n},\r\n{\r\n    \"postNumber\": \"CA-458741\",\r\n    \"country\": \"Canada\",\r\n    \"name\": \"Jack\",\r\n    \"description\": \"None\",\r\n    \"distance\": 11859,\r\n    \"status\": \"RECEIVED\",\r\n    \"sendDate\": \"2019-05-07\",\r\n    \"receiveDate\": \"2019-08-17\"\r\n}\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/postcards/list/7a2ebe3d-9396-4dfa-b422-8e0fe4be18c4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"postcards",
+						"list",
+						"7a2ebe3d-9396-4dfa-b422-8e0fe4be18c4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \"firstName\": \"Alex\",\r\n \"lastName\": \"Fisher\",\r\n \"email\": \"AlexFisher@gmail.com\",\r\n \"postcards\": [],\r\n \"addresses\": [],\r\n \"countries\": []\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/get user by id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/2b686495-6923-4035-92a8-6ca5c5f800fc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"2b686495-6923-4035-92a8-6ca5c5f800fc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/delete user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/2f78ab8b-7a67-4c18-8ad8-4f20e04a0771",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"2f78ab8b-7a67-4c18-8ad8-4f20e04a0771"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/create address",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"building\": \"37A\",\r\n    \"street\": \"George Abbott Way\",\r\n    \"city\": \"New-York\",\r\n    \"postNumber\": \"010001\",\r\n    \"country\": \"USA\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/addresses/c4feb40d-9dbe-43de-943e-9e5f35a219ea",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"addresses",
+						"c4feb40d-9dbe-43de-943e-9e5f35a219ea"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/create country",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"country\": \"Mexico\",\r\n    \"cardsNumber\": 25,\r\n    \"totalDistance\": 11856\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/countries/c4feb40d-9dbe-43de-943e-9e5f35a219ea",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"countries",
+						"c4feb40d-9dbe-43de-943e-9e5f35a219ea"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/update address /addr_id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"building\": \"37B\",\r\n    \"street\": \"George Abbott Way\",\r\n    \"city\": \"New-York\",\r\n    \"postNumber\": \"010001\",\r\n    \"country\": \"USA\",\r\n    \"user\":\r\n        {\r\n            \"id\": \"20f773b1-9da1-4160-9876-1326af1d6bbb\",\r\n            \"firstName\": \"Alex\",\r\n            \"lastName\": \"Fisher\",\r\n            \"email\": \"AlexFisher@gmail.com\"\r\n        }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/addresses/a31a9ae9-fcaf-485a-9379-412afb863a71",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"addresses",
+						"a31a9ae9-fcaf-485a-9379-412afb863a71"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/apdate countries (country id)",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"country\": \"Mexico\",\r\n    \"cardsNumber\": 47,\r\n    \"totalDistance\": 11856,\r\n    \"user\":\r\n        {\r\n            \"id\": \"20f773b1-9da1-4160-9876-1326af1d6bbb\",\r\n            \"firstName\": \"Alex\",\r\n            \"lastName\": \"Fisher\",\r\n            \"email\": \"AlexFisher@gmail.com\"\r\n        }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/countries/d9bed1f4-edec-42c8-a85f-537694905f1e",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"countries",
+						"d9bed1f4-edec-42c8-a85f-537694905f1e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/update user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete addresses/addr_id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/addresses/6cb703d5-9703-4598-a7df-f3fc44818066",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"addresses",
+						"6cb703d5-9703-4598-a7df-f3fc44818066"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/get list of addresses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/addresses/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"addresses",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findAddress by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
