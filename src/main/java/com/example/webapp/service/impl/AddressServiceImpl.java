@@ -2,6 +2,7 @@ package com.example.webapp.service.impl;
 
 import com.example.webapp.dto.AddressDto;
 import com.example.webapp.exception.address.AddressConvertingException;
+import com.example.webapp.exception.address.AddressException;
 import com.example.webapp.exception.address.AddressNotFoundException;
 import com.example.webapp.exception.address.DeleteActiveAddressException;
 import com.example.webapp.exception.user.UserNotFoundException;
@@ -50,8 +51,15 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Address createAddress(AddressDto addressDto) throws UserNotFoundException, AddressConvertingException {
-        return addressRepository.save(convertDtoToAddress(addressDto));
+    public Address createAddress(AddressDto addressDto) throws AddressException {
+        log.debug("creating address with parameter {}", addressDto);
+        try {
+            return addressRepository.save(convertDtoToAddress(addressDto));
+        } catch (Exception e) {
+            String message = "exception while creating address";
+            log.error(message, e);
+            throw new AddressException(message, e);
+        }
     }
 
     @Override

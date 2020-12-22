@@ -92,13 +92,13 @@ public class PostcardServiceImpl implements PostcardService {
         try {
             return postcardRepository.save(dtoToPostcard(postcardDto));
         } catch (Exception e) {
-            log.error("error occurred during converting dto to postcard...", e);
-            postcardRepository.deleteAll();
+            log.error("error occurred during converting dto to postcard...", e);//TODO: text
+            //postcardRepository.deleteAll();
             throw new PostcardConvertingException(e);
         }
     }
 
-    @Override
+    @Override//TODO: check transactional logic -> list
     public List<Postcard> createPostcardList(List<PostcardDto> postcardDTOList) throws PostcardConvertingException {
         UUID userId = postcardDTOList.get(0).getUserId();
         postcardDTOList.forEach(postcard -> {
@@ -117,7 +117,6 @@ public class PostcardServiceImpl implements PostcardService {
             return (List<Postcard>) postcardRepository.saveAll(postcardList);
         } catch (Exception e) {
             log.error("error occurred by mapping...", e);
-            postcardRepository.deleteAll();
             throw new PostcardConvertingException();
         }
     }
