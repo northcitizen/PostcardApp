@@ -16,8 +16,8 @@
 Устанавливать определенный адрес в качестве основного.
 
 
-#Используемые технологии
-JDK (Java SE Development Kit), v8
+# Используемые технологии
+JDK (Java SE Development Kit) v8,
 Spring Boot v2.3.5
 PostgreSQL v12.3
 
