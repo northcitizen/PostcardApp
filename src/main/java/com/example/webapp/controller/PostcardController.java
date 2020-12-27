@@ -1,8 +1,10 @@
 package com.example.webapp.controller;
 
 import com.example.webapp.dto.PostcardDto;
+import com.example.webapp.exception.postcard.PostcardConvertingException;
 import com.example.webapp.exception.postcard.PostcardException;
 import com.example.webapp.exception.postcard.PostcardNotFoundException;
+import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.service.PostcardService;
 import lombok.extern.slf4j.Slf4j;
@@ -27,58 +29,43 @@ public class PostcardController {
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public List<PostcardDto> postcardList() throws PostcardException {
-        try {
-            return postcardService.findAll();
-        } catch (PostcardNotFoundException e) {
-            throw new PostcardException("exception while getting all postcards", e);
-        }
+    public List<PostcardDto> postcardList() throws PostcardException, PostcardNotFoundException {
+        log.debug("get postcards list requests...");
+        return postcardService.findAll();
     }
 
     @PostMapping
-    public Postcard create(@RequestBody PostcardDto postcardDto) throws PostcardException {
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Postcard create(@RequestBody PostcardDto postcardDto) throws PostcardException, UserNotFoundException, PostcardConvertingException {
         log.debug("create postcard with parameters {}", postcardDto);
-        try {
-            return postcardService.createPostcard(postcardDto);
-        } catch (Exception e) {
-            throw new PostcardException("exception while creating postcard", e);
-        }
+        return postcardService.createPostcard(postcardDto);
     }
 
     @PostMapping(path = "/batch")
-    public List<Postcard> createList(@RequestBody List<PostcardDto> postcardList) throws PostcardException {
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public List<Postcard> createList(@RequestBody List<PostcardDto> postcardList) throws PostcardException, UserNotFoundException, PostcardConvertingException, PostcardNotFoundException {
         log.debug("creating list of postcards...");
-        try {
-            return postcardService.createPostcardList(postcardList);
-        } catch (Exception e) {
-            throw new PostcardException("exception while creating list of postcards", e);
-        }
+        return postcardService.createPostcardList(postcardList);
     }
 
     @GetMapping(path = "/{id}")
-    public PostcardDto getById(@PathVariable("id") UUID id) throws PostcardException {
-        try {
-            return postcardService.findByPostcardById(id);
-        } catch (Exception e) {
-            throw new PostcardException("exception while getting postcard with id=\"" + id + "\"", e);
-        }
+    @ResponseStatus(code = HttpStatus.OK)
+    public PostcardDto getById(@PathVariable("id") UUID id) throws PostcardException, PostcardNotFoundException, PostcardConvertingException {
+        log.debug("getting postcard by id {}", id);
+        return postcardService.findByPostcardById(id);
     }
 
     @PutMapping
-    public Postcard update(@RequestBody PostcardDto postcardDetails) throws PostcardException {
-        try {
-            return postcardService.updatePostcard(postcardDetails);
-        } catch (Exception e) {
-            throw new PostcardException("exception while updating postcard", e);
-        }
+    @ResponseStatus(code = HttpStatus.OK)
+    public Postcard update(@RequestBody PostcardDto postcardDetails) throws PostcardException, PostcardNotFoundException, PostcardConvertingException, UserNotFoundException {
+        log.debug("updating postcard with parameters {}", postcardDetails);
+        return postcardService.updatePostcard(postcardDetails);
     }
 
     @DeleteMapping(path = "/{id}")
-    public void delete(@PathVariable("id") UUID id) throws PostcardException {
-        try {
-            postcardService.delete(id);
-        } catch (Exception e) {
-            throw new PostcardException("exception while deleting postcard with id=\"" + id + "\"", e);
-        }
+    @ResponseStatus(code = HttpStatus.OK)
+    public void delete(@PathVariable("id") UUID id) throws PostcardException, PostcardNotFoundException {
+        log.debug("deleting postcard");
+        postcardService.delete(id);
     }
 }

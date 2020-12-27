@@ -4,6 +4,7 @@ import com.example.webapp.dto.AddressDto;
 import com.example.webapp.dto.PostcardDto;
 import com.example.webapp.dto.UserDto;
 import com.example.webapp.exception.user.UserConvertingException;
+import com.example.webapp.exception.user.UserException;
 import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.Address;
 import com.example.webapp.model.Postcard;
@@ -32,28 +33,41 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(UUID id) throws UserNotFoundException {
+    public void delete(UUID id) throws UserNotFoundException, UserException {
         User userById = userRepository.findUserById(id);
         if (Objects.isNull(userById)) {
             log.error("user not found by id {} ...", id);
             throw new UserNotFoundException(id);
         }
-        userRepository.delete(userById);
-    }
-
-    @Override
-    public User createUser(UserDto userDto) throws UserConvertingException {
-        log.debug("creating user with parameter {}", userDto);
         try {
-            return userRepository.save(dtoToUser(userDto));
+            userRepository.delete(userById);
         } catch (Exception e) {
-            log.error("error occurred during converting dto to user", e);
-            throw new UserConvertingException();
+            String message = "exception while deleting user";
+            log.error(message, e);
+            throw new UserException(message, e);
         }
     }
 
     @Override
-    public UserDto findUserById(UUID id) throws UserNotFoundException {
+    public User createUser(UserDto userDto) throws UserConvertingException, UserException {
+        log.debug("creating user with parameter {}", userDto);
+        try {
+            dtoToUser(userDto);
+        } catch (Exception e) {
+            log.error("error occurred during converting dto to user", e);
+            throw new UserConvertingException();
+        }
+        try {
+            return userRepository.save(dtoToUser(userDto));
+        } catch (UserConvertingException e) {
+            String message = "exception while creating user";
+            log.error(message, e);
+            throw new UserException(message, e);
+        }
+    }
+
+    @Override
+    public UserDto findUserById(UUID id) throws UserNotFoundException, UserConvertingException, UserException {
         User userById = null;
         try {
             userById = userRepository.findUserById(id);
@@ -67,23 +81,35 @@ public class UserServiceImpl implements UserService {
         }
         try {
             log.debug("find user by id request...");
-            return userToDTO(userById);
+            userToDTO(userById);
         } catch (Exception e) {
             log.error("user not found by id {} ...", id);
-            throw new UserNotFoundException(id);
+            throw new UserConvertingException(id);
+        }
+        try {
+            return userToDTO(userById);
+        } catch (Exception e) {
+            String message = "exception while getting user {} with id";
+            log.error(message, id, e);
+            throw new UserException(message + id, e);
         }
     }
 
     @Override
-    public User updateUser(UserDto userDto) throws UserNotFoundException, UserConvertingException {
+    public User updateUser(UserDto userDto) throws UserNotFoundException, UserConvertingException, UserException {
         if (Objects.isNull(userRepository.findUserById(userDto.getId())))
             throw new UserNotFoundException("user not found in update service...");
         try {
             log.debug("update user service...");
+            dtoToUser(userDto);
+        } catch (Exception e) {
+            log.error("error occurred during converting from dto to entity", e);
+            throw new UserConvertingException();
+        }
+        try {
             return userRepository.save(dtoToUser(userDto));
         } catch (Exception e) {
-            log.error("error occurred by mapping", e);
-            throw new UserConvertingException();
+            throw new UserException("exception while updating user", e);
         }
     }
 
