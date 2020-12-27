@@ -2,6 +2,7 @@ package com.example.webapp.service.impl;
 
 import com.example.webapp.dto.UserDto;
 import com.example.webapp.exception.user.UserConvertingException;
+import com.example.webapp.exception.user.UserException;
 import com.example.webapp.model.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,7 @@ public class UserServiceImplTest {
     private UserServiceImpl userService;
 
     @Test
-    public void createUserTest() throws UserConvertingException {
+    public void createUserTest() throws UserConvertingException, UserException {
         User user = userService.createUser(UserDto.builder()
                 .firstName("firstName")
                 .lastName("lastName")

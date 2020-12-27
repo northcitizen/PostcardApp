@@ -37,7 +37,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     @Transactional
-    public void delete(UUID id) throws AddressNotFoundException {
+    public void delete(UUID id) throws AddressNotFoundException, AddressException {
         Address address = addressRepository.findAddressById(id);
         if (Objects.isNull(address)) {
             log.error("address with id {} not found", id);
@@ -47,7 +47,12 @@ public class AddressServiceImpl implements AddressService {
             log.error("can not delete address with id {}, because it's active", id);
             throw new DeleteActiveAddressException("can not delete active address");
         }
-        addressRepository.delete(address);
+        try {
+            addressRepository.delete(address);
+        } catch (Exception e) {
+            throw new AddressException("exception while deleting address with id=\"" + id + "\"", e);
+        }
+
     }
 
     @Override
@@ -63,30 +68,46 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public AddressDto findById(UUID id) throws AddressNotFoundException, UserNotFoundException, AddressConvertingException {
+    public AddressDto findById(UUID id) throws AddressNotFoundException, AddressException {
         Address address = addressRepository.findAddressById(id);
         if (Objects.isNull(address)) {
             log.error("address with id {} not found", id);
             throw new AddressNotFoundException(id);
         }
-        return convertAddressToDTO(address);
+        try {
+            return convertAddressToDTO(address);
+        } catch (Exception e) {
+            throw new AddressException("exception while finding address with id=\"" + id + "\"", e);
+        }
+
     }
 
     @Override
-    public Address updateAddress(AddressDto addressDto) throws AddressConvertingException, AddressNotFoundException, UserNotFoundException {
+    public Address updateAddress(AddressDto addressDto) throws AddressException, AddressNotFoundException {
         UUID id = addressDto.getId();
         Address addressToUpdate = addressRepository.findAddressById(id);
         if (Objects.isNull(addressToUpdate)) {
             log.error("address with id {} not found", id);
             throw new AddressNotFoundException(id);
         }
-        return addressRepository.save(convertDtoToAddress(addressDto));
+        try {
+            return addressRepository.save(convertDtoToAddress(addressDto));
+        } catch (Exception e) {
+            throw new AddressException("exception while updating address", e);
+        }
     }
 
     @Override
-    public List<AddressDto> findAll() throws AddressConvertingException {
-        List<Address> addresses = (List<Address>) addressRepository.findAll();
+    public List<AddressDto> findAll() throws AddressConvertingException, AddressException {
         try {
+            addressRepository.findAll();
+        } catch (Exception e) {
+            String message = "exception while finding addresses";
+            log.error(message);
+            throw new AddressException(message, e);
+        }
+        try {
+            List<Address> addresses = (List<Address>) addressRepository.findAll();
             return PostcardUtil.mapAll(addresses, AddressDto.class);
         } catch (Exception e) {
             String message = "error occurred during mapping addresses";

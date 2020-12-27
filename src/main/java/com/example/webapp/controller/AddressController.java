@@ -1,7 +1,10 @@
 package com.example.webapp.controller;
 
 import com.example.webapp.dto.AddressDto;
+import com.example.webapp.exception.address.AddressConvertingException;
 import com.example.webapp.exception.address.AddressException;
+import com.example.webapp.exception.address.AddressNotFoundException;
+import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.Address;
 import com.example.webapp.service.AddressService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,42 +35,30 @@ public class AddressController {
     }
 
     @GetMapping(path = "/{id}")
-    public AddressDto find(@PathVariable("id") UUID id) throws AddressException {
+    @ResponseStatus(code = HttpStatus.OK)
+    public AddressDto find(@PathVariable("id") UUID id) throws AddressException, AddressConvertingException, UserNotFoundException, AddressNotFoundException {
         log.debug("finding address by id {}", id);
-        try {
-            return addressService.findById(id);
-        } catch (Exception e) {
-            throw new AddressException("exception while finding address with id=\"" + id + "\"", e);
-        }
+        return addressService.findById(id);
     }
 
     @DeleteMapping(path = "/{id}")
-    public void delete(@PathVariable("id") UUID id) throws AddressException {
+    @ResponseStatus(code = HttpStatus.OK)
+    public void delete(@PathVariable("id") UUID id) throws AddressException, AddressNotFoundException {
         log.debug("deleting address by id {}", id);
-        try {
-            addressService.delete(id);
-        } catch (Exception e) {
-            throw new AddressException("exception while deleting address with id=\"" + id + "\"", e);
-        }
+        addressService.delete(id);
     }
 
     @PutMapping
-    public Address update(@RequestBody AddressDto addressDto) throws AddressException {
+    @ResponseStatus(code = HttpStatus.OK)
+    public Address update(@RequestBody AddressDto addressDto) throws AddressException, AddressNotFoundException, AddressConvertingException, UserNotFoundException {
         log.debug("updating address with parameters {}", addressDto);
-        try {
-            return addressService.updateAddress(addressDto);
-        } catch (Exception e) {
-            throw new AddressException("exception while updating address", e);
-        }
+        return addressService.updateAddress(addressDto);
     }
 
     @GetMapping
-    public List<AddressDto> findAll() throws AddressException {
+    @ResponseStatus(code = HttpStatus.OK)
+    public List<AddressDto> findAll() throws AddressException, AddressNotFoundException, AddressConvertingException {
         log.debug("get addresses list request...");
-        try {
-            return addressService.findAll();
-        } catch (Exception e) {
-            throw new AddressException("exception while finding addresses", e);
-        }
+        return addressService.findAll();
     }
 }
