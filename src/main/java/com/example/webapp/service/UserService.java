@@ -18,4 +18,8 @@ public interface UserService {
     User updateUser(UserDto userDto) throws UserConvertingException, UserNotFoundException, UserException;
 
     User createUser(UserDto userDto) throws UserConvertingException, UserException;
+
+    UserDto userToDTO(User user) throws UserConvertingException;
+
+    User dtoToUser(UserDto userDto) throws UserConvertingException;
 }
