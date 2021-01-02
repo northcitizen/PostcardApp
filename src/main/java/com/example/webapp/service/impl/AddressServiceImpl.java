@@ -29,6 +29,7 @@ public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
     private final UserRepository userRepository;
 
+
     @Autowired
     public AddressServiceImpl(AddressRepository addressRepository, UserRepository userRepository) {
         this.addressRepository = addressRepository;
@@ -116,7 +117,7 @@ public class AddressServiceImpl implements AddressService {
         }
     }
 
-    private Address convertDtoToAddress(AddressDto addressDto) throws AddressConvertingException, UserNotFoundException {
+    public Address convertDtoToAddress(AddressDto addressDto) throws AddressConvertingException, UserNotFoundException {
         if (Objects.isNull(addressDto)) {
             String message = "can not convert null value to address";
             log.error(message);
@@ -140,7 +141,7 @@ public class AddressServiceImpl implements AddressService {
                 .build();
     }
 
-    private AddressDto convertAddressToDTO(Address address) throws UserNotFoundException, AddressConvertingException {
+    public AddressDto convertAddressToDTO(Address address) throws UserNotFoundException, AddressConvertingException {
         if (Objects.isNull(address)) {
             String message = "can not convert null value to address dto";
             log.error(message);

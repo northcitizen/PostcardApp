@@ -21,4 +21,8 @@ public interface AddressService {
     Address updateAddress(AddressDto addressDto) throws AddressException, AddressConvertingException, AddressNotFoundException, UserNotFoundException;
 
     List<AddressDto> findAll() throws AddressNotFoundException, AddressConvertingException, AddressException;
+
+    Address convertDtoToAddress(AddressDto addressDto) throws AddressConvertingException, UserNotFoundException;
+
+    AddressDto convertAddressToDTO(Address address) throws UserNotFoundException, AddressConvertingException;
 }
