@@ -12,6 +12,8 @@ import java.util.UUID;
 
 public interface AddressService {
 
+    // вспоминаем о правиле: throws 1 exception, скрываем детали реализации
+
     void delete(UUID id) throws AddressNotFoundException, AddressException;
 
     Address createAddress(AddressDto addressDto) throws AddressException;

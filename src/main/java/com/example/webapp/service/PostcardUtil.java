@@ -14,11 +14,11 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class PostcardUtil {
+public class PostcardUtil { // часто переносят в отдельный пакет
 
-    static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // используем подсказки идеи
 
-    private static ModelMapper modelMapper = new ModelMapper();
+    private static ModelMapper modelMapper = new ModelMapper(); // используем подсказки идеи
 
 
     static Provider<LocalDateTime> localDateTimeProvider = new AbstractProvider<LocalDateTime>() {
@@ -82,8 +82,8 @@ public class PostcardUtil {
      */
     public static <D, T> List<D> mapAll(final Collection<T> entityList, Class<D> outCLass) {
         if (Objects.isNull(entityList)) {
-            log.error("mapping NULL {}", entityList);
-            return Collections.emptyList();
+            log.error("mapping NULL {}", entityList); // какая ошибка будет залогирована? и ошибка (error) ли это?
+            return Collections.emptyList(); // отлично, поправили неразумного пользователя. таким сервисом приятно пользоваться
         }
         return entityList.stream()
                 .map(entity -> map(entity, outCLass))

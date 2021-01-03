@@ -12,6 +12,8 @@ import java.util.UUID;
 
 public interface PostcardService {
 
+    // вспоминаем о правиле: throws 1 exception, скрываем детали реализации
+
     List<PostcardDto> findAll() throws PostcardNotFoundException, PostcardException;
 
     void delete(UUID id) throws PostcardNotFoundException, PostcardException;

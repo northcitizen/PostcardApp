@@ -30,6 +30,7 @@ import java.util.UUID;
 public class PostcardServiceImpl implements PostcardService {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
     private final PostcardRepository postcardRepository;
     private final UserRepository userRepository;
 
@@ -43,30 +44,35 @@ public class PostcardServiceImpl implements PostcardService {
     @Override
     @Cacheable(value = "postcardCache")
     public List<PostcardDto> findAll() throws PostcardNotFoundException, PostcardException {
-        try {
-            postcardRepository.findAll();
-        } catch (Exception e) {
-            String message = "exception while getting all postcards";
-            log.error(message);
-            throw new PostcardException(message, e);
-        }
+        // log.debug(
+
+        // зачем дублировать?
+//        try {
+//            postcardRepository.findAll();
+//        } catch (Exception e) {
+//            String message = "exception while getting all postcards";
+//            log.error(message);
+//            throw new PostcardException(message, e);
+//        }
+
         try {
             log.debug("get postcard list request...");
             return PostcardUtil.mapAll((List<Postcard>) postcardRepository.findAll(), PostcardDto.class);
         } catch (Exception e) {
-            String message = "postcards not found...";
+            String message = "postcards not found..."; // а если недоступна БД?
             log.error(message);
-            throw new PostcardNotFoundException(message, e);
+            throw new PostcardNotFoundException(message, e); // а если недоступна БД?
         }
     }
 
     @Override
     public void delete(UUID id) throws PostcardNotFoundException, PostcardException {
         log.debug("deleting postcard by id {}", id);
-        Postcard postcard = postcardRepository.findByPostcardId(id);
+        Postcard postcard = postcardRepository.findByPostcardId(id); // вернем пользователю красивый ответ или stacktrace?
+                                                                     // нужно помнить, что у сервиса есть пользователи
         if (Objects.isNull(postcard)) {
             log.error("postcard with id {} not found", id);
-            throw new PostcardNotFoundException("postcard not found in update service...");
+            throw new PostcardNotFoundException("postcard not found in update service..."); // потеряли идентификатор
         }
         try {
             postcardRepository.delete(postcard);
@@ -82,20 +88,23 @@ public class PostcardServiceImpl implements PostcardService {
     @Cacheable(value = "postcardCache")
     public PostcardDto findByPostcardById(UUID id) throws PostcardConvertingException, PostcardNotFoundException, PostcardException {
         log.debug("finding postcard by id {}", id);
-        try {
-            postcardRepository.findByPostcardId(id);
-        } catch (Exception e) {
-            String message = "exception while getting postcard from db";
-            log.error(message, e);
-            throw new PostcardException(message, e);
-        }
-        Postcard postcard = postcardRepository.findByPostcardId(id);
+
+        // зачем дублировать?
+//        try {
+//            postcardRepository.findByPostcardId(id);
+//        } catch (Exception e) {
+//            String message = "exception while getting postcard from db";
+//            log.error(message, e);
+//            throw new PostcardException(message, e);
+//        }
+
+        Postcard postcard = postcardRepository.findByPostcardId(id); // // вернем пользователю красивый ответ или stacktrace?
         if (Objects.isNull(postcard)) {
             log.error("postcard with id {} not found", id);
-            throw new PostcardNotFoundException("postcard not found...");
+            throw new PostcardNotFoundException("postcard not found..."); // потеряли идентификатор
         }
         try {
-            return postcardToDTO(postcard);
+            return postcardToDTO(postcard); // каждый раз при вызове метода придется делать обертку try{}catch(){}. удобно? завернуть внутрь
         } catch (Exception e) {
             log.error("error occurred during converting postcard to dto...", e);
             throw new PostcardConvertingException(id);
@@ -105,13 +114,15 @@ public class PostcardServiceImpl implements PostcardService {
     @Override
     public Postcard createPostcard(PostcardDto postcardDto) throws PostcardConvertingException, PostcardException {
         log.debug("creating postcard with parameters {}", postcardDto);
-        try {
-            dtoToPostcard(postcardDto);
-        } catch (Exception e) {
-            String message = "error occurred during converting dto to postcard...";
-            log.error(message, e);
-            throw new PostcardConvertingException(message, e);
-        }
+
+        // зачем дублирование?
+//        try {
+//            dtoToPostcard(postcardDto);
+//        } catch (Exception e) {
+//            String message = "error occurred during converting dto to postcard...";
+//            log.error(message, e);
+//            throw new PostcardConvertingException(message, e);
+//        }
         try {
             return postcardRepository.save(dtoToPostcard(postcardDto));
         } catch (Exception e) {
@@ -122,28 +133,34 @@ public class PostcardServiceImpl implements PostcardService {
     }
 
     @Override
+    // желательно postcardDTOList -> postcardDtoList
     public List<Postcard> createPostcardList(List<PostcardDto> postcardDTOList) throws PostcardConvertingException, PostcardException {
-        UUID userId = postcardDTOList.get(0).getUserId();
+        // log.debug(
+
+        UUID userId = postcardDTOList.get(0).getUserId(); // могут передать в postcardDTOList null?
         postcardDTOList.forEach(postcard -> {
-            if (Objects.isNull(userRepository.findUserById(userId))) {
+            if (Objects.isNull(userRepository.findUserById(userId))) {  // будем искать пользователя каждый раз? можно обойтись одним запросом?
+                                                                        // логика неясна
                 try {
                     throw new UserNotFoundException("user not found by creating list of postcards...");
                 } catch (UserNotFoundException e) {
-                    e.printStackTrace();
+                    e.printStackTrace(); // и пользователь ничего об этом не узнает
                 }
             }
         });
-        try {
-            log.debug("converting list of postcards...");
-            PostcardUtil.mapAll(postcardDTOList, Postcard.class);
-        } catch (Exception e) {
-            String message = "error occurred during converting...";
-            log.error(message);
-            throw new PostcardConvertingException(message, e);
-        }
+        // зачем дублируем?
+
+//        try {
+//            log.debug("converting list of postcards..."); // вероятно, избыточно
+//            PostcardUtil.mapAll(postcardDTOList, Postcard.class);
+//        } catch (Exception e) {
+//            String message = "error occurred during converting...";
+//            log.error(message);
+//            throw new PostcardConvertingException(message, e);
+//        }
         try {
             List<Postcard> postcardList = PostcardUtil.mapAll(postcardDTOList, Postcard.class);
-            postcardList.forEach(postcard -> postcard.setUser(userRepository.findUserById(userId)));
+            postcardList.forEach(postcard -> postcard.setUser(userRepository.findUserById(userId))); // и опять findUserById вызывается много раз
             return (List<Postcard>) postcardRepository.saveAll(postcardList);
         } catch (Exception e) {
             String message = "exception while creating list of postcards";
@@ -156,20 +173,23 @@ public class PostcardServiceImpl implements PostcardService {
     public Postcard updatePostcard(PostcardDto postcardDto) throws PostcardNotFoundException, PostcardConvertingException, PostcardException {
         log.debug("updating postcard with parameters {}", postcardDto);
         UUID id = postcardDto.getId();
-        try {
-            postcardRepository.findByPostcardId(id);
-        } catch (Exception e) {
-            String message = "exception while updating postcard";
-            log.error(message, e);
-            throw new PostcardException(message, e);
-        }
+
+        // зачем дублируем?
+//        try {
+//            postcardRepository.findByPostcardId(id);
+//        } catch (Exception e) {
+//            String message = "exception while updating postcard";
+//            log.error(message, e);
+//            throw new PostcardException(message, e);
+//        }
+
         Postcard postcardToUpdate = postcardRepository.findByPostcardId(id);
         if (Objects.isNull(postcardToUpdate)) {
             log.error("postcard not found by id {}", id);
-            throw new PostcardNotFoundException("postcard not found in update service...");
+            throw new PostcardNotFoundException("postcard not found in update service..."); // потеряли id
         }
         try {
-            log.debug("update postcard by id {}", id);
+            log.debug("update postcard by id {}", id); // вероятно, избыточно
             return postcardRepository.save(dtoToPostcard(postcardDto));
         } catch (Exception e) {
             log.error("error occurred by mapping", e);

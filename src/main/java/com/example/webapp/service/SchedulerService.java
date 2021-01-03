@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class SchedulerService {
+public class SchedulerService { // часто переносят в отдельный пакет
 
     private final SettingsRepositoryImpl settingsRepository;
     private final PostcardRepository postcardRepository;
