@@ -11,6 +11,8 @@ import java.util.UUID;
 
 public interface UserService {
 
+    // вспоминаем о правиле: throws 1 exception, скрываем детали реализации
+
     void delete(UUID id) throws UserNotFoundException, UserException;
 
     UserDto findUserById(UUID id) throws UserNotFoundException, UserConvertingException, UserException;

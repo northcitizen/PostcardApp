@@ -27,6 +27,7 @@ public class AddressController {
         this.addressService = addressService;
     }
 
+    // Желательно придерживаться одного порядка (например, CRUD) и наименования во всех контроллерах/сервисах
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public Address create(@RequestBody AddressDto addressDto) throws AddressException {

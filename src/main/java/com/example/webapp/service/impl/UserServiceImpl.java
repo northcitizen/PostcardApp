@@ -34,7 +34,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(UUID id) throws UserNotFoundException, UserException {
-        User userById = userRepository.findUserById(id);
+        // log.debug(
+        User userById = userRepository.findUserById(id); // что отдадим наружу?
         if (Objects.isNull(userById)) {
             log.error("user not found by id {} ...", id);
             throw new UserNotFoundException(id);
@@ -51,12 +52,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User createUser(UserDto userDto) throws UserConvertingException, UserException {
         log.debug("creating user with parameter {}", userDto);
-        try {
-            dtoToUser(userDto);
-        } catch (Exception e) {
-            log.error("error occurred during converting dto to user", e);
-            throw new UserConvertingException();
-        }
+
+        // дублирование?
+//        try {
+//            dtoToUser(userDto);
+//        } catch (Exception e) {
+//            log.error("error occurred during converting dto to user", e);
+//            throw new UserConvertingException();
+//        }
         try {
             return userRepository.save(dtoToUser(userDto));
         } catch (UserConvertingException e) {
@@ -66,33 +69,49 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+//    @Override
+//    public UserDto findUserById(UUID id) throws UserNotFoundException, UserConvertingException, UserException {
+//        User userById = null;
+//        try {
+//            userById = userRepository.findUserById(id);
+//            if (Objects.isNull(userById)) {
+//                log.error("user not found by id {}", id);
+//                throw new UserNotFoundException(id);
+//            }
+//        } catch (Exception e) {
+//            log.error("user not found by id", e);
+//            e.printStackTrace(); // так не делаем
+//        }
+//        try {
+//            log.debug("find user by id request..."); // вероятно избыточно
+//            userToDTO(userById);
+//        } catch (Exception e) {
+//            log.error("user not found by id {} ...", id);
+//            throw new UserConvertingException(id);
+//        }
+//        try {
+//            return userToDTO(userById);
+//        } catch (Exception e) {
+//            String message = "exception while getting user {} with id";
+//            log.error(message, id, e);
+//            throw new UserException(message + id, e);
+//        }
+//    }
+
     @Override
     public UserDto findUserById(UUID id) throws UserNotFoundException, UserConvertingException, UserException {
-        User userById = null;
+        User userById;
         try {
             userById = userRepository.findUserById(id);
-            if (Objects.isNull(userById)) {
-                log.error("user not found by id {}", id);
-                throw new UserNotFoundException(id);
-            }
         } catch (Exception e) {
-            log.error("user not found by id", e);
-            e.printStackTrace();
+            log.error("error while getting user by id {}", id, e);
+            throw new UserException(id);
         }
-        try {
-            log.debug("find user by id request...");
-            userToDTO(userById);
-        } catch (Exception e) {
-            log.error("user not found by id {} ...", id);
-            throw new UserConvertingException(id);
+        if (Objects.isNull(userById)) {
+            log.error("user with id {} not found", id);
+            throw new UserNotFoundException(id);
         }
-        try {
-            return userToDTO(userById);
-        } catch (Exception e) {
-            String message = "exception while getting user {} with id";
-            log.error(message, id, e);
-            throw new UserException(message + id, e);
-        }
+
     }
 
     @Override
