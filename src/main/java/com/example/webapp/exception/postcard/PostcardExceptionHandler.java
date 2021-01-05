@@ -23,6 +23,10 @@ public class PostcardExceptionHandler {
         return getHandledExceptionResponse(e, "converting error");
     }
 
+    @ExceptionHandler(value = {PostcardException.class})
+    public ResponseEntity<Object> handlePostcardNotConvertingException(PostcardException e) {
+        return getHandledExceptionResponse(e, "postcard exception");
+    }
 
     private ResponseEntity<Object> getHandledExceptionResponse(Exception e, String message) {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;

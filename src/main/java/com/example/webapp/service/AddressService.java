@@ -12,19 +12,13 @@ import java.util.UUID;
 
 public interface AddressService {
 
-    // вспоминаем о правиле: throws 1 exception, скрываем детали реализации
+    Address create(AddressDto addressDto) throws AddressException;
+
+    AddressDto findById(UUID id) throws AddressException, UserNotFoundException;
+
+    List<AddressDto> findAll() throws AddressConvertingException;
+
+    Address update(AddressDto addressDto) throws AddressException;
 
     void delete(UUID id) throws AddressNotFoundException, AddressException;
-
-    Address createAddress(AddressDto addressDto) throws AddressException;
-
-    AddressDto findById(UUID id) throws AddressConvertingException, AddressNotFoundException, UserNotFoundException, AddressException;
-
-    Address updateAddress(AddressDto addressDto) throws AddressException, AddressConvertingException, AddressNotFoundException, UserNotFoundException;
-
-    List<AddressDto> findAll() throws AddressNotFoundException, AddressConvertingException, AddressException;
-
-    Address convertDtoToAddress(AddressDto addressDto) throws AddressConvertingException, UserNotFoundException;
-
-    AddressDto convertAddressToDTO(Address address) throws UserNotFoundException, AddressConvertingException;
 }

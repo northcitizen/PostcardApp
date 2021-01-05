@@ -3,7 +3,6 @@ package com.example.webapp.service;
 import com.example.webapp.dto.UserDto;
 import com.example.webapp.exception.user.UserConvertingException;
 import com.example.webapp.exception.user.UserException;
-import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.User;
 
 import java.util.UUID;
@@ -11,17 +10,12 @@ import java.util.UUID;
 
 public interface UserService {
 
-    // вспоминаем о правиле: throws 1 exception, скрываем детали реализации
+    User create(UserDto userDto) throws UserException;
 
-    void delete(UUID id) throws UserNotFoundException, UserException;
+    UserDto findById(UUID id) throws UserException, UserConvertingException;
 
-    UserDto findUserById(UUID id) throws UserNotFoundException, UserConvertingException, UserException;
+    User update(UserDto userDto) throws UserException;
 
-    User updateUser(UserDto userDto) throws UserConvertingException, UserNotFoundException, UserException;
-
-    User createUser(UserDto userDto) throws UserConvertingException, UserException;
-
-    UserDto userToDTO(User user) throws UserConvertingException;
-
-    User dtoToUser(UserDto userDto) throws UserConvertingException;
+    void delete(UUID id) throws UserException;
 }
+

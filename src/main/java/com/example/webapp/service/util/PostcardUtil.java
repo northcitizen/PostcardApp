@@ -1,4 +1,4 @@
-package com.example.webapp.service;
+package com.example.webapp.service.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.*;
@@ -14,11 +14,10 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class PostcardUtil { // часто переносят в отдельный пакет
+public class PostcardUtil {
 
-    static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // используем подсказки идеи
 
-    private static ModelMapper modelMapper = new ModelMapper(); // используем подсказки идеи
+    private static final ModelMapper modelMapper;
 
 
     static Provider<LocalDateTime> localDateTimeProvider = new AbstractProvider<LocalDateTime>() {
@@ -82,8 +81,8 @@ public class PostcardUtil { // часто переносят в отдельны
      */
     public static <D, T> List<D> mapAll(final Collection<T> entityList, Class<D> outCLass) {
         if (Objects.isNull(entityList)) {
-            log.error("mapping NULL {}", entityList); // какая ошибка будет залогирована? и ошибка (error) ли это?
-            return Collections.emptyList(); // отлично, поправили неразумного пользователя. таким сервисом приятно пользоваться
+            log.warn("trying to map null entity");
+            return Collections.emptyList();
         }
         return entityList.stream()
                 .map(entity -> map(entity, outCLass))

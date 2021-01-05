@@ -27,39 +27,39 @@ public class PostcardController {
         this.postcardService = postcardService;
     }
 
-    @GetMapping
-    @ResponseStatus(code = HttpStatus.OK)
-    public List<PostcardDto> postcardList() throws PostcardException, PostcardNotFoundException {
-        log.debug("get postcards list requests...");
-        return postcardService.findAll();
-    }
-
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public Postcard create(@RequestBody PostcardDto postcardDto) throws PostcardException, UserNotFoundException, PostcardConvertingException {
         log.debug("create postcard with parameters {}", postcardDto);
-        return postcardService.createPostcard(postcardDto);
+        return postcardService.create(postcardDto);
     }
 
     @PostMapping(path = "/batch")
     @ResponseStatus(code = HttpStatus.CREATED)
     public List<Postcard> createList(@RequestBody List<PostcardDto> postcardList) throws PostcardException, UserNotFoundException, PostcardConvertingException, PostcardNotFoundException {
         log.debug("creating list of postcards...");
-        return postcardService.createPostcardList(postcardList);
+        return postcardService.createList(postcardList);
     }
 
     @GetMapping(path = "/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public PostcardDto getById(@PathVariable("id") UUID id) throws PostcardException, PostcardNotFoundException, PostcardConvertingException {
+    public PostcardDto get(@PathVariable("id") UUID id) throws PostcardException, PostcardNotFoundException, PostcardConvertingException, UserNotFoundException {
         log.debug("getting postcard by id {}", id);
-        return postcardService.findByPostcardById(id);
+        return postcardService.findById(id);
+    }
+
+    @GetMapping
+    @ResponseStatus(code = HttpStatus.OK)
+    public List<PostcardDto> getAll() throws PostcardException, PostcardNotFoundException {
+        log.debug("get postcards list requests...");
+        return postcardService.findAll();
     }
 
     @PutMapping
     @ResponseStatus(code = HttpStatus.OK)
     public Postcard update(@RequestBody PostcardDto postcardDetails) throws PostcardException, PostcardNotFoundException, PostcardConvertingException, UserNotFoundException {
         log.debug("updating postcard with parameters {}", postcardDetails);
-        return postcardService.updatePostcard(postcardDetails);
+        return postcardService.update(postcardDetails);
     }
 
     @DeleteMapping(path = "/{id}")

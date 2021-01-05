@@ -10,8 +10,8 @@ import com.example.webapp.model.Address;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.model.User;
 import com.example.webapp.repository.UserRepository;
-import com.example.webapp.service.PostcardUtil;
 import com.example.webapp.service.UserService;
+import com.example.webapp.service.util.PostcardUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,14 +33,81 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(UUID id) throws UserNotFoundException, UserException {
-        // log.debug(
-        User userById = userRepository.findUserById(id); // что отдадим наружу?
-        if (Objects.isNull(userById)) {
-            log.error("user not found by id {} ...", id);
-            throw new UserNotFoundException(id);
+    public User create(UserDto userDto) throws UserException {
+        log.debug("creating user with parameter {}", userDto);
+        try {
+            User user = dtoToUser(userDto);
+            return userRepository.save(user);
+        } catch (Exception e) {
+            String message = "exception while creating user";
+            log.error(message, e);
+            throw new UserException(message, e);
+        }
+    }
+
+    @Override
+    public UserDto findById(UUID id) throws UserException, UserConvertingException {
+        log.debug("getting user by id {}", id);
+        User user;
+        try {
+            user = userRepository.findUserById(id);
+            if (Objects.isNull(user)) {
+                log.error("user with id {} not found", id);
+                throw new UserNotFoundException(id);
+            }
+        } catch (Exception e) {
+            String message = "exception while getting user from db";
+            log.error(message, e);
+            throw new UserException(message, e);
+        }
+        return userToDTO(user);
+    }
+
+    @Override
+    public User update(UserDto userDto) throws UserException {
+        log.debug("updating user with parameters {}", userDto);
+        User userById;
+        if (Objects.isNull(userDto)) {
+            log.error("user dto is null");
+            throw new UserException("user dto is null");
         }
         try {
+            try {
+                userById = userRepository.findUserById(userDto.getId());
+                if (Objects.isNull(userById)) {
+                    String message = "user not found";
+                    log.error(message);
+                    throw new UserNotFoundException(message);
+                }
+            } catch (Exception e) {
+                String message = "user not found";
+                log.error(message, e);
+                throw new UserException(message, e);
+            }
+            return userRepository.save(updateUser(userById, userDto));
+        } catch (Exception e) {
+            String message = "exception while updating user";
+            log.error(message, e);
+            throw new UserException(message, e);
+        }
+    }
+
+    @Override
+    public void delete(UUID id) throws UserException {
+        log.debug("delete user with id {}", id);
+        try {
+            User userById;
+            try {
+                userById = userRepository.findUserById(id);
+                if (Objects.isNull(userById)) {
+                    log.error("user not found by id {} ...", id);
+                    throw new UserNotFoundException(id);
+                }
+            } catch (Exception e) {
+                String message = "exception while finding user";
+                log.error(message, e);
+                throw new UserException(message, e);
+            }
             userRepository.delete(userById);
         } catch (Exception e) {
             String message = "exception while deleting user";
@@ -49,123 +116,69 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
-    public User createUser(UserDto userDto) throws UserConvertingException, UserException {
-        log.debug("creating user with parameter {}", userDto);
-
-        // дублирование?
-//        try {
-//            dtoToUser(userDto);
-//        } catch (Exception e) {
-//            log.error("error occurred during converting dto to user", e);
-//            throw new UserConvertingException();
-//        }
+    private User addUser(UserDto userDto) throws UserException {
         try {
-            return userRepository.save(dtoToUser(userDto));
-        } catch (UserConvertingException e) {
-            String message = "exception while creating user";
+            return User.builder()
+                    .id(userDto.getId())
+                    .firstName(userDto.getFirstName())
+                    .lastName(userDto.getLastName())
+                    .email(userDto.getEmail())
+                    .postcards(PostcardUtil.mapAll(userDto.getPostcards(), Postcard.class))
+                    .addresses(PostcardUtil.mapAll(userDto.getAddresses(), Address.class))
+                    .build();
+        } catch (Exception e) {
+            String message = "error occurred during converting list";
             log.error(message, e);
             throw new UserException(message, e);
         }
     }
 
-//    @Override
-//    public UserDto findUserById(UUID id) throws UserNotFoundException, UserConvertingException, UserException {
-//        User userById = null;
-//        try {
-//            userById = userRepository.findUserById(id);
-//            if (Objects.isNull(userById)) {
-//                log.error("user not found by id {}", id);
-//                throw new UserNotFoundException(id);
-//            }
-//        } catch (Exception e) {
-//            log.error("user not found by id", e);
-//            e.printStackTrace(); // так не делаем
-//        }
-//        try {
-//            log.debug("find user by id request..."); // вероятно избыточно
-//            userToDTO(userById);
-//        } catch (Exception e) {
-//            log.error("user not found by id {} ...", id);
-//            throw new UserConvertingException(id);
-//        }
-//        try {
-//            return userToDTO(userById);
-//        } catch (Exception e) {
-//            String message = "exception while getting user {} with id";
-//            log.error(message, id, e);
-//            throw new UserException(message + id, e);
-//        }
-//    }
-
-    @Override
-    public UserDto findUserById(UUID id) throws UserNotFoundException, UserConvertingException, UserException {
-        User userById;
-        try {
-            userById = userRepository.findUserById(id);
-        } catch (Exception e) {
-            log.error("error while getting user by id {}", id, e);
-            throw new UserException(id);
-        }
-        if (Objects.isNull(userById)) {
-            log.error("user with id {} not found", id);
-            throw new UserNotFoundException(id);
-        }
-
-    }
-
-    @Override
-    public User updateUser(UserDto userDto) throws UserNotFoundException, UserConvertingException, UserException {
-        if (Objects.isNull(userRepository.findUserById(userDto.getId())))
-            throw new UserNotFoundException("user not found in update service...");
-        try {
-            log.debug("update user service...");
-            dtoToUser(userDto);
-        } catch (Exception e) {
-            log.error("error occurred during converting from dto to entity", e);
-            throw new UserConvertingException();
-        }
-        try {
-            return userRepository.save(dtoToUser(userDto));
-        } catch (Exception e) {
-            throw new UserException("exception while updating user", e);
-        }
-    }
-
-    private User addUser(UserDto userDto) throws UserConvertingException {
-        if (Objects.isNull(userDto)) {
-            throw new UserConvertingException();
-        }
-        return User.builder()
-                .id(userDto.getId())
-                .firstName(userDto.getFirstName())
-                .lastName(userDto.getLastName())
-                .email(userDto.getEmail())
-                .postcards(PostcardUtil.mapAll(userDto.getPostcards(), Postcard.class))
-                .addresses(PostcardUtil.mapAll(userDto.getAddresses(), Address.class))
-                .build();
-    }
-
-    public UserDto userToDTO(User user) throws UserConvertingException {
+    private UserDto userToDTO(User user) throws UserConvertingException {
         if (Objects.isNull(user)) {
             log.error("user is null");
             throw new UserConvertingException();
         }
-        return UserDto.builder()
-                .id(user.getId())
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .email(user.getEmail())
-                .postcards(PostcardUtil.mapAll(user.getPostcards(), PostcardDto.class))
-                .addresses(PostcardUtil.mapAll(user.getAddresses(), AddressDto.class))
-                .build();
+        try {
+            return UserDto.builder()
+                    .id(user.getId())
+                    .firstName(user.getFirstName())
+                    .lastName(user.getLastName())
+                    .email(user.getEmail())
+                    .postcards(PostcardUtil.mapAll(user.getPostcards(), PostcardDto.class))
+                    .addresses(PostcardUtil.mapAll(user.getAddresses(), AddressDto.class))
+                    .build();
+        } catch (Exception e) {
+            String message = "error occurred during converting from entity to dto";
+            log.error(message, e);
+            throw new UserConvertingException(message, e);
+        }
     }
 
-    public User dtoToUser(UserDto userDto) throws UserConvertingException {
+    private User dtoToUser(UserDto userDto) throws UserException {
         if (Objects.isNull(userDto)) {
-            log.error("user is null");
-            throw new UserConvertingException();
+            String message = "user is null";
+            log.error(message);
+            throw new UserException(message);
         }
-        return addUser(userDto);
+        try {
+            return addUser(userDto);
+        } catch (Exception e) {
+            String message = "error occurred during converting from dto to entity";
+            log.error(message, e);
+            throw new UserException(message, e);
+        }
+    }
+
+    private User updateUser(User user, UserDto userDto) throws UserException {
+        if (Objects.isNull(user) | Objects.isNull(userDto)) {
+            String message = "user or user dto is null";
+            log.error(message);
+            throw new UserException(message);
+        }
+        user.setId(userDto.getId());
+        user.setFirstName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setEmail(userDto.getEmail());
+        return user;
     }
 }

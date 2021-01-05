@@ -1,5 +1,7 @@
 package com.example.webapp.exception.address;
 
+import java.util.UUID;
+
 public class DeleteActiveAddressException extends RuntimeException {
     public DeleteActiveAddressException() {
     }
@@ -14,6 +16,10 @@ public class DeleteActiveAddressException extends RuntimeException {
 
     public DeleteActiveAddressException(Throwable cause) {
         super(cause);
+    }
+
+    public DeleteActiveAddressException(UUID id) {
+        super(String.format("deleting address with id %s", id));
     }
 
     public DeleteActiveAddressException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {

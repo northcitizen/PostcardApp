@@ -28,6 +28,11 @@ public class AddressExceptionHandler {
         return getHandledExceptionResponse(e, "converting error");
     }
 
+    @ExceptionHandler(value = {AddressException.class})
+    public ResponseEntity<Object> handleAddressConvertingException(AddressException e) {
+        return getHandledExceptionResponse(e, "address exception");
+    }
+
     private ResponseEntity<Object> getHandledExceptionResponse(Exception e, String message) {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
         AddressApiException addressException = new AddressApiException(
