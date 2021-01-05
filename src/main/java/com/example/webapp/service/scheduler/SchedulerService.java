@@ -1,4 +1,4 @@
-package com.example.webapp.service;
+package com.example.webapp.service.scheduler;
 
 import com.example.webapp.model.Postcard;
 import com.example.webapp.repository.PostcardRepository;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class SchedulerService { // часто переносят в отдельный пакет
+public class SchedulerService {
 
     private final SettingsRepositoryImpl settingsRepository;
     private final PostcardRepository postcardRepository;

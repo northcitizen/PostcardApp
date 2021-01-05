@@ -23,6 +23,11 @@ public class UserExceptionHandler {
         return getHandledExceptionResponse(e, "converting error");
     }
 
+    @ExceptionHandler(value = {UserException.class})
+    public ResponseEntity<Object> handleUserConvertingException(UserException e) {
+        return getHandledExceptionResponse(e, "user exception");
+    }
+
     private ResponseEntity<Object> getHandledExceptionResponse(Exception e, String message) {
         HttpStatus badRequest = HttpStatus.BAD_REQUEST;
         UserApiException userException = new UserApiException(

@@ -6,4 +6,7 @@ public class AddressException extends Exception {
         super(message, cause);
     }
 
+    public AddressException(String message) {
+        super(message);
+    }
 }

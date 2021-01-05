@@ -4,14 +4,13 @@ import com.example.webapp.dto.AddressDto;
 import com.example.webapp.exception.address.AddressConvertingException;
 import com.example.webapp.exception.address.AddressException;
 import com.example.webapp.exception.address.AddressNotFoundException;
-import com.example.webapp.exception.address.DeleteActiveAddressException;
 import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.Address;
 import com.example.webapp.model.User;
 import com.example.webapp.repository.AddressRepository;
 import com.example.webapp.repository.UserRepository;
 import com.example.webapp.service.AddressService;
-import com.example.webapp.service.PostcardUtil;
+import com.example.webapp.service.util.PostcardUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,32 +36,11 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    @Transactional
-    public void delete(UUID id) throws AddressNotFoundException, AddressException {
-        // log.debug(...)
-        Address address = addressRepository.findAddressById(id);
-        if (Objects.isNull(address)) {
-            log.error("address with id {} not found", id);
-            throw new AddressNotFoundException(); // потерян идентификатор
-        }
-        if (address.isActive()) {
-            log.error("can not delete active address with id {}", id); // пытаемся сокращать без потери семантики
-            throw new DeleteActiveAddressException("can not delete active address"); // потерян идентификатор
-        }
-        try {
-            addressRepository.delete(address);
-        } catch (Exception e) {
-            // залогировать
-            throw new AddressException("exception while deleting address with id=\"" + id + "\"", e);
-        }
-
-    }
-
-    @Override
-    public Address createAddress(AddressDto addressDto) throws AddressException { // createAddress -> create
+    public Address create(AddressDto addressDto) throws AddressException {
         log.debug("creating address with parameter {}", addressDto);
         try {
-            return addressRepository.save(convertDtoToAddress(addressDto));
+            Address s = convertDtoToAddress(addressDto);
+            return addressRepository.save(s);
         } catch (Exception e) {
             String message = "exception while creating address";
             log.error(message, e);
@@ -71,63 +49,100 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public AddressDto findById(UUID id) throws AddressNotFoundException, AddressException {
-        // log.debug(...)
-        Address address = addressRepository.findAddressById(id);
-        if (Objects.isNull(address)) {
-            log.error("address with id {} not found", id);
-            throw new AddressNotFoundException(id);
-        }
+    public AddressDto findById(UUID id) throws AddressException, UserNotFoundException {
+        log.debug("finding address with id {}", id);
+        Address address;
         try {
-            return convertAddressToDTO(address);
+            address = addressRepository.findAddressById(id);
+            if (Objects.isNull(address)) {
+                log.error("address with id {} not found", id);
+                throw new AddressNotFoundException(id);
+            }
         } catch (Exception e) {
-            // log.error(...)
-            throw new AddressException("exception while finding address with id=\"" + id + "\"", e);
+            String message = "exception while finding address with id ";
+            log.error(message, e);
+            throw new AddressException(message + id, e);
         }
+        return convertAddressToDTO(address);
     }
 
     @Override
-    public Address updateAddress(AddressDto addressDto) throws AddressException, AddressNotFoundException {
-        // log.debug(...)
-        UUID id = addressDto.getId();
-        Address addressToUpdate = addressRepository.findAddressById(id);
-        if (Objects.isNull(addressToUpdate)) {
-            log.error("address with id {} not found", id);
-            throw new AddressNotFoundException(id);
-        }
+    public List<AddressDto> findAll() throws AddressConvertingException {
+        log.debug("getting all addresses");
         try {
-            return addressRepository.save(convertDtoToAddress(addressDto));
-        } catch (Exception e) {
-            // log.error(...)
-            throw new AddressException("exception while updating address", e);
-        }
-    }
-
-    @Override
-    public List<AddressDto> findAll() throws AddressConvertingException, AddressException {
-        // log.debug(...)
-
-        // зачем дублирование?
-//        try {
-//            addressRepository.findAll();
-//        } catch (Exception e) {
-//            String message = "exception while finding addresses";
-//            log.error(message);
-//            throw new AddressException(message, e);
-//        }
-
-        try {
-            List<Address> addresses = (List<Address>) addressRepository.findAll();
+            List<Address> addresses;
+            try {
+                addresses = (List<Address>) addressRepository.findAll();
+            } catch (Exception e) {
+                String message = "database error";
+                log.error(message, e);
+                throw new AddressException(message, e);
+            }
             return PostcardUtil.mapAll(addresses, AddressDto.class);
         } catch (Exception e) {
             String message = "error occurred during mapping addresses";
             log.error(message, e);
-            throw new AddressConvertingException(message, e); // а если ошибка недоступности БД?
+            throw new AddressConvertingException(message, e);
         }
     }
 
-    // либо private, либо выносить из сервиса, либо оставлять public, но вносить в интерфейс? что выбираем?
-    public Address convertDtoToAddress(AddressDto addressDto) throws AddressConvertingException, UserNotFoundException {
+    @Override
+    public Address update(AddressDto addressDto) throws AddressException {
+        log.debug("updating address with parameters {}", addressDto);
+        if (Objects.isNull(addressDto)) {
+            String message = "address dto is null";
+            log.error(message);
+            throw new AddressException(message);
+        }
+        UUID id = addressDto.getId();
+        Address addressToUpdate;
+        try {
+            try {
+                addressToUpdate = addressRepository.findAddressById(id);
+                if (Objects.isNull(addressToUpdate)) {
+                    log.error("address with id {} not found", id);
+                    throw new AddressNotFoundException(id);
+                }
+            } catch (Exception e) {
+                String message = "exception while getting address";
+                log.error(message);
+                throw new AddressException(message, e);
+            }
+            return addressRepository.save(convertDtoToAddress(addressDto));
+        } catch (Exception e) {
+            String message = "exception while updating address";
+            log.error(message);
+            throw new AddressException(message, e);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void delete(UUID id) throws AddressException {
+        log.debug("deleting address with id {}", id);
+        Address address;
+        try {
+            try {
+                address = addressRepository.findAddressById(id);
+                if (Objects.isNull(address)) {
+                    log.error("address with id {} not found", id);
+                    throw new AddressNotFoundException(id);
+                }
+            } catch (Exception e) {
+                String message = "exception while deleting address with id=\"" + id + "\"";
+                log.error(message, e);
+                throw new AddressException(message, e);
+            }
+            addressRepository.delete(address);
+        } catch (Exception e) {
+            String message = "exception while deleting address with id=\"" + id + "\"";
+            log.error(message, e);
+            throw new AddressException(message, e);
+        }
+
+    }
+
+    private Address convertDtoToAddress(AddressDto addressDto) throws AddressConvertingException, UserNotFoundException {
         if (Objects.isNull(addressDto)) {
             String message = "can not convert null value to address";
             log.error(message);
@@ -151,12 +166,11 @@ public class AddressServiceImpl implements AddressService {
                 .build();
     }
 
-    // либо private, либо выносить из сервиса, либо оставлять public, но вносить в интерфейс? что выбираем?
-    public AddressDto convertAddressToDTO(Address address) throws UserNotFoundException, AddressConvertingException {
+    private AddressDto convertAddressToDTO(Address address) throws UserNotFoundException, AddressException {
         if (Objects.isNull(address)) {
-            String message = "can not convert null value to address dto";
+            String message = "address is null";
             log.error(message);
-            throw new AddressConvertingException(message);
+            throw new AddressException(message);
         }
         UUID userId = address.getUser().getId();
         User user = userRepository.findUserById(userId);
