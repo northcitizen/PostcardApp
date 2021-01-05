@@ -34,7 +34,7 @@ public class UserController {
 
     @GetMapping(path = "/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public UserDto get(@PathVariable("id") UUID id) throws UserException, UserConvertingException, UserNotFoundException {
+    public UserDto get(@PathVariable("id") UUID id) throws UserException, UserConvertingException {
         log.debug("getting user with id {}", id);
         return userService.findById(id);
     }

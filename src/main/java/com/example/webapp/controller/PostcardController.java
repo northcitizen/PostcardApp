@@ -36,21 +36,21 @@ public class PostcardController {
 
     @PostMapping(path = "/batch")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public List<Postcard> createList(@RequestBody List<PostcardDto> postcardList) throws PostcardException, UserNotFoundException, PostcardConvertingException, PostcardNotFoundException {
+    public List<Postcard> createList(@RequestBody List<PostcardDto> postcardList) throws PostcardException {
         log.debug("creating list of postcards...");
         return postcardService.createList(postcardList);
     }
 
     @GetMapping(path = "/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public PostcardDto get(@PathVariable("id") UUID id) throws PostcardException, PostcardNotFoundException, PostcardConvertingException, UserNotFoundException {
+    public PostcardDto get(@PathVariable("id") UUID id) throws PostcardException {
         log.debug("getting postcard by id {}", id);
         return postcardService.findById(id);
     }
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public List<PostcardDto> getAll() throws PostcardException, PostcardNotFoundException {
+    public List<PostcardDto> getAll() throws PostcardNotFoundException {
         log.debug("get postcards list requests...");
         return postcardService.findAll();
     }

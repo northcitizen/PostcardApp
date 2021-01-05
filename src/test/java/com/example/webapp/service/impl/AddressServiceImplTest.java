@@ -94,7 +94,7 @@ public class AddressServiceImplTest {
     }
 
     @Test
-    public void findAllTest() throws AddressConvertingException {
+    public void findAllTest() throws AddressConvertingException, AddressException {
         UUID id = UUID.fromString("a315e6ea-0c35-496e-9859-431211185371");
         User user = mock(User.class);
         List<Address> address = new ArrayList<>();
