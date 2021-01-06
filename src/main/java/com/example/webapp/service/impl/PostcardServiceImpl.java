@@ -25,7 +25,6 @@ import java.util.UUID;
 
 @Service
 @Slf4j
-@Transactional
 public class PostcardServiceImpl implements PostcardService {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -55,15 +54,15 @@ public class PostcardServiceImpl implements PostcardService {
     @Override
     public List<Postcard> createList(List<PostcardDto> postcardDtoList) throws PostcardException {
         log.debug("creating list of postcards {}", postcardDtoList);
-        UUID userId;
         if (Objects.isNull(postcardDtoList) | postcardDtoList.isEmpty()) {
             String message = "list is null or empty";
             log.warn(message);
             throw new PostcardException(message);
         }
-        userId = postcardDtoList.get(0).getUserId();
         try {
+            UUID userId;
             User user;
+            userId = postcardDtoList.get(0).getUserId();
             try {
                 user = userRepository.findUserById(userId);
                 if (Objects.isNull(user)) {
@@ -98,12 +97,12 @@ public class PostcardServiceImpl implements PostcardService {
                 log.error("postcard with id {} not found", id);
                 throw new PostcardNotFoundException(id);
             }
+            return postcardToDTO(postcard);
         } catch (Exception e) {
             String message = "exception while getting postcard from db";
             log.error(message, e);
             throw new PostcardException(message, e);
         }
-        return postcardToDTO(postcard);
     }
 
     @Override
@@ -128,6 +127,7 @@ public class PostcardServiceImpl implements PostcardService {
     }
 
     @Override
+    @Transactional
     public Postcard update(PostcardDto postcardDto) throws PostcardException {
         log.debug("updating postcard with parameters {}", postcardDto);
         if (Objects.isNull(postcardDto)) {
@@ -135,19 +135,12 @@ public class PostcardServiceImpl implements PostcardService {
             log.warn(message);
             throw new PostcardException(message);
         }
-        UUID id = postcardDto.getId();
-        Postcard postcardToUpdate;
         try {
-            try {
-                postcardToUpdate = postcardRepository.findByPostcardId(id);
-                if (Objects.isNull(postcardToUpdate)) {
-                    log.error("postcard not found by id {}", id);
-                    throw new PostcardNotFoundException(id);
-                }
-            } catch (Exception e) {
-                String message = "exception while updating postcard";
-                log.error(message, e);
-                throw new PostcardException(message, e);
+            UUID id = postcardDto.getId();
+            Postcard postcardToUpdate = postcardRepository.findByPostcardId(id);
+            if (Objects.isNull(postcardToUpdate)) {
+                log.error("postcard not found by id {}", id);
+                throw new PostcardNotFoundException(id);
             }
             return postcardRepository.save(dtoToPostcard(postcardDto));
         } catch (Exception e) {
@@ -158,20 +151,14 @@ public class PostcardServiceImpl implements PostcardService {
     }
 
     @Override
+    @Transactional
     public void delete(UUID id) throws PostcardException {
         log.debug("deleting postcard by id {}", id);
-        Postcard postcard;
         try {
-            try {
-                postcard = postcardRepository.findByPostcardId(id);
-                if (Objects.isNull(postcard)) {
-                    log.error("postcard with id {} not found", id);
-                    throw new PostcardNotFoundException(id);
-                }
-            } catch (Exception e) {
-                String message = "exception while finding postcard";
-                log.error(message, e);
-                throw new PostcardException(message, e);
+            Postcard postcard = postcardRepository.findByPostcardId(id);
+            if (Objects.isNull(postcard)) {
+                log.error("postcard with id {} not found", id);
+                throw new PostcardNotFoundException(id);
             }
             postcardRepository.delete(postcard);
         } catch (Exception e) {
@@ -188,20 +175,20 @@ public class PostcardServiceImpl implements PostcardService {
             log.warn(message);
             throw new PostcardException(message);
         }
-        UUID userId = postcardDto.getUserId();
         User user;
         try {
+            UUID userId = postcardDto.getUserId();
             user = userRepository.findUserById(userId);
             if (Objects.isNull(user)) {
                 log.error("user with Id {} not found", userId);
                 throw new UserNotFoundException(userId);
             }
+            return buildPostcard(postcardDto, user);
         } catch (Exception e) {
             String message = "exception while getting user from db";
             log.error(message, e);
             throw new PostcardException(message, e);
         }
-        return buildPostcard(postcardDto, user);
     }
 
     private PostcardDto postcardToDTO(Postcard postcard) throws PostcardException {
@@ -217,12 +204,12 @@ public class PostcardServiceImpl implements PostcardService {
                 log.error("user with Id {} not found", userId);
                 throw new UserNotFoundException(userId);
             }
+            return buildPostcardDTO(postcard, userId);
         } catch (Exception e) {
             String message = "exception while getting user from db";
             log.error(message, e);
             throw new PostcardException(message, e);
         }
-        return buildPostcardDTO(postcard, userId);
     }
 
     private Postcard buildPostcard(PostcardDto postcardDto, User user) throws PostcardException {

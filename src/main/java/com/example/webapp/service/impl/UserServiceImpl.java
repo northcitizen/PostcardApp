@@ -22,7 +22,6 @@ import java.util.UUID;
 
 @Service
 @Slf4j
-@Transactional
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -55,34 +54,28 @@ public class UserServiceImpl implements UserService {
                 log.error("user with id {} not found", id);
                 throw new UserNotFoundException(id);
             }
+            return userToDTO(user);
         } catch (Exception e) {
             String message = "exception while getting user from db";
             log.error(message, e);
             throw new UserException(message, e);
         }
-        return userToDTO(user);
     }
 
     @Override
+    @Transactional
     public User update(UserDto userDto) throws UserException {
         log.debug("updating user with parameters {}", userDto);
-        User userById;
         if (Objects.isNull(userDto)) {
             log.error("user dto is null");
             throw new UserException("user dto is null");
         }
         try {
-            try {
-                userById = userRepository.findUserById(userDto.getId());
-                if (Objects.isNull(userById)) {
-                    String message = "user not found";
-                    log.error(message);
-                    throw new UserNotFoundException(message);
-                }
-            } catch (Exception e) {
+            User userById = userRepository.findUserById(userDto.getId());
+            if (Objects.isNull(userById)) {
                 String message = "user not found";
-                log.error(message, e);
-                throw new UserException(message, e);
+                log.error(message);
+                throw new UserNotFoundException(message);
             }
             return userRepository.save(updateUser(userById, userDto));
         } catch (Exception e) {
@@ -93,20 +86,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void delete(UUID id) throws UserException {
         log.debug("delete user with id {}", id);
         try {
-            User userById;
-            try {
-                userById = userRepository.findUserById(id);
-                if (Objects.isNull(userById)) {
-                    log.error("user not found by id {} ...", id);
-                    throw new UserNotFoundException(id);
-                }
-            } catch (Exception e) {
-                String message = "exception while finding user";
-                log.error(message, e);
-                throw new UserException(message, e);
+            User userById = userRepository.findUserById(id);
+            if (Objects.isNull(userById)) {
+                log.error("user not found by id {} ...", id);
+                throw new UserNotFoundException(id);
             }
             userRepository.delete(userById);
         } catch (Exception e) {

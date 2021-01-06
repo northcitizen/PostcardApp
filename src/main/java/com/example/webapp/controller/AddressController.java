@@ -50,7 +50,7 @@ public class AddressController {
 
     @PutMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public Address update(@RequestBody AddressDto addressDto) throws AddressException, AddressNotFoundException, AddressConvertingException, UserNotFoundException {
+    public Address update(@RequestBody AddressDto addressDto) throws AddressException {
         log.debug("updating address with parameters {}", addressDto);
         return addressService.update(addressDto);
     }

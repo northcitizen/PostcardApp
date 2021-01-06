@@ -22,7 +22,6 @@ import java.util.UUID;
 
 @Service
 @Slf4j
-@Transactional
 public class AddressServiceImpl implements AddressService {
 
     private final AddressRepository addressRepository;
@@ -57,7 +56,7 @@ public class AddressServiceImpl implements AddressService {
                 log.error("address with id {} not found", id);
                 throw new AddressNotFoundException(id);
             }
-            return convertAddressToDTO(address); // что выдаст метод, ечли оставить его на прежнем песте и не перенести в блок try-catch?
+            return convertAddressToDTO(address);
         } catch (Exception e) {
             String message = "exception while finding address with id ";
             log.error(message, e);

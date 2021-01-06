@@ -53,7 +53,7 @@ public class SchedulerService {
     }
 
     @Scheduled(initialDelayString = "${scheduler.delay}", fixedDelayString = "${scheduler.delay}")
-    public void postcardTask() throws InterruptedException {
+    public void postcardTask() {
         log.info("List of cards");
         List<Postcard> postcardList = (List<Postcard>) postcardRepository.findAll();
         int currentCardsNumber = postcardList.size();

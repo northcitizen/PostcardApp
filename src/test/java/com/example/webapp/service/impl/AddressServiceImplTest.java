@@ -1,7 +1,6 @@
 package com.example.webapp.service.impl;
 
 import com.example.webapp.dto.AddressDto;
-import com.example.webapp.exception.address.AddressConvertingException;
 import com.example.webapp.exception.address.AddressException;
 import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.Address;
@@ -94,7 +93,7 @@ public class AddressServiceImplTest {
     }
 
     @Test
-    public void findAllTest() throws AddressConvertingException, AddressException {
+    public void findAllTest() throws AddressException {
         UUID id = UUID.fromString("a315e6ea-0c35-496e-9859-431211185371");
         User user = mock(User.class);
         List<Address> address = new ArrayList<>();

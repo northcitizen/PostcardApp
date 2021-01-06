@@ -3,7 +3,6 @@ package com.example.webapp.controller;
 import com.example.webapp.dto.UserDto;
 import com.example.webapp.exception.user.UserConvertingException;
 import com.example.webapp.exception.user.UserException;
-import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.User;
 import com.example.webapp.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +26,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public User create(@RequestBody UserDto user) throws UserException, UserConvertingException {
+    public User create(@RequestBody UserDto user) throws UserException {
         log.debug("creating user with parameters {}", user);
         return userService.create(user);
     }
@@ -41,14 +40,14 @@ public class UserController {
 
     @PutMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public User update(@RequestBody UserDto userDto) throws UserException, UserConvertingException, UserNotFoundException {
+    public User update(@RequestBody UserDto userDto) throws UserException {
         log.debug("update user with parameters {}", userDto);
         return userService.update(userDto);
     }
 
     @DeleteMapping(path = "/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public void delete(@PathVariable("id") UUID id) throws UserException, UserNotFoundException {
+    public void delete(@PathVariable("id") UUID id) throws UserException {
         log.debug("deleting user with id {}", id);
         userService.delete(id);
     }

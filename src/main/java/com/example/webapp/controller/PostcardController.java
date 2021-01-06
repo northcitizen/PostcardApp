@@ -1,7 +1,6 @@
 package com.example.webapp.controller;
 
 import com.example.webapp.dto.PostcardDto;
-import com.example.webapp.exception.postcard.PostcardConvertingException;
 import com.example.webapp.exception.postcard.PostcardException;
 import com.example.webapp.exception.postcard.PostcardNotFoundException;
 import com.example.webapp.exception.user.UserNotFoundException;
@@ -29,7 +28,7 @@ public class PostcardController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Postcard create(@RequestBody PostcardDto postcardDto) throws PostcardException, UserNotFoundException, PostcardConvertingException {
+    public Postcard create(@RequestBody PostcardDto postcardDto) throws PostcardException {
         log.debug("create postcard with parameters {}", postcardDto);
         return postcardService.create(postcardDto);
     }
@@ -57,14 +56,14 @@ public class PostcardController {
 
     @PutMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public Postcard update(@RequestBody PostcardDto postcardDetails) throws PostcardException, PostcardNotFoundException, PostcardConvertingException, UserNotFoundException {
+    public Postcard update(@RequestBody PostcardDto postcardDetails) throws PostcardException, UserNotFoundException {
         log.debug("updating postcard with parameters {}", postcardDetails);
         return postcardService.update(postcardDetails);
     }
 
     @DeleteMapping(path = "/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public void delete(@PathVariable("id") UUID id) throws PostcardException, PostcardNotFoundException {
+    public void delete(@PathVariable("id") UUID id) throws PostcardException {
         log.debug("deleting postcard");
         postcardService.delete(id);
     }
