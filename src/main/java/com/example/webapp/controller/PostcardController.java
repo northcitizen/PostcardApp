@@ -1,7 +1,6 @@
 package com.example.webapp.controller;
 
 import com.example.webapp.dto.PostcardDto;
-import com.example.webapp.exception.postcard.PostcardConvertingException;
 import com.example.webapp.exception.postcard.PostcardException;
 import com.example.webapp.exception.postcard.PostcardNotFoundException;
 import com.example.webapp.exception.user.UserNotFoundException;
