@@ -32,6 +32,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User create(UserDto userDto) throws UserException {
         log.debug("creating user with parameter {}", userDto);
         try {
@@ -47,9 +48,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto findById(UUID id) throws UserException, UserConvertingException {
         log.debug("getting user by id {}", id);
-        User user;
         try {
-            user = userRepository.findUserById(id);
+            User user = userRepository.findUserById(id);
             if (Objects.isNull(user)) {
                 log.error("user with id {} not found", id);
                 throw new UserNotFoundException(id);

@@ -3,7 +3,6 @@ package com.example.webapp.service.impl;
 import com.example.webapp.dto.PostcardDto;
 import com.example.webapp.exception.postcard.PostcardException;
 import com.example.webapp.exception.postcard.PostcardNotFoundException;
-import com.example.webapp.exception.user.UserException;
 import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.model.User;
@@ -40,6 +39,7 @@ public class PostcardServiceImpl implements PostcardService {
     }
 
     @Override
+    @Transactional
     public Postcard create(PostcardDto postcardDto) throws PostcardException {
         log.debug("creating postcard with parameters {}", postcardDto);
         try {
@@ -52,6 +52,7 @@ public class PostcardServiceImpl implements PostcardService {
     }
 
     @Override
+    @Transactional
     public List<Postcard> createList(List<PostcardDto> postcardDtoList) throws PostcardException {
         log.debug("creating list of postcards {}", postcardDtoList);
         if (Objects.isNull(postcardDtoList) | postcardDtoList.isEmpty()) {
@@ -60,24 +61,14 @@ public class PostcardServiceImpl implements PostcardService {
             throw new PostcardException(message);
         }
         try {
-            UUID userId;
-            User user;
-            userId = postcardDtoList.get(0).getUserId();
-            try {
-                user = userRepository.findUserById(userId);
-                if (Objects.isNull(user)) {
-                    log.error("user with id {} not found", userId);
-                    throw new UserNotFoundException(userId);
-                }
-            } catch (Exception e) {
-                String message = "exception while getting user from db";
-                log.error(message);
-                throw new UserException(message, e);
+            UUID userId = postcardDtoList.get(0).getUserId();
+            User user = userRepository.findUserById(userId);
+            if (Objects.isNull(user)) {
+                log.error("user with id {} not found", userId);
+                throw new UserNotFoundException(userId);
             }
             List<Postcard> postcardList = PostcardUtil.mapAll(postcardDtoList, Postcard.class);
-            postcardList.forEach(postcard -> {
-                postcard.setUser(user);
-            });
+            postcardList.forEach(postcard -> postcard.setUser(user));
             return (List<Postcard>) postcardRepository.saveAll(postcardList);
         } catch (Exception e) {
             String message = "exception while creating list of postcards";
@@ -90,9 +81,8 @@ public class PostcardServiceImpl implements PostcardService {
     @Cacheable(value = "postcardCache")
     public PostcardDto findById(UUID id) throws PostcardException {
         log.debug("finding postcard by id {}", id);
-        Postcard postcard;
         try {
-            postcard = postcardRepository.findByPostcardId(id);
+            Postcard postcard = postcardRepository.findByPostcardId(id);
             if (Objects.isNull(postcard)) {
                 log.error("postcard with id {} not found", id);
                 throw new PostcardNotFoundException(id);
@@ -106,23 +96,16 @@ public class PostcardServiceImpl implements PostcardService {
     }
 
     @Override
-    @Cacheable(value = "postcardCache")
-    public List<PostcardDto> findAll() throws PostcardNotFoundException {
+    @Cacheable(value = "postcardCache") // а почистить кэш?
+    public List<PostcardDto> findAll() throws PostcardException {
         log.debug("get postcard list request...");
         try {
-            List<Postcard> all;
-            try {
-                all = (List<Postcard>) postcardRepository.findAll();
-            } catch (Exception e) {
-                String message = "exception while getting postcard from db";
-                log.error(message, e);
-                throw new PostcardException(message, e);
-            }
+            List<Postcard> all = (List<Postcard>) postcardRepository.findAll();
             return PostcardUtil.mapAll(all, PostcardDto.class);
         } catch (Exception e) {
-            String message = "postcards not found...";
+            String message = "postcards not found..."; // текст ошибки -
             log.error(message);
-            throw new PostcardNotFoundException(message, e);
+            throw new PostcardNotFoundException(message, e); // ошибка -
         }
     }
 

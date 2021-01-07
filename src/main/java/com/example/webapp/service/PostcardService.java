@@ -2,8 +2,6 @@ package com.example.webapp.service;
 
 import com.example.webapp.dto.PostcardDto;
 import com.example.webapp.exception.postcard.PostcardException;
-import com.example.webapp.exception.postcard.PostcardNotFoundException;
-import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.Postcard;
 
 import java.util.List;
@@ -17,9 +15,9 @@ public interface PostcardService {
 
     PostcardDto findById(UUID id) throws PostcardException;
 
-    List<PostcardDto> findAll() throws PostcardNotFoundException;
+    List<PostcardDto> findAll() throws PostcardException;
 
-    Postcard update(PostcardDto postcardDto) throws UserNotFoundException, PostcardException;
+    Postcard update(PostcardDto postcardDto) throws PostcardException;
 
     void delete(UUID id) throws PostcardException;
 }

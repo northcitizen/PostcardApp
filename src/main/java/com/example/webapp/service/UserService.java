@@ -12,7 +12,7 @@ public interface UserService {
 
     User create(UserDto userDto) throws UserException;
 
-    UserDto findById(UUID id) throws UserException, UserConvertingException;
+    UserDto findById(UUID id) throws UserException;
 
     User update(UserDto userDto) throws UserException;
 

@@ -35,6 +35,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    @Transactional
     public Address create(AddressDto addressDto) throws AddressException {
         log.debug("creating address with parameter {}", addressDto);
         try {
