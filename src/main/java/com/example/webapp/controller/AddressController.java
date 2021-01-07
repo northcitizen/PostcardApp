@@ -36,21 +36,21 @@ public class AddressController {
 
     @GetMapping(path = "/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public AddressDto get(@PathVariable("id") UUID id) throws AddressException, AddressConvertingException, UserNotFoundException, AddressNotFoundException {
+    public AddressDto get(@PathVariable("id") UUID id) throws AddressException, UserNotFoundException {
         log.debug("finding address by id {}", id);
         return addressService.findById(id);
     }
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public List<AddressDto> getAll() throws AddressException, AddressNotFoundException, AddressConvertingException {
+    public List<AddressDto> getAll() throws AddressConvertingException, AddressException {
         log.debug("get addresses list request...");
         return addressService.findAll();
     }
 
     @PutMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public Address update(@RequestBody AddressDto addressDto) throws AddressException, AddressNotFoundException, AddressConvertingException, UserNotFoundException {
+    public Address update(@RequestBody AddressDto addressDto) throws AddressException {
         log.debug("updating address with parameters {}", addressDto);
         return addressService.update(addressDto);
     }

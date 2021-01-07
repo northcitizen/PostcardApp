@@ -16,7 +16,7 @@ public interface AddressService {
 
     AddressDto findById(UUID id) throws AddressException, UserNotFoundException;
 
-    List<AddressDto> findAll() throws AddressConvertingException;
+    List<AddressDto> findAll() throws AddressConvertingException, AddressException;
 
     Address update(AddressDto addressDto) throws AddressException;
 

@@ -22,7 +22,6 @@ import java.util.UUID;
 
 @Service
 @Slf4j
-@Transactional
 public class AddressServiceImpl implements AddressService {
 
     private final AddressRepository addressRepository;
@@ -39,8 +38,8 @@ public class AddressServiceImpl implements AddressService {
     public Address create(AddressDto addressDto) throws AddressException {
         log.debug("creating address with parameter {}", addressDto);
         try {
-            Address s = convertDtoToAddress(addressDto);
-            return addressRepository.save(s);
+            Address address = convertDtoToAddress(addressDto);
+            return addressRepository.save(address);
         } catch (Exception e) {
             String message = "exception while creating address";
             log.error(message, e);
@@ -51,42 +50,35 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public AddressDto findById(UUID id) throws AddressException, UserNotFoundException {
         log.debug("finding address with id {}", id);
-        Address address;
         try {
-            address = addressRepository.findAddressById(id);
+            Address address = addressRepository.findAddressById(id);
             if (Objects.isNull(address)) {
                 log.error("address with id {} not found", id);
                 throw new AddressNotFoundException(id);
             }
+            return convertAddressToDTO(address);
         } catch (Exception e) {
             String message = "exception while finding address with id ";
             log.error(message, e);
             throw new AddressException(message + id, e);
         }
-        return convertAddressToDTO(address);
     }
 
     @Override
-    public List<AddressDto> findAll() throws AddressConvertingException {
-        log.debug("getting all addresses");
+    public List<AddressDto> findAll() throws AddressException {
+        log.debug("getting address list");
         try {
-            List<Address> addresses;
-            try {
-                addresses = (List<Address>) addressRepository.findAll();
-            } catch (Exception e) {
-                String message = "database error";
-                log.error(message, e);
-                throw new AddressException(message, e);
-            }
+            List<Address> addresses = (List<Address>) addressRepository.findAll();
             return PostcardUtil.mapAll(addresses, AddressDto.class);
         } catch (Exception e) {
-            String message = "error occurred during mapping addresses";
+            String message = "error occurred during getting address list";
             log.error(message, e);
-            throw new AddressConvertingException(message, e);
+            throw new AddressException(message, e);
         }
     }
 
     @Override
+    @Transactional
     public Address update(AddressDto addressDto) throws AddressException {
         log.debug("updating address with parameters {}", addressDto);
         if (Objects.isNull(addressDto)) {
@@ -94,19 +86,13 @@ public class AddressServiceImpl implements AddressService {
             log.error(message);
             throw new AddressException(message);
         }
-        UUID id = addressDto.getId();
-        Address addressToUpdate;
+
         try {
-            try {
-                addressToUpdate = addressRepository.findAddressById(id);
-                if (Objects.isNull(addressToUpdate)) {
-                    log.error("address with id {} not found", id);
-                    throw new AddressNotFoundException(id);
-                }
-            } catch (Exception e) {
-                String message = "exception while getting address";
-                log.error(message);
-                throw new AddressException(message, e);
+            UUID id = addressDto.getId();
+            Address addressToUpdate = addressRepository.findAddressById(id);
+            if (Objects.isNull(addressToUpdate)) {
+                log.error("address with id {} not found", id);
+                throw new AddressNotFoundException(id);
             }
             return addressRepository.save(convertDtoToAddress(addressDto));
         } catch (Exception e) {
@@ -120,18 +106,11 @@ public class AddressServiceImpl implements AddressService {
     @Transactional
     public void delete(UUID id) throws AddressException {
         log.debug("deleting address with id {}", id);
-        Address address;
         try {
-            try {
-                address = addressRepository.findAddressById(id);
-                if (Objects.isNull(address)) {
-                    log.error("address with id {} not found", id);
-                    throw new AddressNotFoundException(id);
-                }
-            } catch (Exception e) {
-                String message = "exception while deleting address with id=\"" + id + "\"";
-                log.error(message, e);
-                throw new AddressException(message, e);
+            Address address = addressRepository.findAddressById(id);
+            if (Objects.isNull(address)) {
+                log.error("address with id {} not found", id);
+                throw new AddressNotFoundException(id);
             }
             addressRepository.delete(address);
         } catch (Exception e) {
@@ -139,7 +118,6 @@ public class AddressServiceImpl implements AddressService {
             log.error(message, e);
             throw new AddressException(message, e);
         }
-
     }
 
     private Address convertDtoToAddress(AddressDto addressDto) throws AddressConvertingException, UserNotFoundException {
