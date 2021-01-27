@@ -96,16 +96,16 @@ public class PostcardServiceImpl implements PostcardService {
     }
 
     @Override
-    @Cacheable(value = "postcardCache") // а почистить кэш?
+    @Cacheable(value = "postcardCache")
     public List<PostcardDto> findAll() throws PostcardException {
         log.debug("get postcard list request...");
         try {
             List<Postcard> all = (List<Postcard>) postcardRepository.findAll();
             return PostcardUtil.mapAll(all, PostcardDto.class);
         } catch (Exception e) {
-            String message = "postcards not found..."; // текст ошибки -
+            String message = "exception while getting all postcards";
             log.error(message);
-            throw new PostcardNotFoundException(message, e); // ошибка -
+            throw new PostcardException(message, e);
         }
     }
 

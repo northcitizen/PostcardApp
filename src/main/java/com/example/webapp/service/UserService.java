@@ -1,7 +1,6 @@
 package com.example.webapp.service;
 
 import com.example.webapp.dto.UserDto;
-import com.example.webapp.exception.user.UserConvertingException;
 import com.example.webapp.exception.user.UserException;
 import com.example.webapp.model.User;
 

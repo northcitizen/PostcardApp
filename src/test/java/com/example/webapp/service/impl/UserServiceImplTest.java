@@ -1,7 +1,6 @@
 package com.example.webapp.service.impl;
 
 import com.example.webapp.dto.UserDto;
-import com.example.webapp.exception.user.UserConvertingException;
 import com.example.webapp.exception.user.UserException;
 import com.example.webapp.model.User;
 import com.example.webapp.repository.UserRepository;
@@ -47,7 +46,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void findByIdTest() throws UserConvertingException, UserException {
+    public void findByIdTest() throws UserException {
         User user = User.builder()
                 .firstName("Alex")
                 .lastName("Fisher")

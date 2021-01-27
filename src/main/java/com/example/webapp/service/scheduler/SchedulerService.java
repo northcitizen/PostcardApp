@@ -5,12 +5,14 @@ import com.example.webapp.repository.PostcardRepository;
 import com.example.webapp.repository.SettingsRepositoryImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -18,13 +20,15 @@ public class SchedulerService {
 
     private final SettingsRepositoryImpl settingsRepository;
     private final PostcardRepository postcardRepository;
+    private final CacheManager cacheManager;
     private static int cardsNumber;
     private List<Postcard> list;
 
     @Autowired
-    public SchedulerService(SettingsRepositoryImpl settingsRepository, PostcardRepository postcardRepository) {
+    public SchedulerService(SettingsRepositoryImpl settingsRepository, PostcardRepository postcardRepository, CacheManager cacheManager) {
         this.settingsRepository = settingsRepository;
         this.postcardRepository = postcardRepository;
+        this.cacheManager = cacheManager;
     }
 
     @PostConstruct
@@ -64,6 +68,12 @@ public class SchedulerService {
             changePostcardListNumber();
         }
         log.info(postcardList.size() + " postcards in database");
+    }
+
+    @Scheduled(fixedRate = 1800000)
+    public void evictAllCaches() {
+        log.info("cache eviction");
+        Objects.requireNonNull(cacheManager.getCache("postcardCache")).clear();
     }
 
     public static void setCardsNumber(int cardsNumber) {

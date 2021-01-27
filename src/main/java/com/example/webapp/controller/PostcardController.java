@@ -2,8 +2,6 @@ package com.example.webapp.controller;
 
 import com.example.webapp.dto.PostcardDto;
 import com.example.webapp.exception.postcard.PostcardException;
-import com.example.webapp.exception.postcard.PostcardNotFoundException;
-import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.service.PostcardService;
 import lombok.extern.slf4j.Slf4j;
@@ -49,14 +47,14 @@ public class PostcardController {
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public List<PostcardDto> getAll() throws PostcardNotFoundException {
+    public List<PostcardDto> getAll() throws PostcardException {
         log.debug("get postcards list requests...");
         return postcardService.findAll();
     }
 
     @PutMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public Postcard update(@RequestBody PostcardDto postcardDetails) throws PostcardException, UserNotFoundException {
+    public Postcard update(@RequestBody PostcardDto postcardDetails) throws PostcardException {
         log.debug("updating postcard with parameters {}", postcardDetails);
         return postcardService.update(postcardDetails);
     }

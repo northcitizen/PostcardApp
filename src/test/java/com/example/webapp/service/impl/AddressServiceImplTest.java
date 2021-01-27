@@ -2,7 +2,6 @@ package com.example.webapp.service.impl;
 
 import com.example.webapp.dto.AddressDto;
 import com.example.webapp.exception.address.AddressException;
-import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.Address;
 import com.example.webapp.model.User;
 import com.example.webapp.repository.AddressRepository;
@@ -63,7 +62,7 @@ public class AddressServiceImplTest {
     }
 
     @Test
-    public void findByIdTest() throws UserNotFoundException, AddressException {
+    public void findByIdTest() throws AddressException {
         UUID id = UUID.fromString("a315e6ea-0c35-496e-9859-431211185371");
         User user = mock(User.class);
         Address address = Address.builder()

@@ -49,7 +49,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public AddressDto findById(UUID id) throws AddressException, UserNotFoundException {
+    public AddressDto findById(UUID id) throws AddressException {
         log.debug("finding address with id {}", id);
         try {
             Address address = addressRepository.findAddressById(id);

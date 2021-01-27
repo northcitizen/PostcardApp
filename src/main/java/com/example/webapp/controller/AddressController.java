@@ -1,10 +1,7 @@
 package com.example.webapp.controller;
 
 import com.example.webapp.dto.AddressDto;
-import com.example.webapp.exception.address.AddressConvertingException;
 import com.example.webapp.exception.address.AddressException;
-import com.example.webapp.exception.address.AddressNotFoundException;
-import com.example.webapp.exception.user.UserNotFoundException;
 import com.example.webapp.model.Address;
 import com.example.webapp.service.AddressService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,14 +33,14 @@ public class AddressController {
 
     @GetMapping(path = "/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public AddressDto get(@PathVariable("id") UUID id) throws AddressException, UserNotFoundException {
+    public AddressDto get(@PathVariable("id") UUID id) throws AddressException {
         log.debug("finding address by id {}", id);
         return addressService.findById(id);
     }
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
-    public List<AddressDto> getAll() throws AddressConvertingException, AddressException {
+    public List<AddressDto> getAll() throws AddressException {
         log.debug("get addresses list request...");
         return addressService.findAll();
     }
@@ -57,7 +54,7 @@ public class AddressController {
 
     @DeleteMapping(path = "/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public void delete(@PathVariable("id") UUID id) throws AddressException, AddressNotFoundException {
+    public void delete(@PathVariable("id") UUID id) throws AddressException {
         log.debug("deleting address by id {}", id);
         addressService.delete(id);
     }
