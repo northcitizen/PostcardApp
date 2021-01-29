@@ -1,4 +1,4 @@
-package com.example.webapp.service.impl;
+package com.example.webapp.service.unit;
 
 import com.example.webapp.dto.AddressDto;
 import com.example.webapp.dto.PostcardDto;

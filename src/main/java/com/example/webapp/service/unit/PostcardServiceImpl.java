@@ -1,4 +1,4 @@
-package com.example.webapp.service.impl;
+package com.example.webapp.service.unit;
 
 import com.example.webapp.dto.PostcardDto;
 import com.example.webapp.exception.postcard.PostcardException;

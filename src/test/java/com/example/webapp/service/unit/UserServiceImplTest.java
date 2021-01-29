@@ -1,4 +1,4 @@
-package com.example.webapp.service.impl;
+package com.example.webapp.service.unit;
 
 import com.example.webapp.dto.UserDto;
 import com.example.webapp.exception.user.UserException;
