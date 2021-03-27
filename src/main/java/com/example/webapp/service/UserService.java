@@ -6,7 +6,6 @@ import com.example.webapp.model.User;
 
 import java.util.UUID;
 
-
 public interface UserService {
 
     User create(UserDto userDto) throws UserException;

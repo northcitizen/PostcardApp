@@ -1,10 +1,9 @@
-CREATE TABLE USER(
-    id uuid,
-    email varchar,
+CREATE TABLE CLIENTS
+(
+    id         UUID,
+    email      varchar,
     first_name varchar,
-    last_name varchar
+    last_name  varchar
 );
-delete from USER;
-insert into user (id, email, first_name, last_name) values ('a315e6ea-0c35-496e-9859-431211185371', 'af@gmail.com', 'Alex', 'Fisher');
-SELECT * FROM USER;
-insert into user (id, email, first_name, last_name) values ('b315e6ea-0c35-496e-9859-431211185371', 'af@gmail.com', 'Alex', 'Fisher');
+insert into CLIENTS (id, email, first_name, last_name)
+values ('750204bd-47a4-43eb-8b50-48a56c2f2f5a', 'af@gmail.com', 'Alex', 'Fisher');

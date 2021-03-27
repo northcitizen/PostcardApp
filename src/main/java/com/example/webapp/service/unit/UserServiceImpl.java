@@ -46,6 +46,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserDto findById(UUID id) throws UserException {
         log.debug("getting user by id {}", id);
         try {
