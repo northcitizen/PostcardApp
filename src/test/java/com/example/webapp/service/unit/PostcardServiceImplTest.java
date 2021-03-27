@@ -1,8 +1,7 @@
-package com.example.webapp.service.impl;
+package com.example.webapp.service.unit;
 
 import com.example.webapp.dto.PostcardDto;
 import com.example.webapp.exception.postcard.PostcardException;
-import com.example.webapp.exception.postcard.PostcardNotFoundException;
 import com.example.webapp.model.Postcard;
 import com.example.webapp.model.PostcardStatus;
 import com.example.webapp.model.User;
@@ -157,7 +156,7 @@ public class PostcardServiceImplTest {
     }
 
     @Test
-    public void findAllTest() throws PostcardNotFoundException {
+    public void findAllTest() throws PostcardException {
         UUID id = UUID.fromString("a315e6ea-0c35-496e-9859-431211185371");
         User user = User.builder()
                 .firstName("Alex")

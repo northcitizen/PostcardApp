@@ -1,7 +1,6 @@
 package com.example.webapp.controller;
 
 import com.example.webapp.dto.UserDto;
-import com.example.webapp.exception.user.UserConvertingException;
 import com.example.webapp.exception.user.UserException;
 import com.example.webapp.model.User;
 import com.example.webapp.service.UserService;
@@ -33,7 +32,7 @@ public class UserController {
 
     @GetMapping(path = "/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public UserDto get(@PathVariable("id") UUID id) throws UserException, UserConvertingException {
+    public UserDto get(@PathVariable("id") UUID id) throws UserException {
         log.debug("getting user with id {}", id);
         return userService.findById(id);
     }

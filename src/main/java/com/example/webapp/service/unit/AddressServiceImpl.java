@@ -1,4 +1,4 @@
-package com.example.webapp.service.impl;
+package com.example.webapp.service.unit;
 
 import com.example.webapp.dto.AddressDto;
 import com.example.webapp.exception.address.AddressConvertingException;
@@ -35,6 +35,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    @Transactional
     public Address create(AddressDto addressDto) throws AddressException {
         log.debug("creating address with parameter {}", addressDto);
         try {
@@ -48,7 +49,7 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public AddressDto findById(UUID id) throws AddressException, UserNotFoundException {
+    public AddressDto findById(UUID id) throws AddressException {
         log.debug("finding address with id {}", id);
         try {
             Address address = addressRepository.findAddressById(id);
